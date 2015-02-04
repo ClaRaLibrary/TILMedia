@@ -1,0 +1,76 @@
+HFE-7000           !short name
+375-03-1           !CAS number
+HFE-7000           !full name
+C3F7OCH3           !chemical formula
+HFE-7000           !synonym
+200.00             !molecular weight [g/mol]
+150.15             !triple point temperature [K]; Reid, Prausnitz, & Poling, McGraw-Hill (1987)
+307.15             !normal boiling point [K]
+437.61             !critical temperature [K]
+2482.0             !critical pressure [kPa]
+2.6316             !critical density [mol/L]
+0.430898           !acentric factor
+2.293              !dipole moment [Debye]
+ASH                !default reference state
+8.0                !version number
+halocb             !family
+
+
+! 3-27-2009 Created for Novec 7000 by B. Fayemi, 3M Company
+
+#EOS               !equation of state specification
+PRT  translated Peng-Robinson equation
+?LITERATURE REFERENCES \
+?  volume translation of Peng Robinson EOS
+?  translation computed so that density at Tr=0.7 matches that from thermodynamic tables from Rowley tables
+?  
+!end of info section
+150.0              !lower temperature limit [K]
+500.0              !upper temperature limit [K]
+30000.0            !upper pressure limit [kPa]
+20.0               !maximum density [mol/L]
+CPP                !pointer to Cp0 model
+200.00             !molecular weight [g/mol]
+0.430898           !acentric factor
+437.61             !critical temperature [K]
+2482.0             !critical pressure [kPa]
+2.6316             !critical density [mol/L]
+8.314472           !gas constant [J/mol-K]
+1                  !Number of parameters
+0.00113266
+
+#AUX               !auxiliary model specification
+CPP  ideal gas heat capacity function
+?LITERATURE REFERENCE \
+?Estimated from group contribution methods and equations for R14, R116, and
+?  R218.
+?\
+!end of info section
+100.0              !lower temperature limit [K]
+600.0              !upper temperature limit [K]
+0.0                !upper pressure limit [kPa]
+0.0                !maximum density [mol/L]
+1.0          8.31451                   !reducing parameters for T, Cp0
+  4  0    0  0    0  0  0              !Nterms:  polynomial, exponential, cosh, sinh
+ 4.454200000d+00      0.00
+ 6.860000000d-02      1.00
+-4.000000000d-05      2.00
+ 0.000000000d-00      3.00
+
+
+
+@END
+c        1         2         3         4         5         6         7         8
+c2345678901234567890123456789012345678901234567890123456789012345678901234567890
+
+
+
+
+
+
+
+
+
+
+
+

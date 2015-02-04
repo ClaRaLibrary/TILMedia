@@ -1,0 +1,10 @@
+convertClear();
+
+checkModel("TILMedia.Testers.TestGas");
+checkModel("TILMedia.Testers.TestLiquid");
+checkModel("TILMedia.Testers.TestGas_moistAir");
+checkModel("TILMedia.Testers.TestVLEFluid");
+checkModel("TILMedia.Testers.TestSLEMedium");
+checkModel("TILMedia.Testers.TestSolid");
+checkModel("TILMedia.Testers.TestVLEFluidObjectFunctions");
+
