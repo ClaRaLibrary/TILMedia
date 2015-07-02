@@ -130,7 +130,7 @@ public
 equation
   M_i = TILMedia.Internals.VLEFluidObjectFunctions.molarMass_nc(vleFluidType.nc,
     vleFluidPointer);
-  (crit.d, crit.h, crit.p, crit.s, crit.T) = TILMedia.Internals.VLEFluidObjectFunctions.criticalDataRecord_xi(xi,
+  (crit.d, crit.h, crit.p, crit.s, crit.T) = TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
     vleFluidPointer);
   //calculate molar mass
   M = 1/sum(cat(

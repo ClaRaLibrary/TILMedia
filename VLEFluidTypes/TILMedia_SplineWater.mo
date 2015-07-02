@@ -4,6 +4,6 @@ record TILMedia_SplineWater
   extends TILMedia.VLEFluidTypes.BaseVLEFluid(
     final fixedMixingRatio=true,
     final nc_propertyCalculation=1,
-    final vleFluidNames={"Interpolation.LoadSpline(Water_Spline.DAT)"},
+    final vleFluidNames={"Interpolation.LoadSpline(filename=Water_Spline.DAT)"},
     final mixingRatio_propertyCalculation={1});
 end TILMedia_SplineWater;

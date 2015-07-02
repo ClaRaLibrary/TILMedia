@@ -1,31 +1,24 @@
 within TILMedia;
 model Solid "Solid model with p as independent variable"
 
-  replaceable model SolidType = TILMedia.SolidTypes.BaseSolid constrainedby TILMedia.SolidTypes.BaseSolid "type record of the solid"
+  replaceable model SolidType = TILMedia.SolidTypes.BaseSolid constrainedby
+    TILMedia.SolidTypes.BaseSolid "type record of the solid"
     annotation(choicesAllMatching=true);
 
-  constant SI.Density d=solid.d "Density";
+  constant SI.Density d = solid.d "Density";
   input SI.Temperature T "Temperature" annotation(Dialog);
   SI.SpecificHeatCapacity cp "Heat capacity";
   SI.ThermalConductivity lambda "Thermal conductivity";
-  Real nu "Poisson's ratio";
-  ClaRa.Basics.Units.ElasticityModule E "Elasticity module of steel";
-  ClaRa.Basics.Units.HeatExpansionRateLinear beta "Linear heat expansion coefficient";
-
-  constant SI.SpecificHeatCapacity cp_nominal=solid.cp_nominal "Specific heat capacity at standard reference point";
-  constant SI.ThermalConductivity lambda_nominal=solid.lambda_nominal "Thermal conductivity at standard reference point";
-
-  constant Real nu_nominal = solid.nu_nominal "Poisson's ratio at standard reference point";
-  constant ClaRa.Basics.Units.ElasticityModule E_nominal= solid.E_nominal "Elasticity module of steel at standard reference point";
-  constant ClaRa.Basics.Units.HeatExpansionRateLinear beta_nominal = solid.beta_nominal "Linear heat expansion coefficient at standard reference point";
+  constant SI.SpecificHeatCapacity cp_nominal=solid.cp_nominal
+    "Specific heat capacity at standard reference point";
+  constant SI.ThermalConductivity lambda_nominal=solid.lambda_nominal
+    "Thermal conductivity at standard reference point";
 protected
   SolidType solid(final T=T);
 equation
-  cp = solid.cp;
-  lambda = solid.lambda;
-  nu = solid.nu;
-  E = solid.E;
-  beta = solid.beta;
+   cp = solid.cp;
+   lambda = solid.lambda;
+
   annotation (defaultComponentName="solid", Icon(graphics={Text(
           extent={{-120,-60},{120,-100}},
           lineColor={135,135,135},

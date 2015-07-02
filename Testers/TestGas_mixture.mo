@@ -33,7 +33,7 @@ model TestGas_mixture
   record MyGasMixture = TILMedia.GasTypes.BaseGas (
     final fixedMixingRatio=false,
     final nc_propertyCalculation=4,
-    final gasNames={"VDIWA.Argon","VDIWA.Nitrogen","VDIWA.Oxygen","VDIWA.Helium"},
+    final gasNames={"VDIWA2006.Argon","VDIWA2006.Nitrogen","VDIWA2006.Oxygen","VDIWA2006.Helium"},
     final condensingIndex=0,
     final mixingRatio_propertyCalculation={0.001,0.7,0.3,0.001});
 

@@ -21,6 +21,8 @@ model Gas_pT "Gas vapor model with p, T and xi as independent variables"
     "Temperature" annotation(Dialog);
   input SI.MassFraction xi[gasType.nc-1](stateSelect=if (stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default) = gasType.xi_default
     "Mass fraction" annotation(Dialog);
+  SI.MassFraction xi_dryGas[if (gasType.nc>1 and gasType.condensingIndex>0) then gasType.nc-2 else 0]
+    "Mass fraction";
   SI.MoleFraction x[gasType.nc-1] "Mole fraction";
   SI.MolarMass M(min=1e-99) "Average molar mass";
 
@@ -37,18 +39,14 @@ model Gas_pT "Gas vapor model with p, T and xi as independent variables"
   TILMedia.Internals.Units.DensityDerMassFraction drhodxi_ph[gasType.nc-1]
     "Derivative of density wrt mass fraction of water at constant pressure and specific enthalpy";
   SI.PartialPressure p_i[gasType.nc] "Partial pressure";
-protected
-  SI.PartialPressure p_propertyCalculation(min=if (gasType.condensingIndex>0) then 0 else -1)
-    "Extrapolated partial pressure of condensing component, if no condensation took place"
-                                                                                           annotation(HideResult=true);
-public
   SI.MassFraction xi_gas "Mass fraction of gasoues condensing component";
   TILMedia.Internals.Units.RelativeHumidity phi(min=if (gasType.condensingIndex>0) then 0 else -2)
     "Relative humidity";
 
   //Pure Component Properties
   SI.PartialPressure p_s "Saturation partial pressure of condensing component";
-  SI.MassFraction xi_s "Saturation mass fraction of condensing component";
+  SI.MassFraction xi_s(min=if (gasType.condensingIndex>0) then 0 else -1)
+    "Saturation mass fraction of condensing component";
   SI.SpecificEnthalpy delta_hv
     "Specific enthalpy of vaporation of condensing component";
   SI.SpecificEnthalpy delta_hd
@@ -67,7 +65,7 @@ public
   TILMedia.Internals.TransportPropertyRecord transp "Transport property record"
                                                                                 annotation (extent=[-80,40; -60,60]);
 
-  TILMedia.GasObjectFunctions.GasPointer gasPointer=TILMedia.GasObjectFunctions.GasPointer(gasType.concatGasName, computeFlags, gasType.xi_default, gasType.nc_propertyCalculation, gasType.nc, gasType.condensingIndex, redirectorOutput)
+  TILMedia.GasObjectFunctions.GasPointer gasPointer=TILMedia.GasObjectFunctions.GasPointer(gasType.concatGasName, computeFlags, gasType.mixingRatio_propertyCalculation[1:end-1]/sum(gasType.mixingRatio_propertyCalculation), gasType.nc_propertyCalculation, gasType.nc, gasType.condensingIndex, redirectorOutput)
     "Pointer to external medium memory";
 protected
   constant Real invalidValue=-1;
@@ -79,29 +77,41 @@ equation
   //calculate molar fraction
   xi = x.*M_i[1:end-1]*(sum(cat(1,xi,{1-sum(xi)})./M_i)); //xi = x.*M_i/M
   //calculate relative humidity, water content, h1px
-  if (gasType.condensingIndex>0) then
+  if (gasType.condensingIndex>0 and gasType.nc>1) then
     if (gasType.condensingIndex==gasType.nc) then
-      humRatio*sum(xi) = (1-sum(xi));
-      h1px*sum(xi) = h;
-      p_propertyCalculation*(sum(cat(1,xi,{1-sum(xi)})./M_i))=p * (1-sum(xi))/M_i[gasType.condensingIndex]; //pp_i=p*x;
+      cat(1,xi_dryGas,{1-sum(xi_dryGas)})=xi*(1+humRatio);
     else
-      humRatio*(1-xi[gasType.condensingIndex]) = xi[gasType.condensingIndex];
-      h1px*(1-xi[gasType.condensingIndex]) = h;
-      p_propertyCalculation*(sum(cat(1,xi,{1-sum(xi)})./M_i))=p * xi[gasType.condensingIndex]/M_i[gasType.condensingIndex]; //pp_i=p*x;
+      humRatio = xi[gasType.condensingIndex]*(humRatio+1);
+      for i in 1:gasType.nc-1 loop
+        if (i <> gasType.condensingIndex) then
+          xi_dryGas[if (i<gasType.condensingIndex) then i else i-1] = xi[i]*(humRatio+1);
+        end if;
+      end for;
     end if;
-    phi = p_propertyCalculation/p_s*100;//not correct if phi>100
+    h1px*(1+humRatio) = h;
+    phi=TILMedia.Internals.GasObjectFunctions.phi_pThumRatioxidg(p,T,humRatio,xi_dryGas,gasPointer);
+    humRatio_s = TILMedia.Internals.GasObjectFunctions.humRatio_s_pTxidg(p, T, xi_dryGas, gasPointer);
+    xi_s = TILMedia.Internals.GasObjectFunctions.xi_s_pTxidg(p, T, xi_dryGas, gasPointer);
   else
-    p_propertyCalculation=-1;
     phi = -1;
     humRatio = -1;
     h1px = -1;
+    humRatio_s = -1;
+    xi_s = -1;
   end if;
-  humRatio_s = xi_s/noEvent(max(1e-12,1-xi_s));
 
+  if (gasType.condensingIndex<=0) then
+    // some properties are only pressure dependent if there is vapour in the mixture
+    h = TILMedia.Internals.GasObjectFunctions.specificEnthalpy_pTxi(-1, T, xi, gasPointer);
+    (cp, cv, beta, w) = TILMedia.Internals.GasObjectFunctions.simpleCondensingProperties_pTxi(-1, T, xi, gasPointer);
+  else
+    h = TILMedia.Internals.GasObjectFunctions.specificEnthalpy_pTxi(p, T, xi, gasPointer);
+    (cp, cv, beta, w) = TILMedia.Internals.GasObjectFunctions.simpleCondensingProperties_pTxi(p, T, xi, gasPointer);
+  end if;
+  s = TILMedia.Internals.GasObjectFunctions.specificEntropy_pTxi(p, T, xi, gasPointer);
   M_i = TILMedia.Internals.GasObjectFunctions.molarMass_nc(gasType.nc, gasPointer);
-  (h, cp, cv, beta, w,xi_s) = TILMedia.Internals.GasObjectFunctions.simpleCondendsingProperties_pTxi(p, T, xi, gasPointer);
-  (d,s,kappa,drhodp_hxi,drhodh_pxi,drhodxi_ph,p_i,xi_gas) = TILMedia.Internals.GasObjectFunctions.additionalProperties_pTxi(p,T,xi,gasPointer);
-  (p_s,delta_hv,delta_hd,h_i) = TILMedia.Internals.GasObjectFunctions.pureComponentProperties_pTnc(p,T,gasType.nc,gasPointer);
+  (d,kappa,drhodp_hxi,drhodh_pxi,drhodxi_ph,p_i,xi_gas) = TILMedia.Internals.GasObjectFunctions.additionalProperties_pTxi(p,T,xi,gasPointer);
+  (p_s,delta_hv,delta_hd,h_i) = TILMedia.Internals.GasObjectFunctions.pureComponentProperties_Tnc(T,gasType.nc,gasPointer);
   if computeTransportProperties then
     transp = TILMedia.Internals.GasObjectFunctions.transportProperties_pTxi(p, T, xi, gasPointer);
   else

@@ -12,10 +12,11 @@ The mathematical equations of substance properties are optimized for stable and 
 You may select substance data from different sources for your calculation:
 <br>
 <ul>
-  <li> TLK developments: 50 substances</li>
+  <li> TLK developments: 62 substances</li>
   <li> External library REFPROP: 208 substances</li>
   <li> VDI Heat Atlas: 275 substances</li>
   <li> VDI-Guideline 4670: 10 substances</li>
+  <li> External library CoolProp: 114 substances</li>
   <li> NASA Glenn Coefficients: 2024 substances</li>
 </ul>
 <br>
