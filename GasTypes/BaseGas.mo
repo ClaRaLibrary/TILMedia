@@ -16,7 +16,9 @@ record BaseGas "Base record for gas definitions"
     "Default composition for models in Modelica (={1} for pure components)" annotation(HideResult = true);
   constant Real xi_default[nc-1] = defaultMixingRatio[1:end-1]/sum(defaultMixingRatio)
     "Default mass fractions" annotation(HideResult = true);
-  constant Integer condensingIndex "Index of condensing component" annotation(HideResult = true);
+  constant Integer condensingIndex
+    "Index of condensing component (=0, if no condensation is desired)"
+    annotation(HideResult = true);
   constant String concatGasName=TILMedia.Internals.concatNames(gasNames);
   constant Integer ID=0
     "ID is used to map the selected Gas to the sim.cumulatedGasMass array item"

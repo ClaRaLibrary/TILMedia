@@ -25,15 +25,67 @@ annotation(__Dymola_DocumentationClass=true,
   </tr>
    <tr>
     <td>TILMedia.EXHAUSTGAS_LAMBDA_1 &nbsp; </td>
-    <td>Intendet for gasoline/petrol exhaust gas with lambda value equal one &nbsp; </td>
+    <td>Intendet for gasoline/petrol exhaust gas with lambda value equal one, T = -20°C bis 1050°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.DIESELEXHAUSTGAS_x.x &nbsp; </td>
     <td>Substance name must end with _lambdavalue e.g. _1.2 &nbsp; </td>
   </tr>
    <tr>
+    <td>TILMedia.Ash &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
     <td> - &nbsp; </td>
     <td>  &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.DRYAIR &nbsp; </td>
+    <td>Temperature range: 13.3 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.NITROGEN &nbsp; </td>
+    <td>Temperature range: 12.6 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.OXYGEN &nbsp; </td>
+    <td>Temperature range: 15.5 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.ARGON &nbsp; </td>
+    <td>Temperature range: 15.1 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.CARBON_MONOXIDE &nbsp; </td>
+    <td>Temperature range: 13.3 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.CARBON_DIOXIDE &nbsp; </td>
+    <td>Temperature range: 30.4 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.NITROUS_OXIDE &nbsp; </td>
+    <td>Temperature range: 31.0 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.SULFUR_DIOXIDE &nbsp; </td>
+    <td>Temperature range: 43.1 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.WATER &nbsp; </td>
+    <td>Temperature range: 64.7 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.AMMONIA &nbsp; </td>
+    <td>Temperature range: 40.5 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.HYDROGEN &nbsp; </td>
+    <td>Temperature range: 3.3 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>- &nbsp; </td>
+    <td> &nbsp; </td>
   </tr>
    <tr>
     <td>VDI4670.DRYAIR &nbsp; </td>
@@ -89,49 +141,11 @@ annotation(__Dymola_DocumentationClass=true,
   </tr>
    <tr>
     <td>TILMediaXTR.MoistAir &nbsp; </td>
-    <td>Moist air with extended temperature range &nbsp; </td>
+    <td>Moist air with extended temperature range: 64.7 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
   </tr>
    <tr>
     <td>VDIWA.Water|VDIWA.DryAir &nbsp; </td>
-    <td>\"Simple Moist Air\" almost like \"Detailed Moist Air\" defined as \"VDIWA.Water|VDIWA.Nitrogen|VDIWA.Oxygen\" with default mixing ratio = {0.001, 0.7, 0.3} &nbsp; </td>
-  </tr>
-</table><br><br>
-
-<h4>TILMediaXTR Names with extended Temperature Range</h4>
-<table border=1>
-   <tr>
-    <th>Substance name</th>
-    <th>Substance name</th>    
-  </tr>
-   <tr>
-    <td>TILMediaXTR.DRYAIR &nbsp; </td>
-
-    <td>TILMediaXTR.NITROGEN &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMediaXTR.OXYGEN &nbsp; </td>
-
-    <td>TILMediaXTR.ARGON &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMediaXTR.CARBON_MONOXIDE &nbsp; </td>
-
-    <td>TILMediaXTR.CARBON_DIOXIDE &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMediaXTR.NITROUS_OXIDE &nbsp; </td>
-
-    <td>TILMediaXTR.SULFUR_DIOXIDE &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMediaXTR.WATER &nbsp; </td>
-
-    <td>TILMediaXTR.AMMONIA &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMediaXTR.HYDROGEN &nbsp; </td>
-
-    <td>  &nbsp; </td>
+    <td>'Simple Moist Air' almost like 'Detailed Moist Air' defined as &quot;VDIWA.Water|VDIWA.Nitrogen|VDIWA.Oxygen&quot; with default mixing ratio = {0.001, 0.7, 0.3} &nbsp; </td>
   </tr>
 </table><br><br>
 
@@ -222,39 +236,27 @@ annotation(__Dymola_DocumentationClass=true,
     <td>CO2 by Gerg &nbsp; </td>
   </tr>
    <tr>
-    <td>TILMedia.ARGON &nbsp; </td>
-    <td> &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMedia.OXYGEN &nbsp; </td>
-    <td> &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMedia.NITROGEN &nbsp; </td>
-    <td> &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMedia.PROPANE &nbsp; </td>
-    <td> &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMedia.ASTINASATOR134A &nbsp; </td>
-    <td>R134a by Astina & Sato &nbsp; </td>
+    <td>TILMedia.SPANCO2 &nbsp; </td>
+    <td>CO2 by Span &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.R134A &nbsp; </td>
     <td>The calculation isn't valid below the triplepoint: p=389.6 Pa, T=169.85 K &nbsp; </td>
   </tr>
    <tr>
-    <td>TILMedia.R32 &nbsp; </td>
+    <td>TILMedia.ASTINASATOR134A &nbsp; </td>
+    <td>R134a by Astina & Sato &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R113 &nbsp; </td>
     <td> &nbsp; </td>
   </tr>
    <tr>
-    <td>TILMedia.R125 &nbsp; </td>
+    <td>TILMedia.R116 &nbsp; </td>
     <td> &nbsp; </td>
   </tr>
    <tr>
-    <td>TILMedia.R143A &nbsp; </td>
+    <td>TILMedia.R12 &nbsp; </td>
     <td> &nbsp; </td>
   </tr>
    <tr>
@@ -262,16 +264,68 @@ annotation(__Dymola_DocumentationClass=true,
     <td> &nbsp; </td>
   </tr>
    <tr>
-    <td>TILMedia.WATER &nbsp; </td>
-    <td>The calculation isn't valid below the triplepoint: p=612.5 Pa, T=273.16 K &nbsp; </td>
+    <td>TILMedia.R1234ZEZ &nbsp; </td>
+    <td> &nbsp; </td>
   </tr>
    <tr>
-    <td>TILMedia.R407CPPF &nbsp; </td>
-    <td>The calculation isn't valid below the triplepoint: p=0.192 bar, T=200.0 K &nbsp; </td>
+    <td>TILMedia.R1234ZE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R124 &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R125 &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R141B &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R142B &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R143A &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R161 &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R218 &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R227EA &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R23 &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R245FA &nbsp; </td>
+    <td>The calculation isn't valid below the triplepoint: p=12.5 Pa, T=171.05 K &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R32 &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R365MFC &nbsp; </td>
+    <td> &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.R404APPF &nbsp; </td>
     <td>The calculation isn't valid below the triplepoint: p=0.227 bar, T=200.0 K &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.R407CPPF &nbsp; </td>
+    <td>The calculation isn't valid below the triplepoint: p=0.192 bar, T=200.0 K &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.R410APPF &nbsp; </td>
@@ -282,15 +336,175 @@ annotation(__Dymola_DocumentationClass=true,
     <td> &nbsp; </td>
   </tr>
    <tr>
-    <td>TILMedia.R245FA &nbsp; </td>
-    <td>The calculation isn't valid below the triplepoint: p=12.5 Pa, T=171.05 K &nbsp; </td>
+    <td>TILMedia.RC318 &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.AMMONIA &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.ARGON &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.1-BUTENE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.CARBONDIOXIDE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.CARBONYLSULFIDE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.D4 &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.D5 &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.DEUTERIUM &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.DIMETHYLCARBONATE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.DIMETHYLETHER &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.ETHANE &nbsp; </td>
+    <td> &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.ETHANOL &nbsp; </td>
     <td>The calculation isn't valid below the triplepoint: p=~0.001 Pa, T=159.0 K &nbsp; </td>
   </tr>
    <tr>
-    <td>TILMedia.AMMONIA &nbsp; </td>
+    <td>TILMedia.ETHYLBENZENE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.ETHYLENE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.HEAVYWATER &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.HELIUM &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.HYDROGENSULFIDE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.ISOBUTANE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.ISOPENTANE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.KRYPTON &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.MD4M &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.METHANE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.METHYLLINOLEATE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.METHYLOLEATE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.METHYLPALMITATE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.METHYLSTEARATE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.N-BUTANE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.N-DODECANE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.N-NONANE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.N-PROPANE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.NEON &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.NEOPENTANE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.NITROGEN &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.NITROUSOXIDE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.OXYGEN &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.PARAHYDROGEN &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.PROPANE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.PROPYLENE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.SULFURHEXAFLUORIDE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.TOLUENE &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.WATER &nbsp; </td>
+    <td>The calculation isn't valid below the triplepoint: p=612.5 Pa, T=273.16 K &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMedia.XENON &nbsp; </td>
     <td> &nbsp; </td>
   </tr>
    <tr>
@@ -303,10 +517,6 @@ annotation(__Dymola_DocumentationClass=true,
   </tr>
    <tr>
     <td>TILMedia.P-XYLENE &nbsp; </td>
-    <td> &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMedia.ETHYLBENZENE &nbsp; </td>
     <td> &nbsp; </td>
   </tr>
    <tr>
@@ -1537,6 +1747,7 @@ annotation(__Dymola_DocumentationClass=true,
 </table><br><br>
 
 <h4>Gas, Liquid and VLEFluid Names (CoolProp)</h4>
+<!-- 114 supported substance names inside TILMedia from CoolProp can be receifed by request. -->
 <table border=1>
    <tr>
     <th>Substance name</th>
@@ -1813,7 +2024,7 @@ annotation(__Dymola_DocumentationClass=true,
 
 <h4>Gas Names NASA</h4>
 All 2024 substance names by NASA Glenn Coefficients can be received by request.
-<br><br>
+<br>
 <!-- NASA substance names with brackets to not function in this version. They can nevertheless be added at any time if necessary.<br> -->
 
 </html>"));

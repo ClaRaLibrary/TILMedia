@@ -5,5 +5,5 @@ record Refprop_Air_PPF "Refprop.Air.PPF"
     final nc_propertyCalculation=1,
     final vleFluidNames={""},
     final mixingRatio_propertyCalculation={1},
-    final concatVLEFluidName="Refprop.R407C.PPF");
+    final concatVLEFluidName="Refprop.Air.PPF");
 end Refprop_Air_PPF;

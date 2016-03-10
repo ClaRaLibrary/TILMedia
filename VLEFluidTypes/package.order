@@ -1,6 +1,5 @@
 BaseVLEFluid
 TILMedia_CO2
-TILMedia_GERGCO2
 TILMedia_R134a
 TILMedia_Water
 TILMedia_R245fa
@@ -9,6 +8,10 @@ TILMedia_R404APPF
 TILMedia_R410APPF
 TILMedia_Ethanol
 TILMedia_WaterAmmonia_nc2
+TILMedia_GERGCO2
+TILMedia_InterpolatedWater
+TILMedia_SplineWater
+TILMedia_PR_CCS_Mixture_with_Water
 Refprop_CO2
 Refprop_R134a
 Refprop_R1234yf
@@ -24,6 +27,4 @@ Refprop_Air_PPF
 TILMediaSpline_Air_PPF
 TILMediaSpline_Methane
 TILMediaSpline_R134a
-TILMedia_InterpolatedWater
-TILMedia_PR_CCS_Mixture_with_Water
-TILMedia_SplineWater
+

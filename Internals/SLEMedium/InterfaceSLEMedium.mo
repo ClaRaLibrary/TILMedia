@@ -53,7 +53,7 @@ equation
     PrL = 13.51;
     nuL = 1.793e-6;
     lambdaL = 561e-3;
-    lambdaS = 2.2e-3; //??
+    lambdaS = 2.2;
     betaL = -0.080; // anomaly of water
     betaS = 0.1e-3;
   elseif mediumName == "TILMedia.SimpleAdBlue" then
