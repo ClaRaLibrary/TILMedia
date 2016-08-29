@@ -6,7 +6,7 @@ model TestVLEFluidObjectFunctions
   // The VLEFluidObjectFunctions uses external c-classes and are optimized for the continuous calculation of the thermodynamic properties
 
   SI.Pressure p;
-  SI.SpecificEnthalpy h(start = h_start);
+  SI.SpecificEnthalpy h(start = h_start, fixed=true);
   SI.Density d;
   SI.Velocity w;
   SI.Temperature T;

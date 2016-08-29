@@ -1,4 +1,4 @@
-within TILMedia.UsersGuide;
+ï»¿within TILMedia.UsersGuide;
 model SubstanceNames "Substance Names"
     extends Internals.ClassTypes.Information;
 
@@ -21,11 +21,11 @@ annotation(__Dymola_DocumentationClass=true,
   </tr>
    <tr>
     <td>TILMedia.Dryair &nbsp; </td>
-    <td>Tmax = 200°C &nbsp; </td>
+    <td>Tmax = 200Â°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.EXHAUSTGAS_LAMBDA_1 &nbsp; </td>
-    <td>Intendet for gasoline/petrol exhaust gas with lambda value equal one, T = -20°C bis 1050°C &nbsp; </td>
+    <td>Intendet for gasoline/petrol exhaust gas with lambda value equal one, T = -20Â°C bis 1050Â°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.DIESELEXHAUSTGAS_x.x &nbsp; </td>
@@ -40,32 +40,44 @@ annotation(__Dymola_DocumentationClass=true,
     <td>  &nbsp; </td>
   </tr>
    <tr>
-    <td>TILMediaXTR.DRYAIR &nbsp; </td>
-    <td>Temperature range: 13.3 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMediaXTR.NITROGEN &nbsp; </td>
-    <td>Temperature range: 12.6 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMediaXTR.OXYGEN &nbsp; </td>
-    <td>Temperature range: 15.5 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+    <td>TILMediaXTR.AMMONIA &nbsp; </td>
+    <td>Temperature range: 40.5 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
   </tr>
    <tr>
     <td>TILMediaXTR.ARGON &nbsp; </td>
     <td>Temperature range: 15.1 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
   </tr>
    <tr>
-    <td>TILMediaXTR.CARBON_MONOXIDE &nbsp; </td>
-    <td>Temperature range: 13.3 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
-  </tr>
-   <tr>
     <td>TILMediaXTR.CARBON_DIOXIDE &nbsp; </td>
     <td>Temperature range: 30.4 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
   </tr>
    <tr>
+    <td>TILMediaXTR.CARBON_MONOXIDE &nbsp; </td>
+    <td>Temperature range: 13.3 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.DRYAIR &nbsp; </td>
+    <td>Temperature range: 13.3 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.ExhaustGas &nbsp; </td>
+    <td>Default configuration for diesel exhaust gas with lambda=1. For petrol exhaust gas use TILMediaXTR.ExhaustGas(m=15.63,lambda=1.1). &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.HYDROGEN &nbsp; </td>
+    <td>Temperature range: 3.3 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.NITROGEN &nbsp; </td>
+    <td>Temperature range: 12.6 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
     <td>TILMediaXTR.NITROUS_OXIDE &nbsp; </td>
     <td>Temperature range: 31.0 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
+  </tr>
+   <tr>
+    <td>TILMediaXTR.OXYGEN &nbsp; </td>
+    <td>Temperature range: 15.5 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
   </tr>
    <tr>
     <td>TILMediaXTR.SULFUR_DIOXIDE &nbsp; </td>
@@ -74,14 +86,6 @@ annotation(__Dymola_DocumentationClass=true,
    <tr>
     <td>TILMediaXTR.WATER &nbsp; </td>
     <td>Temperature range: 64.7 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMediaXTR.AMMONIA &nbsp; </td>
-    <td>Temperature range: 40.5 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
-  </tr>
-   <tr>
-    <td>TILMediaXTR.HYDROGEN &nbsp; </td>
-    <td>Temperature range: 3.3 - 3000 Kelvin. (Thermophysical properties may differ to models with smaller range.) &nbsp; </td>
   </tr>
    <tr>
     <td>- &nbsp; </td>
@@ -145,7 +149,7 @@ annotation(__Dymola_DocumentationClass=true,
   </tr>
    <tr>
     <td>VDIWA.Water|VDIWA.DryAir &nbsp; </td>
-    <td>'Simple Moist Air' almost like 'Detailed Moist Air' defined as &quot;VDIWA.Water|VDIWA.Nitrogen|VDIWA.Oxygen&quot; with default mixing ratio = {0.001, 0.7, 0.3} &nbsp; </td>
+    <td>This 'Simple Moist Air' is almost like 'Detailed Moist Air' defined as &quot;VDIWA.Water|VDIWA.Nitrogen|VDIWA.Oxygen&quot; with default mixing ratio = {0.001, 0.7, 0.3} &nbsp; </td>
   </tr>
 </table><br><br>
 
@@ -157,7 +161,7 @@ annotation(__Dymola_DocumentationClass=true,
   </tr>
    <tr>
     <td>TILMedia.ADDINOLXW15 &nbsp; </td>
-    <td>Temperature range based on data sheet by manufacturer: -20 to 300 °C &nbsp; </td>
+    <td>Temperature range based on data sheet by manufacturer: -20 to 300 Â°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.GLYSANTIN_xx.x &nbsp; </td>
@@ -177,35 +181,35 @@ annotation(__Dymola_DocumentationClass=true,
   </tr>
    <tr>
     <td>TILMedia.SHC_XMP320 &nbsp; </td>
-    <td>Synthetic gear oil. Temperature range based on data sheet by manufacturer: 0 to 200 °C &nbsp; </td>
+    <td>Synthetic gear oil. Temperature range based on data sheet by manufacturer: 0 to 200 Â°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.THERMINOL59 &nbsp; </td>
-    <td>Temperature range based on data sheet by manufacturer: -50 to 320 °C &nbsp; </td>
+    <td>Temperature range based on data sheet by manufacturer: -50 to 320 Â°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.THERMINOL66 &nbsp; </td>
-    <td>Temperature range based on data sheet by manufacturer: 0 to 380 °C &nbsp; </td>
+    <td>Temperature range based on data sheet by manufacturer: 0 to 380 Â°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.THERMINOL72 &nbsp; </td>
-    <td>Temperature range based on data sheet by manufacturer: -10 to 380 °C &nbsp; </td>
+    <td>Temperature range based on data sheet by manufacturer: -10 to 380 Â°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.THERMINOLD12 &nbsp; </td>
-    <td>Temperature range based on data sheet by manufacturer: -85 to 260 °C &nbsp; </td>
+    <td>Temperature range based on data sheet by manufacturer: -85 to 260 Â°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.TYFOCOR30 &nbsp; </td>
-    <td>Temperature range based on data sheet by manufacturer: -15 to 100 °C &nbsp; </td>
+    <td>Temperature range based on data sheet by manufacturer: -15 to 100 Â°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.TYFOCOR45 &nbsp; </td>
-    <td>Temperature range based on data sheet by manufacturer: -30 to 100 °C &nbsp; </td>
+    <td>Temperature range based on data sheet by manufacturer: -30 to 100 Â°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.TYFOCORL33 &nbsp; </td>
-    <td>Temperature range based on data sheet by manufacturer: -15 to 100 °C &nbsp; </td>
+    <td>Temperature range based on data sheet by manufacturer: -15 to 100 Â°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.WATER &nbsp; </td>
@@ -213,11 +217,11 @@ annotation(__Dymola_DocumentationClass=true,
   </tr>
    <tr>
     <td>TILMedia.ZITRECM10 &nbsp; </td>
-    <td>Temperature range based on data sheet by manufacturer: -10 to 100 °C &nbsp; </td>
+    <td>Temperature range based on data sheet by manufacturer: -10 to 100 Â°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.ZITRECM20 &nbsp; </td>
-    <td>Temperature range based on data sheet by manufacturer: -20 to 100 °C &nbsp; </td>
+    <td>Temperature range based on data sheet by manufacturer: -20 to 100 Â°C &nbsp; </td>
   </tr>
 </table><br><br>
 
@@ -1317,7 +1321,7 @@ annotation(__Dymola_DocumentationClass=true,
    <tr>
     <td>VDIWA2006.tetradecane  &nbsp; </td>
 
-    <td>VDIWA2006.pentadecane  &nbsp; </td>
+    <td>VDIWA2006.pentadecaneÂ  &nbsp; </td>
   </tr>
    <tr>
     <td>VDIWA2006.hexadecane &nbsp; </td>

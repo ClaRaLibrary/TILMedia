@@ -21,7 +21,6 @@ VLETransportPropertyRecord
 SLESaturationPropertyRecord
 SolidPropertyRecord
 TransportPropertyRecord
-PhaseRecord
 calcComputeFlags
 redirectModelicaFormatMessage
 concatNames

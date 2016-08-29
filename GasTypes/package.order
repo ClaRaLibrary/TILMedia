@@ -1,11 +1,3 @@
 BaseGas
-TILMedia_DryAir
-TILMedia_ExhaustGas_Lambda_1
-TILMedia_MoistAir
-MoistAirMixture
 FlueGasTILMedia
-VDI4670_MoistAir
-VDIWA_Argon
-VDIWA_MoistAir_nc2
-VDIWA_MoistAir_nc3
-TILMediaXTR_MoistAir
+MoistAirMixture

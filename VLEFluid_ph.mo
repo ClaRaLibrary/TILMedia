@@ -43,7 +43,6 @@ model VLEFluid_ph
   SI.MolarMass M "Average molar mass";
 
   //Additional Properties
-  Integer phase "0=subcooled, 1=two phase, 2=superheated";
   SI.MassFraction q "Steam mass fraction (quality)";
   SI.SpecificHeatCapacity cp "Specific isobaric heat capacity cp";
   SI.SpecificHeatCapacity cv "Specific isochoric heat capacity cv";
@@ -91,7 +90,6 @@ protected
       computeSurfaceTension,
       deactivateTwoPhaseRegion);
   parameter Integer redirectorOutput=TILMedia.Internals.redirectModelicaFormatMessage();
-  TILMedia.Internals.PhaseRecord phaseRecord;
 public
   function getProperties = TILMedia.Internals.getPropertiesVLE (
       d=d,
@@ -160,12 +158,6 @@ equation
     h,
     xi,
     vleFluidPointer);
-  phaseRecord = TILMedia.Internals.VLEFluidObjectFunctions.phase_phxi(
-    p,
-    h,
-    xi,
-    vleFluidPointer);
-  phase = phaseRecord.phase;
 
   //Calculate Additional Properties of state
   (q,cp,cv,beta,kappa,drhodp_hxi,drhodh_pxi,drhodxi_ph,w,gamma) =
