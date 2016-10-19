@@ -4,19 +4,19 @@ cd /d "%~dp0"
 
 echo.
 echo -------------------------------------------------------------------------------
-echo Copying content of DataPath (Refprop, interpolation media)
+echo Kopiere den Inhalt des DataPath (Refprop, Interpolationsmedien)
 echo -------------------------------------------------------------------------------
 echo.
 if not exist "%ALLUSERSPROFILE%\TLK-Thermo GmbH" md "%ALLUSERSPROFILE%\TLK-Thermo GmbH"
 if not exist "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia" md "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia"
-if not exist "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.1 ClaRa" md "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.1 ClaRa"
-xcopy .\DataPath_ExternalData\*.fld "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.1 ClaRa" /s /Y /Q /O
-xcopy .\DataPath_ExternalData\*.dat "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.1 ClaRa" /s /Y /Q /O
-xcopy .\DataPath_ExternalData\*.ppf "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.1 ClaRa" /s /Y /Q /O
-xcopy .\DataPath_ExternalData\*.bnc "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.1 ClaRa" /s /Y /Q /O
-xcopy .\DataPath_ExternalData\*.mix "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.1 ClaRa" /s /Y /Q /O
-xcopy .\DataPath_ExternalData\*.dll "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.1 ClaRa" /s /Y /Q /O
-xcopy .\DataPath_ExternalData\*.cfg "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.1 ClaRa" /s /Y /Q /O
+if not exist "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.2 ClaRa" md "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.2 ClaRa"
+xcopy .\DataPath_ExternalData\*.fld "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.2 ClaRa" /s /Y /Q /O
+xcopy .\DataPath_ExternalData\*.dat "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.2 ClaRa" /s /Y /Q /O
+xcopy .\DataPath_ExternalData\*.ppf "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.2 ClaRa" /s /Y /Q /O
+xcopy .\DataPath_ExternalData\*.bnc "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.2 ClaRa" /s /Y /Q /O
+xcopy .\DataPath_ExternalData\*.mix "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.2 ClaRa" /s /Y /Q /O
+xcopy .\DataPath_ExternalData\*.dll "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.2 ClaRa" /s /Y /Q /O
+xcopy .\DataPath_ExternalData\*.cfg "%ALLUSERSPROFILE%\TLK-Thermo GmbH\TILMedia\1.1.2 ClaRa" /s /Y /Q /O
 
 
 IF "%PROGRAMFILES(x86)%" == "" goto x86

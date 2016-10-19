@@ -5,7 +5,7 @@ package TILMedia "TILMedia-Library with thermophysical properties of Fluids and 
 
 annotation (
 preferedView="info",
-version="1.1.1 ClaRa",
+version="1.1.2 ClaRa",
   uses(Modelica(version="3.2.1")),
 Documentation(info="<html>
 <br>

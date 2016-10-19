@@ -6,7 +6,7 @@ package GasObjectFunctions
     input Integer nc "Number of components";
     input TILMedia.GasObjectFunctions.GasPointer gasPointer;
     output SI.MolarMass mm_i[nc] "Molar mass of component i";
-  external "C" TILMedia_Gas_molarMass(gasPointer, mm_i) annotation(Library="TILMedia111ClaRa");
+  external "C" TILMedia_Gas_molarMass(gasPointer, mm_i) annotation(Library="TILMedia112ClaRa");
   annotation(Impure=false);
   end molarMass_nc;
 
@@ -15,7 +15,7 @@ package GasObjectFunctions
     input TILMedia.GasObjectFunctions.GasPointer gasPointer;
     output SI.MolarMass mm "Molar mass";
     output SI.MolarMass mm_i[size(xi,1)+1] "Molar mass of component i";
-  external "C" TILMedia_Gas_molarMass_xi(xi, gasPointer, mm, mm_i) annotation(Library="TILMedia111ClaRa");
+  external "C" TILMedia_Gas_molarMass_xi(xi, gasPointer, mm, mm_i) annotation(Library="TILMedia112ClaRa");
   annotation(Impure=false);
   end molarMass_xi;
 
@@ -31,7 +31,7 @@ package GasObjectFunctions
       "Specific enthalpy of desublimation of condensing component";
     output SI.SpecificEnthalpy h_idealGas[nc]
       "Specific enthalpy of theoretical pure component ideal gas state";
-    external "C" TILMedia_Gas_pureComponentProperties_T(T,gasPointer,ppS,delta_hv,delta_hd,h_idealGas) annotation(Library="TILMedia111ClaRa");
+    external "C" TILMedia_Gas_pureComponentProperties_T(T,gasPointer,ppS,delta_hv,delta_hd,h_idealGas) annotation(Library="TILMedia112ClaRa");
     annotation(Impure=false);
   end pureComponentProperties_Tnc;
 
@@ -45,7 +45,7 @@ package GasObjectFunctions
     output SI.LinearExpansionCoefficient beta
       "Isothermal expansion coefficient";
     output SI.Velocity w "Speed of sound";
-    external "C" TILMedia_Gas_simpleCondensingProperties_phxi(p,h,xi,gasPointer,cp,cv,beta,w) annotation(Library="TILMedia111ClaRa");
+    external "C" TILMedia_Gas_simpleCondensingProperties_phxi(p,h,xi,gasPointer,cp,cv,beta,w) annotation(Library="TILMedia112ClaRa");
     annotation(Impure=false);
   end simpleCondensingProperties_phxi;
 
@@ -59,7 +59,7 @@ package GasObjectFunctions
     output SI.LinearExpansionCoefficient beta
       "Isothermal expansion coefficient";
     output SI.Velocity w "Speed of sound";
-    external "C" TILMedia_Gas_simpleCondensingProperties_pTxi(p,T,xi,gasPointer,cp,cv,beta,w) annotation(Library="TILMedia111ClaRa");
+    external "C" TILMedia_Gas_simpleCondensingProperties_pTxi(p,T,xi,gasPointer,cp,cv,beta,w) annotation(Library="TILMedia112ClaRa");
     annotation(Impure=false);
   end simpleCondensingProperties_pTxi;
 
@@ -79,7 +79,7 @@ package GasObjectFunctions
     output SI.PartialPressure pp[size(xi,1)+1] "Partial pressure";
     output SI.MassFraction xi_gas
       "Mass fraction of gasoues condensing component";
-    external "C" TILMedia_Gas_additionalProperties_pTxi(p,T,xi,gasPointer,d,kappa,drhodp_hxi,drhodh_pxi,drhodxi_ph,pp,xi_gas) annotation(Library="TILMedia111ClaRa");
+    external "C" TILMedia_Gas_additionalProperties_pTxi(p,T,xi,gasPointer,d,kappa,drhodp_hxi,drhodh_pxi,drhodxi_ph,pp,xi_gas) annotation(Library="TILMedia112ClaRa");
     annotation(Impure=false);
   end additionalProperties_pTxi;
 
@@ -90,7 +90,7 @@ package GasObjectFunctions
     input TILMedia.GasObjectFunctions.GasPointer gasPointer;
     output TILMedia.Internals.TransportPropertyRecord transp
       "Transport property record";
-    external "C" TILMedia_Gas_transportProperties_pTxi(p,T,xi,gasPointer,transp.Pr,transp.lambda,transp.eta,transp.sigma) annotation(Library="TILMedia111ClaRa");
+    external "C" TILMedia_Gas_transportProperties_pTxi(p,T,xi,gasPointer,transp.Pr,transp.lambda,transp.eta,transp.sigma) annotation(Library="TILMedia112ClaRa");
     annotation(Impure=false);
   end transportProperties_pTxi;
 
@@ -102,7 +102,7 @@ package GasObjectFunctions
     output SI.Temperature T "Temperature";
     external "C" T =
                    TILMedia_Gas_temperature_phxi(p,h,xi,gasPointer)
-    annotation(Library="TILMedia111ClaRa", inverse(h=specificEnthalpy_pTxi(p,T,xi,gasPointer)));
+    annotation(Library="TILMedia112ClaRa", inverse(h=specificEnthalpy_pTxi(p,T,xi,gasPointer)));
   end temperature_phxi;
 
   function temperature_psxi
@@ -113,7 +113,7 @@ package GasObjectFunctions
     output SI.Temperature T "Temperature";
     external "C" T =
                    TILMedia_Gas_temperature_psxi(p,s,xi,gasPointer)
-    annotation(Library="TILMedia111ClaRa", inverse(s=specificEntropy_pTxi(p,T,xi,gasPointer)));
+    annotation(Library="TILMedia112ClaRa", inverse(s=specificEntropy_pTxi(p,T,xi,gasPointer)));
   end temperature_psxi;
 
   function specificEnthalpy_psxi
@@ -124,7 +124,7 @@ package GasObjectFunctions
     output SI.SpecificEnthalpy h "Specific enthalpy";
     external "C" h =
                    TILMedia_Gas_specificEnthalpy_psxi(p,s,xi,gasPointer)
-    annotation(Library="TILMedia111ClaRa", inverse(s=specificEntropy_phxi(p,h,xi,gasPointer)));
+    annotation(Library="TILMedia112ClaRa", inverse(s=specificEntropy_phxi(p,h,xi,gasPointer)));
   end specificEnthalpy_psxi;
 
   function specificEnthalpy_pTxi
@@ -135,7 +135,7 @@ package GasObjectFunctions
     output SI.SpecificEnthalpy h "Specific enthalpy";
     external "C" h =
                    TILMedia_Gas_specificEnthalpy_pTxi(p,T,xi,gasPointer)
-    annotation(Library="TILMedia111ClaRa", inverse(T=temperature_phxi(p,h,xi,gasPointer)));
+    annotation(Library="TILMedia112ClaRa", inverse(T=temperature_phxi(p,h,xi,gasPointer)));
   end specificEnthalpy_pTxi;
 
   function specificEntropy_pTxi
@@ -146,7 +146,7 @@ package GasObjectFunctions
     output SI.SpecificEntropy s "Specific entropy";
     external "C" s =
                    TILMedia_Gas_specificEntropy_pTxi(p,T,xi,gasPointer)
-    annotation(Library="TILMedia111ClaRa", inverse(T=temperature_psxi(p,s,xi,gasPointer)));
+    annotation(Library="TILMedia112ClaRa", inverse(T=temperature_psxi(p,s,xi,gasPointer)));
   end specificEntropy_pTxi;
 
   function specificEntropy_phxi
@@ -157,7 +157,7 @@ package GasObjectFunctions
     output SI.SpecificEntropy s "Specific entropy";
     external "C" s =
                    TILMedia_Gas_specificEntropy_phxi(p,h,xi,gasPointer)
-    annotation(Library="TILMedia111ClaRa", inverse(h=specificEnthalpy_psxi(p,s,xi,gasPointer)));
+    annotation(Library="TILMedia112ClaRa", inverse(h=specificEnthalpy_psxi(p,s,xi,gasPointer)));
   end specificEntropy_phxi;
 
   function xi_s_pTxidg
@@ -168,7 +168,7 @@ package GasObjectFunctions
     output SI.MassFraction xi_s "Saturation vapour mass fraction";
     external "C" xi_s =
                       TILMedia_Gas_saturationMassFraction_pTxidg(p,T,xi_dryGas,gasPointer)
-    annotation(Library="TILMedia111ClaRa");
+    annotation(Library="TILMedia112ClaRa");
   end xi_s_pTxidg;
 
   function humRatio_s_pTxidg
@@ -179,7 +179,7 @@ package GasObjectFunctions
     output Real humRatio_s "Saturation humidity ratio";
     external "C" humRatio_s =
                             TILMedia_Gas_saturationHumidityRatio_pTxidg(p,T,xi_dryGas,gasPointer)
-    annotation(Library="TILMedia111ClaRa");
+    annotation(Library="TILMedia112ClaRa");
   end humRatio_s_pTxidg;
 
   function phi_pThumRatioxidg
@@ -191,7 +191,7 @@ package GasObjectFunctions
     output TILMedia.Internals.Units.RelativeHumidity phi "Relative humidity";
     external "C" phi =
                      TILMedia_MoistAir_phi_pThumRatioxidg(p,T,humRatio,xi_dryGas,gasPointer)
-    annotation(Library="TILMedia111ClaRa", inverse(humRatio=humRatio_pTphixidg(p,T,phi,xi_dryGas,gasPointer)));
+    annotation(Library="TILMedia112ClaRa", inverse(humRatio=humRatio_pTphixidg(p,T,phi,xi_dryGas,gasPointer)));
   end phi_pThumRatioxidg;
 
   function humRatio_pTphixidg
@@ -203,7 +203,7 @@ package GasObjectFunctions
     output Real humRatio "Humidity ratio";
     external "C" humRatio =
                           TILMedia_MoistAir_humRatio_pTphixidg(p,T,phi,xi_dryGas,gasPointer)
-    annotation(Library="TILMedia111ClaRa", inverse(phi=phi_pThumRatioxidg(p,T,humRatio,xi_dryGas,gasPointer)));
+    annotation(Library="TILMedia112ClaRa", inverse(phi=phi_pThumRatioxidg(p,T,humRatio,xi_dryGas,gasPointer)));
   end humRatio_pTphixidg;
 
   function xi_humRatioxidgnc
@@ -213,7 +213,7 @@ package GasObjectFunctions
     input TILMedia.GasObjectFunctions.GasPointer gasPointer;
     output SI.MassFraction xi[nc-1] "Mass fraction";
     external "C" TILMedia_Gas_xi_humRatioxidg(humRatioxi_dryGas,gasPointer,xi)
-    annotation(Library="TILMedia111ClaRa", inverse(humRatioxi_dryGas=humRatioxidg_xinc(xi,nc,gasPointer)));
+    annotation(Library="TILMedia112ClaRa", inverse(humRatioxi_dryGas=humRatioxidg_xinc(xi,nc,gasPointer)));
   end xi_humRatioxidgnc;
 
   function humRatioxidg_xinc
@@ -223,7 +223,7 @@ package GasObjectFunctions
     output Real humRatioxi_dryGas[nc-1]
       "Humidity ratio and xi_dryGas in one vector";
     external "C" TILMedia_Gas_humRatioxidg_xi(xi,gasPointer,humRatioxi_dryGas)
-    annotation(Library="TILMedia111ClaRa", inverse(xi=xi_humRatioxidgnc(humRatioxi_dryGas,nc,gasPointer)));
+    annotation(Library="TILMedia112ClaRa", inverse(xi=xi_humRatioxidgnc(humRatioxi_dryGas,nc,gasPointer)));
   end humRatioxidg_xinc;
 
   function wetBulbTemperatureLiquid_pTxi
@@ -234,7 +234,7 @@ package GasObjectFunctions
     output SI.Temperature T_wetBulb "Wet bulb temperature";
     external "C" T_wetBulb =
                            TILMedia_GasMixture_wetBulbTemperatureLiquid_pTxi(p,T,xi,gasPointer)
-    annotation(Library="TILMedia111ClaRa");
+    annotation(Library="TILMedia112ClaRa");
   end wetBulbTemperatureLiquid_pTxi;
 
   function wetBulbTemperatureSolid_pTxi
@@ -245,7 +245,7 @@ package GasObjectFunctions
     output SI.Temperature T_wetBulb "Wet bulb temperature";
     external "C" T_wetBulb =
                            TILMedia_GasMixture_wetBulbTemperatureSolid_pTxi(p,T,xi,gasPointer)
-    annotation(Library="TILMedia111ClaRa");
+    annotation(Library="TILMedia112ClaRa");
   end wetBulbTemperatureSolid_pTxi;
 
   function wetBulbTemperatureLiquid_phxi
@@ -256,7 +256,7 @@ package GasObjectFunctions
     output SI.Temperature T_wetBulb "Wet bulb temperature";
     external "C" T_wetBulb =
                            TILMedia_GasMixture_wetBulbTemperatureLiquid_phxi(p,h,xi,gasPointer)
-    annotation(Library="TILMedia111ClaRa");
+    annotation(Library="TILMedia112ClaRa");
   end wetBulbTemperatureLiquid_phxi;
 
   function wetBulbTemperatureSolid_phxi
@@ -267,7 +267,7 @@ package GasObjectFunctions
     output SI.Temperature T_wetBulb "Wet bulb temperature";
     external "C" T_wetBulb =
                            TILMedia_GasMixture_wetBulbTemperatureSolid_phxi(p,h,xi,gasPointer)
-    annotation(Library="TILMedia111ClaRa");
+    annotation(Library="TILMedia112ClaRa");
   end wetBulbTemperatureSolid_phxi;
 
   function wetBulbTemperatureLiquid_psxi
@@ -278,7 +278,7 @@ package GasObjectFunctions
     output SI.Temperature T_wetBulb "Wet bulb temperature";
     external "C" T_wetBulb =
                            TILMedia_GasMixture_wetBulbTemperatureLiquid_psxi(p,s,xi,gasPointer)
-    annotation(Library="TILMedia111ClaRa");
+    annotation(Library="TILMedia112ClaRa");
   end wetBulbTemperatureLiquid_psxi;
 
   function wetBulbTemperatureSolid_psxi
@@ -289,7 +289,7 @@ package GasObjectFunctions
     output SI.Temperature T_wetBulb "Wet bulb temperature";
     external "C" T_wetBulb =
                            TILMedia_GasMixture_wetBulbTemperatureSolid_psxi(p,s,xi,gasPointer)
-    annotation(Library="TILMedia111ClaRa");
+    annotation(Library="TILMedia112ClaRa");
   end wetBulbTemperatureSolid_psxi;
 
   function temperature_pdxi
@@ -300,7 +300,7 @@ package GasObjectFunctions
     output SI.Temperature T "Temperature";
     external "C" T =
                    TILMedia_GasMixture_temperature_pdxi(p,d,xi,gasPointer)
-    annotation(Library="TILMedia111ClaRa");
+    annotation(Library="TILMedia112ClaRa");
   end temperature_pdxi;
 
   function liquidDensity_T
@@ -309,6 +309,6 @@ package GasObjectFunctions
     output SI.Density d "density";
     external "C" d =
                    TILMedia_Gas_liquidDensity_T(T, gasPointer)
-    annotation(Library="TILMedia111ClaRa");
+    annotation(Library="TILMedia112ClaRa");
   end liquidDensity_T;
 end GasObjectFunctions;
