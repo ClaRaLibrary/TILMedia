@@ -21,6 +21,5 @@ record BaseGas "Base record for gas definitions"
     annotation(HideResult = true);
   constant String concatGasName=TILMedia.Internals.concatNames(gasNames);
   constant Integer ID=0
-    "ID is used to map the selected Gas to the sim.cumulatedGasMass array item"
-                                                                                annotation(HideResult = true);
+    "ID is used to map the selected Gas to the sim.cumulatedGasMass array item" annotation(HideResult = true);
 end BaseGas;

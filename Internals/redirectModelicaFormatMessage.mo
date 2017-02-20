@@ -26,5 +26,5 @@ int TILMedia_redirectModelicaFormatMessage_wrapper(){
 }
 #endif
 #endif
-",Library="TILMedia112ClaRa");
+",Library="TILMedia120ClaRa");
 end redirectModelicaFormatMessage;

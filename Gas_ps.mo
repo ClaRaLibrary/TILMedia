@@ -1,7 +1,7 @@
 within TILMedia;
 model Gas_ps "Gas vapor model with p, s and xi as independent variables"
-  replaceable parameter TILMedia.GasTypes.BaseGas gasType constrainedby
-    TILMedia.GasTypes.BaseGas "type record of the gas or gas mixture"
+  replaceable parameter TILMedia.GasTypes.BaseGas gasType constrainedby TILMedia.GasTypes.BaseGas
+                              "type record of the gas or gas mixture"
     annotation(choicesAllMatching=true);
 
   parameter Boolean stateSelectPreferForInputs=false
@@ -62,8 +62,7 @@ model Gas_ps "Gas vapor model with p, s and xi as independent variables"
   SI.SpecificEnthalpy h1px
     "Enthalpy H divided by the mass of components that cannot condense";
 
-  TILMedia.Internals.TransportPropertyRecord transp "Transport property record"
-                                                                                annotation (extent=[-80,40; -60,60]);
+  TILMedia.Internals.TransportPropertyRecord transp "Transport property record" annotation (extent=[-80,40; -60,60]);
 
   TILMedia.GasObjectFunctions.GasPointer gasPointer=TILMedia.GasObjectFunctions.GasPointer(gasType.concatGasName, computeFlags, gasType.mixingRatio_propertyCalculation[1:end-1]/sum(gasType.mixingRatio_propertyCalculation), gasType.nc_propertyCalculation, gasType.nc, gasType.condensingIndex, redirectorOutput)
     "Pointer to external medium memory";

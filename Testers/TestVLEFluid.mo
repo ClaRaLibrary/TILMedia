@@ -15,7 +15,7 @@ model TestVLEFluid
     computeVLEAdditionalProperties=false,
     computeVLETransportProperties=false,
     computeTransportProperties=false,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_CO2 vleFluidType)
+    redeclare VLEFluidTypes.TILMedia_Water vleFluidType)
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
    // Instance of a VLEFluid object that requires the pressure p and the temperature T as inputs.
    // Note: the input T is calculated from vleFluid1, i.e. T = vleFluid1.T (see equation below).
@@ -25,7 +25,7 @@ model TestVLEFluid
     computeVLEAdditionalProperties=false,
     computeVLETransportProperties=false,
     computeTransportProperties=false,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_CO2 vleFluidType)
+    redeclare VLEFluidTypes.TILMedia_Water vleFluidType)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
    //Instance of a VLEFluid object that requires the pressure p and the specific entropy s as inputs
    // Note: the input s is calculated from vleFluid1, i.e. s = vleFluid1.s (see equation below).
@@ -33,7 +33,7 @@ model TestVLEFluid
     computeVLEAdditionalProperties=false,
     computeVLETransportProperties=false,
     computeTransportProperties=false,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_CO2 vleFluidType)
+    redeclare VLEFluidTypes.TILMedia_Water vleFluidType)
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
    //Instance of a VLEFluid object that requires the density d and the temperature T as inputs
    // Note: the input d is calculated from vleFluid1, i.e. d = vleFluid1.d (see equation below).
@@ -41,7 +41,7 @@ model TestVLEFluid
     computeVLEAdditionalProperties=false,
     computeVLETransportProperties=false,
     computeTransportProperties=false,
-    redeclare TILMedia.VLEFluidTypes.TILMedia_CO2 vleFluidType)
+    redeclare VLEFluidTypes.TILMedia_Water vleFluidType)
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
 equation

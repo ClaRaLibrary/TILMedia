@@ -20,6 +20,5 @@ record BaseVLEFluid "Base record for VLE Fluid definitions"
   constant Real xi_default[nc-1] = defaultMixingRatio[1:end-1]/sum(defaultMixingRatio)
     "Default mass fractions" annotation(HideResult = true);
   constant Integer ID=0
-    "ID is used to map the selected VLEFluid to the sim.cumulatedVLEFluidMass array item"
-                                                                                          annotation(HideResult = true);
+    "ID is used to map the selected VLEFluid to the sim.cumulatedVLEFluidMass array item" annotation(HideResult = true);
 end BaseVLEFluid;
