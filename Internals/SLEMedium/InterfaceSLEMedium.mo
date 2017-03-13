@@ -89,6 +89,22 @@ equation
     betaL = 0; // ???
     betaS = 4.0e-4; // ???
     PrL = nuL*dL*cpL/lambdaL;
+  elseif mediumName=="TILMedia.NaOAc" then
+    TS = 331.15; // 273.15 + 58
+    TL = TS;
+    cpL = 3100;
+    cpS = 2050;
+    dL = 1280;
+    dS = 1450;
+    sat.ds = dS;
+    sat.dl = dL;
+    meltingEnthalpy = 260e3;
+    nuL = -1;
+    lambdaL = 0.4;
+    lambdaS = 0.64;
+    betaL = -1;
+    betaS = -1;
+    PrL = -1;
   else
     TS = -1;
     TL = -1;

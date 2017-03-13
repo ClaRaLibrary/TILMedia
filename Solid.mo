@@ -1,8 +1,8 @@
 within TILMedia;
 model Solid "Solid model with p as independent variable"
 
-  replaceable model SolidType = TILMedia.SolidTypes.BaseSolid constrainedby TILMedia.SolidTypes.BaseSolid
-                                  "type record of the solid"
+  replaceable model SolidType = TILMedia.SolidTypes.BaseSolid constrainedby
+    TILMedia.SolidTypes.BaseSolid "type record of the solid"
     annotation(choicesAllMatching=true);
 
   constant SI.Density d = solid.d "Density";

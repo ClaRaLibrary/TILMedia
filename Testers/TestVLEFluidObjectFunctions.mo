@@ -12,7 +12,7 @@ model TestVLEFluidObjectFunctions
   SI.Temperature T;
   SI.MassFraction xi[vleFluidType.nc-1];
 
-  TILMedia.VLEFluidTypes.TILMedia_GERGCO2  vleFluidType;
+  TILMedia.VLEFluidTypes.TILMedia_CO2  vleFluidType;
 
   // Start values for the the temperature
   parameter SI.Temperature T_start = 273.15+20;

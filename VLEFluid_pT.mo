@@ -36,7 +36,7 @@ model VLEFluid_pT
   input Modelica.SIunits.Temperature T(stateSelect=if (
         stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default)
     "Temperature" annotation(Dialog);
-  input Modelica.SIunits.MassFraction[vleFluidType.nc - 1] xi(stateSelect=if (
+  input Modelica.SIunits.MassFraction[vleFluidType.nc - 1] xi(each stateSelect=if (
         stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default)=vleFluidType.xi_default
     "Mass Fraction of Component i" annotation(Dialog);
   SI.MoleFraction x[vleFluidType.nc - 1] "Mole fraction";
@@ -125,8 +125,7 @@ public
       eta_l=VLETransp.eta_l,
       eta_v=VLETransp.eta_v);
 equation
-  M_i = TILMedia.VLEFluidObjectFunctions.molarMass_n(
-        {i-1 for i in 1:vleFluidType.nc},vleFluidPointer);
+   M_i = TILMedia.Internals.VLEFluidObjectFunctions.molarMass_nc(vleFluidType.nc, vleFluidPointer);
   (crit.d, crit.h, crit.p, crit.s, crit.T) = TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
     vleFluidPointer);
   //calculate molar mass

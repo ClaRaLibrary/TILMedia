@@ -5,11 +5,11 @@ package TILMedia "TILMedia-Library with thermophysical properties of Fluids and 
 
 annotation (
 preferedView="info",
-version="1.2.0 ClaRa",
+version="1.2.1 ClaRa",
   uses(Modelica(version="3.2.2")),
 Documentation(info="<html>
 <br>
-<img src=../Images/infoTILMedia.png><br>
+<img src=\"modelica://TILMedia/Images/infoTILMedia.png\" ><br>
 <br>
   <hr>
 </html>"),                 Icon(coordinateSystem(

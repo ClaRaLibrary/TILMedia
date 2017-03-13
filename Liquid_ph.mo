@@ -1,8 +1,8 @@
 within TILMedia;
 model Liquid_ph
   "Incompressible liquid model with p and h as independent variables"
-  replaceable parameter TILMedia.LiquidTypes.BaseLiquid liquidType constrainedby TILMedia.LiquidTypes.BaseLiquid
-                                    "type record of the liquid"
+  replaceable parameter TILMedia.LiquidTypes.BaseLiquid liquidType constrainedby
+    TILMedia.LiquidTypes.BaseLiquid "type record of the liquid"
     annotation(choicesAllMatching=true);
 
   parameter Boolean computeTransportProperties = false

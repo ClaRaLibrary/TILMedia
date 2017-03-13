@@ -2,8 +2,8 @@ within TILMedia;
 model SLEMedium
   "Medium with solid-liquid equilibrium (SLE), with h and p as independet variables"
 
-  replaceable parameter TILMedia.SLEMediumTypes.BaseSLEMedium sleMediumType constrainedby TILMedia.SLEMediumTypes.BaseSLEMedium
-                                          "type record of the SLE medium"
+  replaceable parameter TILMedia.SLEMediumTypes.BaseSLEMedium sleMediumType constrainedby
+    TILMedia.SLEMediumTypes.BaseSLEMedium "type record of the SLE medium"
     annotation(choicesAllMatching=true);
 
   input Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy" annotation(Dialog);

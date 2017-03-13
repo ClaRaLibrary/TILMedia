@@ -20,7 +20,7 @@ model Gas_ph "Gas vapor model with p, h and xi as independent variables"
     "Pressure" annotation(Dialog);
   SI.SpecificEntropy s "Specific entropy";
   SI.Temperature T "Temperature";
-  input SI.MassFraction xi[gasType.nc-1](stateSelect=if (stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default) = gasType.xi_default
+  input SI.MassFraction xi[gasType.nc-1](each stateSelect=if (stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default) = gasType.xi_default
     "Mass fraction" annotation(Dialog);
   SI.MassFraction xi_dryGas[if (gasType.nc>1 and gasType.condensingIndex>0) then gasType.nc-2 else 0]
     "Mass fraction";
@@ -63,7 +63,8 @@ model Gas_ph "Gas vapor model with p, h and xi as independent variables"
   SI.SpecificEnthalpy h1px
     "Enthalpy H divided by the mass of components that cannot condense";
 
-  TILMedia.Internals.TransportPropertyRecord transp "Transport property record" annotation (extent=[-80,40; -60,60]);
+  TILMedia.Internals.TransportPropertyRecord transp "Transport property record"
+                                                                                annotation (extent=[-80,40; -60,60]);
 
   TILMedia.GasObjectFunctions.GasPointer gasPointer=TILMedia.GasObjectFunctions.GasPointer(gasType.concatGasName, computeFlags, gasType.mixingRatio_propertyCalculation[1:end-1]/sum(gasType.mixingRatio_propertyCalculation), gasType.nc_propertyCalculation, gasType.nc, gasType.condensingIndex, redirectorOutput)
     "Pointer to external medium memory";
@@ -109,7 +110,9 @@ equation
     (cp, cv, beta, w) = TILMedia.Internals.GasObjectFunctions.simpleCondensingProperties_phxi(p, h, xi, gasPointer);
   end if;
   s = TILMedia.Internals.GasObjectFunctions.specificEntropy_phxi(p, h, xi, gasPointer);
-  M_i = TILMedia.GasObjectFunctions.molarMass_n({i-1 for i in 1:gasType.nc},gasPointer);
+  for i in 1:gasType.nc loop
+        M_i[i] = TILMedia.GasObjectFunctions.molarMass_n(i-1,gasPointer);
+  end for;
   (d,kappa,drhodp_hxi,drhodh_pxi,drhodxi_ph,p_i,xi_gas) = TILMedia.Internals.GasObjectFunctions.additionalProperties_pTxi(p,T,xi,gasPointer);
   (p_s,delta_hv,delta_hd,h_i) = TILMedia.Internals.GasObjectFunctions.pureComponentProperties_Tnc(T,gasType.nc,gasPointer);
   if computeTransportProperties then
