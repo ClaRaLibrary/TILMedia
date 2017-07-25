@@ -1,4 +1,4 @@
-within TILMedia.Internals.SLEMedium;
+﻿within TILMedia.Internals.SLEMedium;
 model InterfaceSLEMedium
 
   parameter TILMedia.Internals.SLEMediumName mediumName=

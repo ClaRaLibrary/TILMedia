@@ -1,4 +1,4 @@
-within TILMedia;
+﻿within TILMedia;
 package UsersGuide "User's Guide"
   extends TILMedia.Internals.ClassTypes.Information;
 

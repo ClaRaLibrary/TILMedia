@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 package ClassTypes "Icon definitions"
 
 

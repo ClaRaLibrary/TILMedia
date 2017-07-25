@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 record VLETransportPropertyRecord "Transport property record"
    extends TILMedia.Internals.ClassTypes.Record;
   SI.PrandtlNumber Pr_l "Prandtl number of liquid phase";
@@ -8,5 +8,9 @@ record VLETransportPropertyRecord "Transport property record"
   SI.DynamicViscosity eta_l(min=-1) "Dynamic viscosity of liquid phase";
   SI.DynamicViscosity eta_v(min=-1) "Dynamic viscosity of vapour phase";
 
-  annotation(defaultComponentName="transp");
+  annotation(defaultComponentName="transp",
+    __Dymola_Protection(
+      allowDuplicate = true,
+      showDiagram=true,
+      showText=true));
 end VLETransportPropertyRecord;

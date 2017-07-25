@@ -6,6 +6,7 @@ LiquidFunctions
 VLEFluidObjectFunctions
 VLEFluidFunctions
 SLEMedium
+SLEMediumFunctions
 Units
 GasName
 LiquidName

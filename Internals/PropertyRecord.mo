@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 record PropertyRecord "Property record"
   extends TILMedia.Internals.ClassTypes.Record;
   SI.Density d "Density";
@@ -22,5 +22,9 @@ record PropertyRecord "Property record"
            TILMedia.Internals.TransportPropertyRecord(Pr=0.0,lambda=0.0,eta=0.0,sigma=0.0)
     "Transport property record";
 
-  annotation(defaultComponentName="properties");
+  annotation(defaultComponentName="properties",
+    __Dymola_Protection(
+      allowDuplicate = true,
+      showDiagram=true,
+      showText=true));
 end PropertyRecord;

@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 function getProperties
   input Real d,  h,  p,  s,  T,  cp;
   input Real Pr,  lambda,  eta,  sigma;

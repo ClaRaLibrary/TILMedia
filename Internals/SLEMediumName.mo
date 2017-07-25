@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 type SLEMediumName "SLEMaterial name"
 extends String;
 

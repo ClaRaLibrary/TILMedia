@@ -1,4 +1,4 @@
-within TILMedia.Internals.ClassTypes;
+﻿within TILMedia.Internals.ClassTypes;
 partial class ComponentPackage
 
   annotation (Icon(graphics={

@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 record CriticalDataRecord "Critical data record"
    extends TILMedia.Internals.ClassTypes.Record;
 
@@ -7,5 +7,9 @@ record CriticalDataRecord "Critical data record"
   Modelica.SIunits.AbsolutePressure p "Critical pressure";
   Modelica.SIunits.SpecificEntropy s "Critical specific entropy";
   Modelica.SIunits.Temperature T "Critical temperature";
-  annotation(defaultComponentName="crit");
+  annotation(defaultComponentName="crit",
+    __Dymola_Protection(
+      allowDuplicate = true,
+      showDiagram=true,
+      showText=true));
 end CriticalDataRecord;

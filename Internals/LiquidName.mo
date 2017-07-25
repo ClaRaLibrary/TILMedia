@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 type LiquidName "Liquid name"
   extends String;
 
@@ -309,6 +309,10 @@ type LiquidName "Liquid name"
  choice="VDIWA2006.NITROBENZENE",
  choice="VDIWA2006.O-NITROTOLUENE",
  choice="VDIWA2006.M-NITROTOLUENE",
- choice="VDIWA2006.P-NITROTOLUENE"));
+ choice="VDIWA2006.P-NITROTOLUENE"),
+    __Dymola_Protection(
+      allowDuplicate = true,
+      showDiagram=true,
+      showText=true));
 
 end LiquidName;

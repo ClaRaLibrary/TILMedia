@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 function concatNames
  input String names[:];
  output String concatName;

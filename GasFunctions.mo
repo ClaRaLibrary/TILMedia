@@ -1,4 +1,4 @@
-within TILMedia;
+﻿within TILMedia;
 package GasFunctions
   "Package for calculation of gas vapor properties with a functional call"
   extends TILMedia.Internals.ClassTypes.ModelPackage;

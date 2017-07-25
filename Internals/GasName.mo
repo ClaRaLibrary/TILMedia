@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 type GasName "Gas name"
   extends String;
   annotation(choices(
@@ -111,5 +111,9 @@ type GasName "Gas name"
  choice="VDIWA2006.heptadecane",
  choice="VDIWA2006.octadecane",
  choice="VDIWA2006.nonadecane",
- choice="VDIWA2006.icosane"));
+ choice="VDIWA2006.icosane"),
+    __Dymola_Protection(
+      allowDuplicate = true,
+      showDiagram=true,
+      showText=true));
 end GasName;

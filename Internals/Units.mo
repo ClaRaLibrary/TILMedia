@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 package Units "Unit definitions"
 extends TILMedia.Internals.ClassTypes.ModelPackage;
   type DensityDerPressure = Real(final unit="kg/(N.m)");

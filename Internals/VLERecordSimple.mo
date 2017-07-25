@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 record VLERecordSimple "VLE property record"
   extends TILMedia.Internals.ClassTypes.Record;
   SI.Density d_l "Density of liquid phase";
@@ -11,4 +11,8 @@ record VLERecordSimple "VLE property record"
   SI.SpecificEntropy s_v "Specific entropy of vapour phase";
   SI.Temperature T_l "Temperature of liquid phase";
   SI.Temperature T_v "Temperature of vapour phase";
+  annotation(  __Dymola_Protection(
+      allowDuplicate = true,
+      showDiagram=true,
+      showText=true));
 end VLERecordSimple;

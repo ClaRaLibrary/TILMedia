@@ -1,5 +1,5 @@
 within TILMedia.UsersGuide;
-model PropertyCalculation "Property Calculation"
+class PropertyCalculation "Property Calculation"
   extends Internals.ClassTypes.Information;
     annotation(__Dymola_DocumentationClass=true,
      Documentation(info="<html>
@@ -35,7 +35,7 @@ Depending on which variables are known, different classes are available with a c
   <li> _dT density and temperature</li>
 </ul>
 <br>
-The massfraction vector is needed addtionaly, if the fluid is a mixture.
+The mass fraction vector is needed additionally, if the fluid is a mixture.
 For more information see the models itself and the testers.
 <br>
 <br>

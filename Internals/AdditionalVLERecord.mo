@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 record AdditionalVLERecord "Additional VLE property record"
    extends TILMedia.Internals.ClassTypes.Record;
   Modelica.SIunits.SpecificHeatCapacity cp_l
@@ -13,4 +13,9 @@ record AdditionalVLERecord "Additional VLE property record"
     "Isothermal compressibility of liquid phase";
   Modelica.SIunits.Compressibility kappa_v
     "Isothermal compressibility of vapour phase";
+
+annotation(  __Dymola_Protection(
+      allowDuplicate = true,
+      showDiagram=true,
+      showText=true));
 end AdditionalVLERecord;

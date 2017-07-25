@@ -21,11 +21,11 @@ annotation(__Dymola_DocumentationClass=true,
   </tr>
    <tr>
     <td>TILMedia.Dryair &nbsp; </td>
-    <td>Tmax = 200°C &nbsp; </td>
+    <td>Tmax = 200 °C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.EXHAUSTGAS_LAMBDA_1 &nbsp; </td>
-    <td>Intendet for gasoline/petrol exhaust gas with lambda value equal one, T = -20°C bis 1050°C &nbsp; </td>
+    <td>Intended for gasoline/petrol exhaust gas with lambda value equal one, T = -20 °C bis 1050 °C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.DIESELEXHAUSTGAS_x.x &nbsp; </td>
@@ -782,7 +782,7 @@ annotation(__Dymola_DocumentationClass=true,
 
     <td>Refprop.R123.FLD &nbsp; </td>
 
-    <td>Refprop.R1233ZD.FLD &nbsp; </td>
+    <td>Refprop.R1233ZDE.FLD &nbsp; </td>
   </tr>
    <tr>
     <td>Refprop.R1234YF.FLD &nbsp; </td>
@@ -796,259 +796,259 @@ annotation(__Dymola_DocumentationClass=true,
 
     <td>Refprop.R13.FLD &nbsp; </td>
 
-    <td>Refprop.R134A.FLD &nbsp; </td>
+    <td>Refprop.R1336MZZ.FLD &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R134A.FLD &nbsp; </td>
+
     <td>Refprop.R14.FLD &nbsp; </td>
 
     <td>Refprop.R141B.FLD &nbsp; </td>
-
-    <td>Refprop.R142B.FLD &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R142B.FLD &nbsp; </td>
+
     <td>Refprop.R143A.FLD &nbsp; </td>
 
     <td>Refprop.R152A.FLD &nbsp; </td>
-
-    <td>Refprop.R161.FLD &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R161.FLD &nbsp; </td>
+
     <td>Refprop.R21.FLD &nbsp; </td>
 
     <td>Refprop.R218.FLD &nbsp; </td>
-
-    <td>Refprop.R22.FLD &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R22.FLD &nbsp; </td>
+
     <td>Refprop.R227EA.FLD &nbsp; </td>
 
     <td>Refprop.R23.FLD &nbsp; </td>
-
-    <td>Refprop.R236EA.FLD &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R236EA.FLD &nbsp; </td>
+
     <td>Refprop.R236FA.FLD &nbsp; </td>
 
     <td>Refprop.R245CA.FLD &nbsp; </td>
-
-    <td>Refprop.R245FA.FLD &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R245FA.FLD &nbsp; </td>
+
     <td>Refprop.R32.FLD &nbsp; </td>
 
     <td>Refprop.R365MFC.FLD &nbsp; </td>
-
-    <td>Refprop.R40.FLD &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R40.FLD &nbsp; </td>
+
     <td>Refprop.R401A.MIX &nbsp; </td>
 
     <td>Refprop.R401B.MIX &nbsp; </td>
-
-    <td>Refprop.R401C.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R401C.MIX &nbsp; </td>
+
     <td>Refprop.R402A.MIX &nbsp; </td>
 
     <td>Refprop.R402B.MIX &nbsp; </td>
-
-    <td>Refprop.R403A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R403A.MIX &nbsp; </td>
+
     <td>Refprop.R403B.MIX &nbsp; </td>
 
     <td>Refprop.R404A.MIX &nbsp; </td>
-
-    <td>Refprop.R404A.PPF &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R404A.PPF &nbsp; </td>
+
     <td>Refprop.R405A.MIX &nbsp; </td>
 
     <td>Refprop.R406A.MIX &nbsp; </td>
-
-    <td>Refprop.R407A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R407A.MIX &nbsp; </td>
+
     <td>Refprop.R407B.MIX &nbsp; </td>
 
     <td>Refprop.R407C.MIX &nbsp; </td>
-
-    <td>Refprop.R407C.PPF &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R407C.PPF &nbsp; </td>
+
     <td>Refprop.R407D.MIX &nbsp; </td>
 
     <td>Refprop.R407E.MIX &nbsp; </td>
-
-    <td>Refprop.R407F.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R407F.MIX &nbsp; </td>
+
     <td>Refprop.R408A.MIX &nbsp; </td>
 
     <td>Refprop.R409A.MIX &nbsp; </td>
-
-    <td>Refprop.R409B.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R409B.MIX &nbsp; </td>
+
     <td>Refprop.R41.FLD &nbsp; </td>
 
     <td>Refprop.R410A.MIX &nbsp; </td>
-
-    <td>Refprop.R410A.PPF &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R410A.PPF &nbsp; </td>
+
     <td>Refprop.R410B.MIX &nbsp; </td>
 
     <td>Refprop.R411A.MIX &nbsp; </td>
-
-    <td>Refprop.R411B.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R411B.MIX &nbsp; </td>
+
     <td>Refprop.R412A.MIX &nbsp; </td>
 
     <td>Refprop.R413A.MIX &nbsp; </td>
-
-    <td>Refprop.R414A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R414A.MIX &nbsp; </td>
+
     <td>Refprop.R414B.MIX &nbsp; </td>
 
     <td>Refprop.R415A.MIX &nbsp; </td>
-
-    <td>Refprop.R415B.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R415B.MIX &nbsp; </td>
+
     <td>Refprop.R416A.MIX &nbsp; </td>
 
     <td>Refprop.R417A.MIX &nbsp; </td>
-
-    <td>Refprop.R418A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R418A.MIX &nbsp; </td>
+
     <td>Refprop.R419A.MIX &nbsp; </td>
 
     <td>Refprop.R420A.MIX &nbsp; </td>
-
-    <td>Refprop.R421A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R421A.MIX &nbsp; </td>
+
     <td>Refprop.R421B.MIX &nbsp; </td>
 
     <td>Refprop.R422A.MIX &nbsp; </td>
-
-    <td>Refprop.R422B.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R422B.MIX &nbsp; </td>
+
     <td>Refprop.R422C.MIX &nbsp; </td>
 
     <td>Refprop.R422D.MIX &nbsp; </td>
-
-    <td>Refprop.R423A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R423A.MIX &nbsp; </td>
+
     <td>Refprop.R424A.MIX &nbsp; </td>
 
     <td>Refprop.R425A.MIX &nbsp; </td>
-
-    <td>Refprop.R426A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R426A.MIX &nbsp; </td>
+
     <td>Refprop.R427A.MIX &nbsp; </td>
 
     <td>Refprop.R428A.MIX &nbsp; </td>
-
-    <td>Refprop.R429A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R429A.MIX &nbsp; </td>
+
     <td>Refprop.R430A.MIX &nbsp; </td>
 
     <td>Refprop.R431A.MIX &nbsp; </td>
-
-    <td>Refprop.R432A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R432A.MIX &nbsp; </td>
+
     <td>Refprop.R433A.MIX &nbsp; </td>
 
     <td>Refprop.R434A.MIX &nbsp; </td>
-
-    <td>Refprop.R435A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R435A.MIX &nbsp; </td>
+
     <td>Refprop.R436A.MIX &nbsp; </td>
 
     <td>Refprop.R436B.MIX &nbsp; </td>
-
-    <td>Refprop.R437A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R437A.MIX &nbsp; </td>
+
     <td>Refprop.R438A.MIX &nbsp; </td>
 
     <td>Refprop.R441A.MIX &nbsp; </td>
-
-    <td>Refprop.R442A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R442A.MIX &nbsp; </td>
+
     <td>Refprop.R443A.MIX &nbsp; </td>
 
     <td>Refprop.R444A.MIX &nbsp; </td>
-
-    <td>Refprop.R449A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R449A.MIX &nbsp; </td>
+
     <td>Refprop.R500.MIX &nbsp; </td>
 
     <td>Refprop.R501.MIX &nbsp; </td>
-
-    <td>Refprop.R502.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R502.MIX &nbsp; </td>
+
     <td>Refprop.R503.MIX &nbsp; </td>
 
     <td>Refprop.R504.MIX &nbsp; </td>
-
-    <td>Refprop.R507A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R507A.MIX &nbsp; </td>
+
     <td>Refprop.R507A.PPF &nbsp; </td>
 
     <td>Refprop.R508A.MIX &nbsp; </td>
-
-    <td>Refprop.R508B.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R508B.MIX &nbsp; </td>
+
     <td>Refprop.R509A.MIX &nbsp; </td>
 
     <td>Refprop.R510A.MIX &nbsp; </td>
-
-    <td>Refprop.R512A.MIX &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.R512A.MIX &nbsp; </td>
+
     <td>Refprop.RC318.FLD &nbsp; </td>
 
     <td>Refprop.RE143A.FLD &nbsp; </td>
-
-    <td>Refprop.RE245CB2.FLD &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.RE245CB2.FLD &nbsp; </td>
+
     <td>Refprop.RE245FA2.FLD &nbsp; </td>
 
     <td>Refprop.RE347MCC.FLD &nbsp; </td>
-
-    <td>Refprop.SF6.FLD &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.SF6.FLD &nbsp; </td>
+
     <td>Refprop.SO2.FLD &nbsp; </td>
 
     <td>Refprop.T2BUTENE.FLD &nbsp; </td>
-
-    <td>Refprop.TOLUENE.FLD &nbsp; </td>
   </tr>
    <tr>
+    <td>Refprop.TOLUENE.FLD &nbsp; </td>
+
     <td>Refprop.WATER.FLD &nbsp; </td>
 
     <td>Refprop.XENON.FLD &nbsp; </td>
-
-    <td>  &nbsp; </td>
   </tr>
 </table><br><br>
 
@@ -2029,7 +2029,7 @@ annotation(__Dymola_DocumentationClass=true,
 <h4>Gas Names NASA</h4>
 All 2024 substance names by NASA Glenn Coefficients can be received by request.
 <br>
-<!-- NASA substance names with brackets to not function in this version. They can nevertheless be added at any time if necessary.<br> -->
+<!-- NASA substance names with brackets do not work correctly in this version. They can nevertheless be added at any time if necessary.<br> -->
 
 </html>"));
 

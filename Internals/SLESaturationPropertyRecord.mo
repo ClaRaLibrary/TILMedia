@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 record SLESaturationPropertyRecord "Solid-liquid equilibrium property record"
    extends TILMedia.Internals.ClassTypes.Record;
   Modelica.SIunits.Temperature Ts "Solid temperature";
@@ -9,5 +9,9 @@ record SLESaturationPropertyRecord "Solid-liquid equilibrium property record"
   Modelica.SIunits.SpecificEnthalpy hl "Liquid specific enthalpy";
   Modelica.SIunits.SpecificEntropy ss "Solid specific entropy";
   Modelica.SIunits.SpecificEntropy sl "Liquid specific entropy";
-  annotation(defaultComponentName="sat");
+  annotation(defaultComponentName="sat",
+    __Dymola_Protection(
+      allowDuplicate = true,
+      showDiagram=true,
+      showText=true));
 end SLESaturationPropertyRecord;

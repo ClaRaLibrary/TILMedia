@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 type VLEFluidName "VLE Fluid name"
   extends String;
   annotation(choices(
@@ -288,5 +288,9 @@ type VLEFluidName "VLE Fluid name"
  choice="Refprop.T2BUTENE.FLD",
  choice="Refprop.TOLUENE.FLD",
  choice="Refprop.WATER.FLD",
- choice="Refprop.XENON.FLD"));
+ choice="Refprop.XENON.FLD"),
+    __Dymola_Protection(
+      allowDuplicate = true,
+      showDiagram=true,
+      showText=true));
 end VLEFluidName;

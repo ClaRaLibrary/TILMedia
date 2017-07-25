@@ -1,10 +1,15 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 function redirectModelicaFormatMessage
   input Real y=0;
   //protected
   output Integer x;
-  external"C" x = TILMedia_redirectModelicaFormatMessage_wrapper() annotation(__iti_dllNoExport = true,Library="TILMedia121ClaRa",
+  external"C" x = TILMedia_redirectModelicaFormatMessage_wrapper() annotation(__iti_dllNoExport = true,Library="TILMedia122ClaRa",
     Include="
+/* uncomment for source code version
+#define TILMEDIA_REAL_TIME
+#define TILMEDIA_STATIC_LIBRARY
+#include \"TILMediaTotal.c\"
+*/
 #ifndef TILMEDIAMODELICAFORMATMESSAGE
 #define TILMEDIAMODELICAFORMATMESSAGE
 #if defined(DYMOLA_STATIC) || (defined(ITI_CRT_INCLUDE) && !defined(ITI_COMP_SIM))

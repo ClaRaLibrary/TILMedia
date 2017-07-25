@@ -1,4 +1,4 @@
-within TILMedia.Internals.ClassTypes;
+﻿within TILMedia.Internals.ClassTypes;
 partial record Record "Partial Record"
 
   annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,60}},

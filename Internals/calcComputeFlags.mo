@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 function calcComputeFlags
   input Boolean computeTransportProperties;
   input Boolean interpolateTransportProperties;

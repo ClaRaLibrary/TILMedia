@@ -1,4 +1,4 @@
-within TILMedia.Internals.ClassTypes;
+﻿within TILMedia.Internals.ClassTypes;
 partial class Information
 
   annotation (Icon(graphics={Bitmap(extent={{-80,-80},{80,80}},

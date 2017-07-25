@@ -3,7 +3,12 @@ model TILMedia_St35_8 "TILMedia.St35.8"
   extends TILMedia.SolidTypes.BaseSolid(
     final d = 7850.0,
     final cp_nominal = 430.0,
-    final lambda_nominal = 57.0);
+    final lambda_nominal = 57.0,
+    final nu_nominal=-1,
+    final E_nominal=-1,
+    final G_nominal=-1,
+    final beta_nominal=-1);
+
 
   function specificHeatCapacity
   input Real T;
@@ -63,6 +68,11 @@ model TILMedia_St35_8 "TILMedia.St35.8"
 </html>"));
   end thermalConductivity;
 equation
+  //d=density(T, d_nominal);
   cp=specificHeatCapacity(T);
   lambda=thermalConductivity(T);
+  nu = nu_nominal;
+  E = E_nominal;
+  G=G_nominal;
+  beta = beta_nominal;
 end TILMedia_St35_8;

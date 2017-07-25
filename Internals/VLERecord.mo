@@ -1,4 +1,4 @@
-within TILMedia.Internals;
+﻿within TILMedia.Internals;
 record VLERecord "VLE property record"
   extends TILMedia.Internals.ClassTypes.Record;
   SI.Density d_l "Density of liquid phase";
@@ -14,4 +14,9 @@ record VLERecord "VLE property record"
   SI.MassFraction[nc-1] xi_l "Mass fraction of liquid phase";
   SI.MassFraction[nc-1] xi_v "Mass fraction of vapour phase";
   parameter Integer nc;
+
+annotation(  __Dymola_Protection(
+      allowDuplicate = true,
+      showDiagram=true,
+      showText=true));
 end VLERecord;
