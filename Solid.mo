@@ -1,5 +1,5 @@
 ﻿within TILMedia;
-model Solid "Solid model with p as independent variable"
+model Solid "Solid model with T as independent variable"
 
   replaceable model SolidType = TILMedia.SolidTypes.BaseSolid constrainedby
     TILMedia.SolidTypes.BaseSolid "type record of the solid"

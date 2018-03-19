@@ -45,7 +45,7 @@ model Gas_ph "Gas vapor model with p, h and xi as independent variables"
     "Relative humidity";
 
   //Pure Component Properties
-  SI.PartialPressure p_s "Saturation partial pressure of condensing component";
+  SI.PartialPressure p_s(min=if (gasType.condensingIndex>0) then 0 else -1) "Saturation partial pressure of condensing component";
   SI.MassFraction xi_s(min=if (gasType.condensingIndex>0) then 0 else -1)
     "Saturation mass fraction of condensing component";
   SI.SpecificEnthalpy delta_hv

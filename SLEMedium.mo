@@ -1,4 +1,4 @@
-within TILMedia;
+﻿within TILMedia;
 model SLEMedium
   "Medium with solid-liquid equilibrium (SLE), with h and p as independent variables"
 
@@ -14,13 +14,20 @@ model SLEMedium
   Modelica.SIunits.SpecificHeatCapacity cp "Specific heat capacity";
   Modelica.SIunits.MassFraction q "Liquid mass fraction";
   Modelica.SIunits.ThermalConductivity lambda "Thermal conductivity";
+  SI.SpecificEnthalpy h_fusion = sleMedium.h_fusion;
+  constant SI.Temperature TStableLimit = sleMedium.TStableLimit
+    "Above this temperature all cristals in the solution are dissolved. Metastable states are possible after exceeding this temperature.";
+  constant SI.Temperature TSupercoolingLimit(min=-Modelica.Constants.inf) = sleMedium.TSupercoolingLimit
+    "There is no metastable state below this temperature. Crystallization starts when this temperature is reached.";
 
+  function density_h = TILMedia.Internals.SLEMediumFunctions.density_h(d_s = sleMedium.d_s, d_l = sleMedium.d_l, h_fusion = sleMedium.h_fusion);
+  function specificEnthalpy_T =
+      TILMedia.Internals.SLEMediumFunctions.specificEnthalpy_T (                         TSupercoolingLimit = sleMedium.TSupercoolingLimit, cp_s = sleMedium.cp_s, cp_l = sleMedium.cp_l, T_s = sleMedium.T_s, T_l = sleMedium.T_l, h_fusion = sleMedium.h_fusion);
 protected
   SLEMediumType sleMedium(T=T);
 equation
-
   q = TILMedia.Internals.SLEMediumFunctions.quality_h(h, iota, sleMedium.cp_s, sleMedium.cp_l, sleMedium.h_fusion, sleMedium.T_s, sleMedium.T_l);
-  T = TILMedia.Internals.SLEMediumFunctions.temperature_h(h, q, iota, sleMedium.cp_s, sleMedium.cp_l, sleMedium.h_fusion, sleMedium.T_s, sleMedium.T_l);
+  T = TILMedia.Internals.SLEMediumFunctions.temperature_h(h, iota, sleMedium.cp_s, sleMedium.cp_l, sleMedium.h_fusion, sleMedium.T_s, sleMedium.T_l);
 
   cp = sleMedium.cp_s + (sleMedium.cp_l - sleMedium.cp_s)*q;
   1/d = 1/sleMedium.d_s + (1/sleMedium.d_l - 1/sleMedium.d_s)*q;
@@ -41,7 +48,7 @@ equation
       showText=true),
           Documentation(info="<html>
                    <p>
-                   The SLE medium model calculates the thermophysical property data with given input: pressure (p), enthalpy (h) and the parameter sleMediumType.<br>
+                   The SLE medium model calculates the thermophysical property data with given input: pressure (p), enthalpy (h), meta stable (iota) and the parameter sleMediumType.<br>
                    The interface and the way of using, is demonstrated in the Testers -> <a href=\"Modelica:TILMedia.Testers.TestSLEMedium\">TestSLEMedium</a>.
                    </p>
                    <hr>

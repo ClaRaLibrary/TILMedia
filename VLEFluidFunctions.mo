@@ -162,6 +162,18 @@ package VLEFluidFunctions
     annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end densityDerivativeWRTmassFraction_dTxi;
 
+  function heatCapacityRatio_dTxi
+  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
+    input TILMedia.VLEFluidTypes.BaseVLEFluid vleFluidType "VLEFluid type" annotation(choicesAllMatching=true);
+    input SI.Density d "Density";
+    input SI.Temperature T "Temperature";
+    input SI.MassFraction[:] xi=zeros(vleFluidType.nc-1) "Mass fractions of the first nc-1 components";
+    output SI.IsentropicExponent gamma "Heat capacity ratio aka isentropic expansion factor";
+  algorithm
+    gamma := TILMedia.Internals.VLEFluidFunctions.heatCapacityRatio_dTxi(d,T,xi,vleFluidType.concatVLEFluidName, vleFluidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
+    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  end heatCapacityRatio_dTxi;
+
   function prandtlNumber_dTxi
   // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
     input TILMedia.VLEFluidTypes.BaseVLEFluid vleFluidType "VLEFluid type" annotation(choicesAllMatching=true);
@@ -586,6 +598,18 @@ package VLEFluidFunctions
     drhodxi_ph := TILMedia.Internals.VLEFluidFunctions.densityDerivativeWRTmassFraction_phxin(p,h,xi,compNo, vleFluidType.concatVLEFluidName, vleFluidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
     annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end densityDerivativeWRTmassFraction_phxi;
+
+  function heatCapacityRatio_phxi
+  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
+    input TILMedia.VLEFluidTypes.BaseVLEFluid vleFluidType "VLEFluid type" annotation(choicesAllMatching=true);
+    input SI.AbsolutePressure p "Pressure";
+    input SI.SpecificEnthalpy h "Specific enthalpy";
+    input SI.MassFraction[:] xi=zeros(vleFluidType.nc-1) "Mass fractions of the first nc-1 components";
+    output SI.IsentropicExponent gamma "Heat capacity ratio aka isentropic expansion factor";
+  algorithm
+    gamma := TILMedia.Internals.VLEFluidFunctions.heatCapacityRatio_phxi(p,h,xi,vleFluidType.concatVLEFluidName, vleFluidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
+    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  end heatCapacityRatio_phxi;
 
   function prandtlNumber_phxi
   // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
@@ -1012,6 +1036,18 @@ package VLEFluidFunctions
     annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end densityDerivativeWRTmassFraction_psxi;
 
+  function heatCapacityRatio_psxi
+  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
+    input TILMedia.VLEFluidTypes.BaseVLEFluid vleFluidType "VLEFluid type" annotation(choicesAllMatching=true);
+    input SI.AbsolutePressure p "Pressure";
+    input SI.SpecificEntropy s "Specific entropy";
+    input SI.MassFraction[:] xi=zeros(vleFluidType.nc-1) "Mass fractions of the first nc-1 components";
+    output SI.IsentropicExponent gamma "Heat capacity ratio aka isentropic expansion factor";
+  algorithm
+    gamma := TILMedia.Internals.VLEFluidFunctions.heatCapacityRatio_psxi(p,s,xi,vleFluidType.concatVLEFluidName, vleFluidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
+    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  end heatCapacityRatio_psxi;
+
   function prandtlNumber_psxi
   // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
     input TILMedia.VLEFluidTypes.BaseVLEFluid vleFluidType "VLEFluid type" annotation(choicesAllMatching=true);
@@ -1436,6 +1472,18 @@ package VLEFluidFunctions
     drhodxi_ph := TILMedia.Internals.VLEFluidFunctions.densityDerivativeWRTmassFraction_pTxin(p,T,xi,compNo, vleFluidType.concatVLEFluidName, vleFluidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
     annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end densityDerivativeWRTmassFraction_pTxi;
+
+  function heatCapacityRatio_pTxi
+  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
+    input TILMedia.VLEFluidTypes.BaseVLEFluid vleFluidType "VLEFluid type" annotation(choicesAllMatching=true);
+    input SI.AbsolutePressure p "Pressure";
+    input SI.Temperature T "Temperature";
+    input SI.MassFraction[:] xi=zeros(vleFluidType.nc-1) "Mass fractions of the first nc-1 components";
+    output SI.IsentropicExponent gamma "Heat capacity ratio aka isentropic expansion factor";
+  algorithm
+    gamma := TILMedia.Internals.VLEFluidFunctions.heatCapacityRatio_pTxi(p,T,xi,vleFluidType.concatVLEFluidName, vleFluidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
+    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  end heatCapacityRatio_pTxi;
 
   function prandtlNumber_pTxi
   // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
@@ -2273,6 +2321,47 @@ package VLEFluidFunctions
     annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end criticalSurfaceTension_xi;
 
+  function cricondenbarTemperature_xi
+  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
+    input TILMedia.VLEFluidTypes.BaseVLEFluid vleFluidType "VLEFluid type" annotation(choicesAllMatching=true);
+    input SI.MassFraction[:] xi=zeros(vleFluidType.nc-1) "Mass fractions of the first nc-1 components";
+    output SI.Temperature T_ccb "";
+  algorithm
+    T_ccb := TILMedia.Internals.VLEFluidFunctions.cricondenbarTemperature_xi(xi,vleFluidType.concatVLEFluidName, vleFluidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
+    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  end cricondenbarTemperature_xi;
+
+  function cricondenthermTemperature_xi
+  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
+    input TILMedia.VLEFluidTypes.BaseVLEFluid vleFluidType "VLEFluid type" annotation(choicesAllMatching=true);
+    input SI.MassFraction[:] xi=zeros(vleFluidType.nc-1) "Mass fractions of the first nc-1 components";
+    output SI.Temperature T_cct "";
+  algorithm
+    T_cct := TILMedia.Internals.VLEFluidFunctions.cricondenthermTemperature_xi(xi,vleFluidType.concatVLEFluidName, vleFluidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
+    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  end cricondenthermTemperature_xi;
+
+  function cricondenbarPressure_xi
+  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
+    input TILMedia.VLEFluidTypes.BaseVLEFluid vleFluidType "VLEFluid type" annotation(choicesAllMatching=true);
+    input SI.MassFraction[:] xi=zeros(vleFluidType.nc-1) "Mass fractions of the first nc-1 components";
+    output SI.AbsolutePressure p_ccb "";
+  algorithm
+    p_ccb := TILMedia.Internals.VLEFluidFunctions.cricondenbarPressure_xi(xi,vleFluidType.concatVLEFluidName, vleFluidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
+    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  end cricondenbarPressure_xi;
+
+  function cricondenthermPressure_xi
+  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
+    input TILMedia.VLEFluidTypes.BaseVLEFluid vleFluidType "VLEFluid type" annotation(choicesAllMatching=true);
+    input SI.MassFraction[:] xi=zeros(vleFluidType.nc-1) "Mass fractions of the first nc-1 components";
+    output SI.AbsolutePressure p_cct "";
+  algorithm
+    p_cct := TILMedia.Internals.VLEFluidFunctions.cricondenthermPressure_xi(xi,vleFluidType.concatVLEFluidName, vleFluidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
+    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  end cricondenthermPressure_xi;
+
+
   function molarMass_n
   // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
     input TILMedia.VLEFluidTypes.BaseVLEFluid vleFluidType "VLEFluid type" annotation(choicesAllMatching=true);
@@ -2282,5 +2371,6 @@ package VLEFluidFunctions
     M_i := TILMedia.Internals.VLEFluidFunctions.molarMass_n(compNo, vleFluidType.concatVLEFluidName, vleFluidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
     annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end molarMass_n;
+
 
 end VLEFluidFunctions;

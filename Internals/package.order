@@ -22,6 +22,7 @@ VLETransportPropertyRecord
 SLESaturationPropertyRecord
 SolidPropertyRecord
 TransportPropertyRecord
+TableObject
 calcComputeFlags
 redirectModelicaFormatMessage
 concatNames

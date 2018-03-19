@@ -1,4 +1,4 @@
-within TILMedia.Testers;
+﻿within TILMedia.Testers;
 model TestGas
 
   // This tester demonstrates the calculation of therodynamic properties of dry air

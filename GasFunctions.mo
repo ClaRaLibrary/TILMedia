@@ -2,6 +2,7 @@
 package GasFunctions
   "Package for calculation of gas vapor properties with a functional call"
   extends TILMedia.Internals.ClassTypes.ModelPackage;
+
 function density_phxi
 // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
   input TILMedia.GasTypes.BaseGas gasType "Gas type" annotation(choicesAllMatching=true);
@@ -773,6 +774,16 @@ algorithm
   annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Gas_Function.png")}));
 end specificEnthalpyOfPureGas_Tn;
 
+function specificIsobaricHeatCapacityOfPureGas_Tn
+// Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
+  input TILMedia.GasTypes.BaseGas gasType "Gas type" annotation(choicesAllMatching=true);
+  input SI.Temperature T "Temperature";input Integer compNo "Component ID";
+  output SI.SpecificHeatCapacity cp_i "Specific isobaric heat capacity of theoretical pure component";
+algorithm
+  cp_i := TILMedia.Internals.GasFunctions.specificIsobaricHeatCapacityOfPureGas_Tn(T,compNo, gasType.concatGasName, gasType.nc+TILMedia.Internals.redirectModelicaFormatMessage(), gasType.condensingIndex);
+  annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Gas_Function.png")}));
+end specificIsobaricHeatCapacityOfPureGas_Tn;
+
 
 
 function averageMolarMass_xi
@@ -806,13 +817,23 @@ algorithm
   annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Gas_Function.png")}));
 end molarMass_n;
 
+function specificEnthalpyOfFormation_n
+// Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
+  input TILMedia.GasTypes.BaseGas gasType "Gas type" annotation(choicesAllMatching=true);input Integer compNo "Component ID";
+  output SI.SpecificEnthalpy hF_i "Specific enthalpy of formation";
+algorithm
+  hF_i := TILMedia.Internals.GasFunctions.specificEnthalpyOfFormation_n(compNo, gasType.concatGasName, gasType.nc+TILMedia.Internals.redirectModelicaFormatMessage(), gasType.condensingIndex);
+  annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Gas_Function.png")}));
+end specificEnthalpyOfFormation_n;
+
 function freezingPoint
-// Don't use these functions during simulation, Medium classes are always faster! Only use for start and initial values.
+// Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
   input TILMedia.GasTypes.BaseGas gasType "Gas type" annotation(choicesAllMatching=true);
   output SI.Temperature T_freeze "Freezing point of condensing component";
 algorithm
   T_freeze := TILMedia.Internals.GasFunctions.freezingPoint(gasType.concatGasName, gasType.nc+TILMedia.Internals.redirectModelicaFormatMessage(), gasType.condensingIndex);
   annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Gas_Function.png")}));
 end freezingPoint;
+
 
 end GasFunctions;

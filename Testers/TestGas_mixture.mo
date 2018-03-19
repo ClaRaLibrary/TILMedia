@@ -1,4 +1,4 @@
-within TILMedia.Testers;
+﻿within TILMedia.Testers;
 model TestGas_mixture
 
   // This tester demonstrates the calculation of therodynamic properties of gas mixtures

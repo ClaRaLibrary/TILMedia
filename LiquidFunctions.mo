@@ -3,6 +3,7 @@ package LiquidFunctions
   "Package for calculation of liquid properties with a functional call"
   extends TILMedia.Internals.ClassTypes.ModelPackage;
 
+
   function specificEntropy_phxi
   // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
     input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
@@ -16,6 +17,7 @@ package LiquidFunctions
     annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
   end specificEntropy_phxi;
 
+
   function specificEntropy_pTxi
   // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
     input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
@@ -28,6 +30,8 @@ package LiquidFunctions
     s := TILMedia.Internals.LiquidFunctions.specificEntropy_pTxi(p,T,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
     annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
   end specificEntropy_pTxi;
+
+
 
   function density_Txi
   // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
@@ -90,19 +94,6 @@ package LiquidFunctions
     annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
   end isobaricThermalExpansionCoefficient_Txi;
 
-  function densityDerivativeWRTspecificEnthalpy_Txi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.DerDensityByEnthalpy drhodh_pxi
-      "Derivative of density wrt specific enthalpy at constant pressure and mass fraction";
-  algorithm
-    drhodh_pxi := TILMedia.Internals.LiquidFunctions.densityDerivativeWRTspecificEnthalpy_Txi(T,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
-  end densityDerivativeWRTspecificEnthalpy_Txi;
-
   function prandtlNumber_Txi
   // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
     input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
@@ -138,6 +129,7 @@ package LiquidFunctions
     eta := TILMedia.Internals.LiquidFunctions.dynamicViscosity_Txi(T,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
     annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
   end dynamicViscosity_Txi;
+
 
   function density_hxi
   // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
@@ -199,19 +191,6 @@ package LiquidFunctions
     beta := TILMedia.Internals.LiquidFunctions.isobaricThermalExpansionCoefficient_hxi(h,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
     annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
   end isobaricThermalExpansionCoefficient_hxi;
-
-  function densityDerivativeWRTspecificEnthalpy_hxi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.DerDensityByEnthalpy drhodh_pxi
-      "Derivative of density wrt specific enthalpy at constant pressure and mass fraction";
-  algorithm
-    drhodh_pxi := TILMedia.Internals.LiquidFunctions.densityDerivativeWRTspecificEnthalpy_hxi(h,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
-  end densityDerivativeWRTspecificEnthalpy_hxi;
 
   function prandtlNumber_hxi
   // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.

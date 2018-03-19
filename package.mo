@@ -5,13 +5,10 @@ package TILMedia "TILMedia-Library with thermophysical properties of Fluids and 
 
 annotation (
 preferedView="info",
-version="1.2.2 ClaRa",
+version="1.3.0 ClaRa",
   uses(Modelica(version="3.2.2")),
 Documentation(info="<html>
-<br>
-<img src=\"modelica://TILMedia/Images/infoTILMedia.png\" ><br>
-<br>
-  <hr>
+<p><img src=\"modelica://TILMedia/Images/infoTILMedia.png\" ></p>
 </html>"),                 Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},

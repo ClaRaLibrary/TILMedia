@@ -1,4 +1,4 @@
-within TILMedia.UsersGuide;
+﻿within TILMedia.UsersGuide;
 package SubstanceRecord "Substance Record"
   extends Internals.ClassTypes.Information;
   class ImportRefpropMediums "Import Refprop Mediums"

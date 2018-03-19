@@ -1,4 +1,4 @@
-within TILMedia.UsersGuide;
+﻿within TILMedia.UsersGuide;
 class PropertyCalculation "Property Calculation"
   extends Internals.ClassTypes.Information;
     annotation(__Dymola_DocumentationClass=true,

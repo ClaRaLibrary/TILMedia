@@ -1,8 +1,7 @@
-within TILMedia.Internals.SLEMediumFunctions;
+﻿within TILMedia.Internals.SLEMediumFunctions;
 function temperature_h
   input Real h;
-  input Real q;
-  input Real stableSupercooling;
+  input Real iota;
   input Real cp_s;
   input Real cp_l;
   input Real h_fusion;
@@ -10,20 +9,10 @@ function temperature_h
   input Real T_l;
   output Real T;
 protected
-  Real T_transitionParallel "temperature which is parallel to T_liquid but is equal to T_solid at h=0";
-  Real T_solid;
-  Real T_liquid;
+  Real q_x;
+  Real q;
 algorithm
-  T_transitionParallel := T_s + h/cp_l;
-  T_solid := T_s + h/cp_s;
-  T_liquid := T_l + (h - h_fusion)/cp_l;
-
-  if h>h_fusion or stableSupercooling==1 then
-    T := T_liquid;
-  elseif h<0 then
-    T := T_solid;
-  else
-    T := T_transitionParallel + q*(T_liquid - T_transitionParallel);
-  end if;
-
+  q_x := h / h_fusion; // this should be q
+  q := min(1,max(max(0,iota), q_x));
+  T := T_s + q*(T_l-T_s) - (q - q_x)*h_fusion/(cp_l*q+(1-q)*cp_s);
 end temperature_h;

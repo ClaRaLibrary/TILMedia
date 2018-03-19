@@ -1,4 +1,4 @@
-within TILMedia.Testers;
+﻿within TILMedia.Testers;
 model TestSolid
 
   // This tester demonstrates the calclation of thermodynamic properties of carbon steel (St35.8)
