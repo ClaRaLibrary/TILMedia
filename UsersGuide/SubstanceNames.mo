@@ -172,6 +172,10 @@ annotation(__Dymola_DocumentationClass=true,
     <td>xx corresponds to % mass fraction of glycol whereupon for xx = 30 to 60 is possible. E.g. _33 for 33 % mass fraction glycol. &nbsp; </td>
   </tr>
    <tr>
+    <td>TILMedia.NOVEC7500 &nbsp; </td>
+    <td> &nbsp; </td>
+  </tr>
+   <tr>
     <td>TILMedia.OIL_ARAL0W30 &nbsp; </td>
     <td> &nbsp; </td>
   </tr>
@@ -1933,7 +1937,7 @@ annotation(__Dymola_DocumentationClass=true,
   </tr>
 </table><br><br>
 
-<h4>Gas, Liquid and VLEFluid Names (CoolProp)</h4>
+<h4>VLEFluid and Gas Names (CoolProp)</h4>
 <!-- 114 supported substance names inside TILMedia from CoolProp can be receifed by request. -->
 <table border=1>
    <tr>

@@ -5,8 +5,5 @@ type MoistAirName "Moist air name"
     choice="TILMedia.MoistAir",
     choice="VDI4670.MoistAir",
    choice="TILMediaXTR.MoistAir"),
-    __Dymola_Protection(
-      allowDuplicate = true,
-      showDiagram=true,
-      showText=true));
+    Protection(access=Access.packageDuplicate));
 end MoistAirName;

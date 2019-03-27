@@ -1,11 +1,11 @@
 ﻿within TILMedia.Internals;
 record PropertyRecord "Property record"
   extends TILMedia.Internals.ClassTypes.Record;
-  SI.Density d "Density";
-  SI.SpecificEnthalpy h "Specific enthalpy";
-  SI.AbsolutePressure p "Pressure";
-  SI.SpecificEntropy s "Specific entropy";
-  SI.Temperature T "Temperature";
+  SI.Density d=0 "Density";
+  SI.SpecificEnthalpy h=0 "Specific enthalpy";
+  SI.AbsolutePressure p=0 "Pressure";
+  SI.SpecificEntropy s=0 "Specific entropy";
+  SI.Temperature T=0 "Temperature";
   SI.MassFraction q=0 "Steam mass fraction (quality)";
   SI.SpecificHeatCapacity cp=0 "Specific isobaric heat capacity cp";
 
@@ -23,8 +23,5 @@ record PropertyRecord "Property record"
     "Transport property record";
 
   annotation(defaultComponentName="properties",
-    __Dymola_Protection(
-      allowDuplicate = true,
-      showDiagram=true,
-      showText=true));
+    Protection(access=Access.packageDuplicate));
 end PropertyRecord;

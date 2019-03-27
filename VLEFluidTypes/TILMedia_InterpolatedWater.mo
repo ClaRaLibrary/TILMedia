@@ -4,10 +4,8 @@ record TILMedia_InterpolatedWater
   extends TILMedia.VLEFluidTypes.BaseVLEFluid(
     final fixedMixingRatio=true,
     final nc_propertyCalculation=1,
-    final vleFluidNames={""},
-    final mixingRatio_propertyCalculation={1},
-    final concatVLEFluidName="Interpolation.LoadLinear(filename=\"" +
+    final vleFluidNames={"Interpolation.LoadLinear(filename=\"" +
         Modelica.Utilities.Files.loadResource(
-        "Modelica://TILMedia/Resources/WATER.DAT") + "\")");
-//    final concatVLEFluidName="Interpolation.LoadLinear(filename=WATER.DAT)");
+        "Modelica://TILMedia/Resources/WATER.DAT") + "\")"},
+    final mixingRatio_propertyCalculation={1});
 end TILMedia_InterpolatedWater;

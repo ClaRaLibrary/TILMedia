@@ -6,8 +6,5 @@ record TransportPropertyRecord "Transport property record"
   Modelica.SIunits.DynamicViscosity eta(min=-1) "Dynamic viscosity";
   Modelica.SIunits.SurfaceTension sigma "Surface tension";
   annotation(defaultComponentName="transp",
-    __Dymola_Protection(
-      allowDuplicate = true,
-      showDiagram=true,
-      showText=true));
+    Protection(access=Access.packageDuplicate));
 end TransportPropertyRecord;

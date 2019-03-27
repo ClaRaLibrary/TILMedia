@@ -13,10 +13,7 @@ record VLERecord "VLE property record"
   SI.Temperature T_v "Temperature of vapour phase";
   SI.MassFraction[nc-1] xi_l "Mass fraction of liquid phase";
   SI.MassFraction[nc-1] xi_v "Mass fraction of vapour phase";
-  parameter Integer nc;
+  parameter Integer nc(start=1);
 
-annotation(  __Dymola_Protection(
-      allowDuplicate = true,
-      showDiagram=true,
-      showText=true));
+annotation (Protection(access=Access.packageDuplicate));
 end VLERecord;

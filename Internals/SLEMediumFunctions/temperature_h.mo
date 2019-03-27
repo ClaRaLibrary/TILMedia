@@ -1,5 +1,6 @@
 ﻿within TILMedia.Internals.SLEMediumFunctions;
 function temperature_h
+  extends BaseClasses.PartialSLEMediumFunction;
   input Real h;
   input Real iota;
   input Real cp_s;
@@ -12,7 +13,8 @@ protected
   Real q_x;
   Real q;
 algorithm
-  q_x := h / h_fusion; // this should be q
-  q := min(1,max(max(0,iota), q_x));
-  T := T_s + q*(T_l-T_s) - (q - q_x)*h_fusion/(cp_l*q+(1-q)*cp_s);
+  q_x := h/h_fusion;
+  // this should be q
+  q := min(1, max(max(0, iota), q_x));
+  T := T_s + q*(T_l - T_s) - (q - q_x)*h_fusion/(cp_l*q + (1 - q)*cp_s);
 end temperature_h;

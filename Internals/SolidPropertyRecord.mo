@@ -7,8 +7,5 @@ record SolidPropertyRecord
   Modelica.SIunits.SpecificHeatCapacity cp "Heat capacity";
   Modelica.SIunits.ThermalConductivity lambda "Thermal conductivity";
 
-annotation(  __Dymola_Protection(
-      allowDuplicate = true,
-      showDiagram=true,
-      showText=true));
+annotation (Protection(access=Access.packageDuplicate));
 end SolidPropertyRecord;

@@ -1,5 +1,6 @@
-﻿within TILMedia.Testers;
+within TILMedia.Testers;
 model TestVLEFluid
+  extends TILMedia.Internals.ClassTypes.ExampleModel;
 
   // This tester demonstrates the calculation of thermodynamic properties of CO2
   // using the VLEFluid objects VLEFluid_ph, VLEFluid_pT, VLEFluid_ps and VLEFluid_dT
@@ -52,4 +53,5 @@ equation
   s=vleFluid1.s;
   d=vleFluid1.d;
 
+  annotation (experiment(StopTime=1));
 end TestVLEFluid;

@@ -9,8 +9,5 @@ record VLETransportPropertyRecord "Transport property record"
   SI.DynamicViscosity eta_v(min=-1) "Dynamic viscosity of vapour phase";
 
   annotation(defaultComponentName="transp",
-    __Dymola_Protection(
-      allowDuplicate = true,
-      showDiagram=true,
-      showText=true));
+    Protection(access=Access.packageDuplicate));
 end VLETransportPropertyRecord;

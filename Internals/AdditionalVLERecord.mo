@@ -14,8 +14,5 @@ record AdditionalVLERecord "Additional VLE property record"
   Modelica.SIunits.Compressibility kappa_v
     "Isothermal compressibility of vapour phase";
 
-annotation(  __Dymola_Protection(
-      allowDuplicate = true,
-      showDiagram=true,
-      showText=true));
+annotation (Protection(access=Access.packageDuplicate));
 end AdditionalVLERecord;

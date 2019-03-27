@@ -1,5 +1,6 @@
 ﻿within TILMedia.Testers;
 model TestGas_mixture
+  extends TILMedia.Internals.ClassTypes.ExampleModel;
 
   // This tester demonstrates the calculation of therodynamic properties of gas mixtures
   // using the gas objects Gas_ph, Gas_ps and Gas_pT.
@@ -50,4 +51,5 @@ equation
   // Calculate the mass fractions xi[i] from the defaultMixingRatio of VDIWA_MoistAir_nc3 (see definition in TILMedia.GasTypes.VDIWA_MoistAir_nc3)
   xi=gas_pT.gasType.defaultMixingRatio[1:end-1]/sum(gas_pT.gasType.defaultMixingRatio);
 
+  annotation (experiment(StopTime=1));
 end TestGas_mixture;

@@ -8,8 +8,5 @@ record CriticalDataRecord "Critical data record"
   Modelica.SIunits.SpecificEntropy s "Critical specific entropy";
   Modelica.SIunits.Temperature T "Critical temperature";
   annotation(defaultComponentName="crit",
-    __Dymola_Protection(
-      allowDuplicate = true,
-      showDiagram=true,
-      showText=true));
+    Protection(access=Access.packageDuplicate));
 end CriticalDataRecord;

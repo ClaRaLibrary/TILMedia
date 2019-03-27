@@ -1,5 +1,6 @@
 ﻿within TILMedia.Testers;
 model TestGas
+  extends TILMedia.Internals.ClassTypes.ExampleModel;
 
   // This tester demonstrates the calculation of therodynamic properties of dry air
   // using the gas objects Gas_ph, Gas_ps and Gas_pT
@@ -30,4 +31,5 @@ equation
   p = 1e5;
   T = 274 + 50*time;
 
+  annotation (experiment(StopTime=1));
 end TestGas;

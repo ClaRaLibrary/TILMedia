@@ -1,10 +1,13 @@
 ClassTypes
 GasObjectFunctions
 GasFunctions
+GasConfigurations
 LiquidObjectFunctions
 LiquidFunctions
+LiquidConfigurations
 VLEFluidObjectFunctions
 VLEFluidFunctions
+VLEFluidConfigurations
 SLEMedium
 SLEMediumFunctions
 Units
@@ -28,3 +31,4 @@ redirectModelicaFormatMessage
 concatNames
 getPropertiesVLE
 getProperties
+BasePointer

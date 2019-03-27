@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function 
 """
 Created on Tue Mar 21 11:06:57 2017
 
@@ -8,6 +9,7 @@ Created on Tue Mar 21 11:06:57 2017
 import os
 from os.path import join
 import codecs
+
 
 
 #if (len(sys.argv)<=1):
@@ -36,14 +38,14 @@ for dir, subdirs, files in os.walk(r".."):
                 decodedContentutf8sig = content.decode("utf-8-sig",'replace')
                 decodedContent = content.decode(encoding,'replace')
                 reencodedContent = decodedContent.encode("utf-8-sig")
-                if (decodedContent and decodedContentutf8sig and decodedContent<>decodedContentutf8sig):
-                    print "\nencoding " + encoding + "should be utf-8-sig in "+os.path.join(dir,fileName)
+                if (decodedContent and decodedContentutf8sig and decodedContent != decodedContentutf8sig):
+                    print("\nencoding " + encoding + "should be utf-8-sig in "+os.path.join(dir,fileName))
                     errorCounter = 0
                     for i in range(len(reencodedContent)-10):
                         if errorCounter < 10 and i>=10 and (type(decodedContent[i]) != type(decodedContentutf8sig[i]) or decodedContent[i] != decodedContentutf8sig[i]):
                             errorCounter = errorCounter+1
 #                            foundError=True
-                            print i, '"'+decodedContent[i-10:i+10]+'"', '"'+content[i-10:i+10]+'"'
+                            print(i, '"'+decodedContent[i-10:i+10]+'"', '"'+content[i-10:i+10]+'"')
                 if content[:3] == codecs.BOM_UTF8:
                     pass
                 else:
@@ -51,11 +53,11 @@ for dir, subdirs, files in os.walk(r".."):
                         if (convertToUTF8WithBom):
                             reencodedContent = decodedContent.encode("utf-8-sig")
                             open(os.path.join(dir,fileName),'wb').write(reencodedContent)
-                            print "reencoded "+os.path.join(dir,fileName)
+                            print("reencoded "+os.path.join(dir,fileName))
                         else:
-                            print "did not find BOM in "+os.path.join(dir,fileName)
+                            print("did not find BOM in "+os.path.join(dir,fileName))
             except:
-                print "error in "+os.path.join(dir,fileName)
+                print("error in "+os.path.join(dir,fileName))
 
 
 os.system("pause") 

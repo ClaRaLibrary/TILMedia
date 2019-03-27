@@ -1,230 +1,116 @@
 ﻿within TILMedia;
 package LiquidFunctions
   "Package for calculation of liquid properties with a functional call"
-  extends TILMedia.Internals.ClassTypes.ModelPackage;
+  extends TILMedia.BaseClasses.PartialLiquidFunctions;
 
 
-  function specificEntropy_phxi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.SpecificEntropy s "Specific entropy";
+  redeclare replaceable function extends specificEntropy_phxi
   algorithm
     s := TILMedia.Internals.LiquidFunctions.specificEntropy_phxi(p,h,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end specificEntropy_phxi;
 
-
-  function specificEntropy_pTxi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.SpecificEntropy s "Specific entropy";
+  redeclare replaceable function extends specificEntropy_pTxi
   algorithm
     s := TILMedia.Internals.LiquidFunctions.specificEntropy_pTxi(p,T,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end specificEntropy_pTxi;
 
-
-
-  function density_Txi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.Density d "Density";
+  redeclare replaceable function extends density_Txi
   algorithm
     d := TILMedia.Internals.LiquidFunctions.density_Txi(T,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end density_Txi;
 
-  function specificEnthalpy_Txi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.SpecificEnthalpy h "Specific enthalpy";
+  redeclare replaceable function extends specificEnthalpy_Txi
   algorithm
     h := TILMedia.Internals.LiquidFunctions.specificEnthalpy_Txi(T,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end specificEnthalpy_Txi;
 
-  function pressure_Txi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.AbsolutePressure p "Pressure";
+  redeclare replaceable function extends pressure_Txi
   algorithm
     p := TILMedia.Internals.LiquidFunctions.pressure_Txi(T,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end pressure_Txi;
 
-  function specificIsobaricHeatCapacity_Txi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.SpecificHeatCapacity cp "Specific isobaric heat capacity cp";
+  redeclare replaceable function extends specificIsobaricHeatCapacity_Txi
   algorithm
     cp := TILMedia.Internals.LiquidFunctions.specificIsobaricHeatCapacity_Txi(T,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end specificIsobaricHeatCapacity_Txi;
 
-  function isobaricThermalExpansionCoefficient_Txi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.LinearExpansionCoefficient beta
-      "Isobaric thermal expansion coefficient";
+  redeclare replaceable function extends
+    isobaricThermalExpansionCoefficient_Txi
   algorithm
     beta := TILMedia.Internals.LiquidFunctions.isobaricThermalExpansionCoefficient_Txi(T,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end isobaricThermalExpansionCoefficient_Txi;
 
-  function prandtlNumber_Txi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.PrandtlNumber Pr "Prandtl number";
+  redeclare replaceable function extends prandtlNumber_Txi
   algorithm
     Pr := TILMedia.Internals.LiquidFunctions.prandtlNumber_Txi(T,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end prandtlNumber_Txi;
 
-  function thermalConductivity_Txi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.ThermalConductivity lambda "Thermal conductivity";
+  redeclare replaceable function extends thermalConductivity_Txi
   algorithm
     lambda := TILMedia.Internals.LiquidFunctions.thermalConductivity_Txi(T,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end thermalConductivity_Txi;
 
-  function dynamicViscosity_Txi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.DynamicViscosity eta "Dynamic viscosity";
+  redeclare replaceable function extends dynamicViscosity_Txi
   algorithm
     eta := TILMedia.Internals.LiquidFunctions.dynamicViscosity_Txi(T,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end dynamicViscosity_Txi;
 
-
-  function density_hxi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.Density d "Density";
+  redeclare replaceable function extends density_hxi
   algorithm
     d := TILMedia.Internals.LiquidFunctions.density_hxi(h,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end density_hxi;
 
-  function pressure_hxi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.AbsolutePressure p "Pressure";
+  redeclare replaceable function extends pressure_hxi
   algorithm
     p := TILMedia.Internals.LiquidFunctions.pressure_hxi(h,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end pressure_hxi;
 
-  function temperature_hxi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.Temperature T "Temperature";
+  redeclare replaceable function extends temperature_hxi
   algorithm
     T := TILMedia.Internals.LiquidFunctions.temperature_hxi(h,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end temperature_hxi;
 
-  function specificIsobaricHeatCapacity_hxi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.SpecificHeatCapacity cp "Specific isobaric heat capacity cp";
+  redeclare replaceable function extends specificIsobaricHeatCapacity_hxi
   algorithm
     cp := TILMedia.Internals.LiquidFunctions.specificIsobaricHeatCapacity_hxi(h,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end specificIsobaricHeatCapacity_hxi;
 
-  function isobaricThermalExpansionCoefficient_hxi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.LinearExpansionCoefficient beta
-      "Isobaric thermal expansion coefficient";
+  redeclare replaceable function extends
+    isobaricThermalExpansionCoefficient_hxi
   algorithm
     beta := TILMedia.Internals.LiquidFunctions.isobaricThermalExpansionCoefficient_hxi(h,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end isobaricThermalExpansionCoefficient_hxi;
 
-  function prandtlNumber_hxi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.PrandtlNumber Pr "Prandtl number";
+  redeclare replaceable function extends prandtlNumber_hxi
   algorithm
     Pr := TILMedia.Internals.LiquidFunctions.prandtlNumber_hxi(h,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end prandtlNumber_hxi;
 
-  function thermalConductivity_hxi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.ThermalConductivity lambda "Thermal conductivity";
+  redeclare replaceable function extends thermalConductivity_hxi
   algorithm
     lambda := TILMedia.Internals.LiquidFunctions.thermalConductivity_hxi(h,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end thermalConductivity_hxi;
 
-  function dynamicViscosity_hxi
-  // Don't use these functions during simulation, Medium classes are always faster! Use only for start and initial values.
-    input TILMedia.LiquidTypes.BaseLiquid liquidType "Liquid type" annotation(choicesAllMatching=true);
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi=zeros(liquidType.nc-1)
-      "Mass fractions of the first nc-1 components";
-    output SI.DynamicViscosity eta "Dynamic viscosity";
+  redeclare replaceable function extends dynamicViscosity_hxi
   algorithm
     eta := TILMedia.Internals.LiquidFunctions.dynamicViscosity_hxi(h,xi,liquidType.concatLiquidName, liquidType.nc+TILMedia.Internals.redirectModelicaFormatMessage());
-    annotation(Inline=true, Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/Liquid_Function.png")}));
+    annotation(Inline=true);
   end dynamicViscosity_hxi;
 end LiquidFunctions;

@@ -1,5 +1,6 @@
 ﻿within TILMedia.Testers;
 model TestSLEMedium
+  extends TILMedia.Internals.ClassTypes.ExampleModel;
 
   SI.SpecificEnthalpy h;
   SI.AbsolutePressure p;

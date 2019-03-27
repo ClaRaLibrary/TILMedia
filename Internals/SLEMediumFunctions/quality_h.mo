@@ -1,5 +1,6 @@
 ﻿within TILMedia.Internals.SLEMediumFunctions;
 function quality_h
+  extends BaseClasses.PartialSLEMediumFunction;
   input Real h;
   input Real iota;
   input Real cp_s;
@@ -9,5 +10,5 @@ function quality_h
   input Real T_l;
   output Real q;
 algorithm
-  q :=min(1, max(max(0,iota), h / h_fusion));
+  q := min(1, max(max(0, iota), h/h_fusion));
 end quality_h;

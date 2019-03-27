@@ -289,8 +289,5 @@ type VLEFluidName "VLE Fluid name"
  choice="Refprop.TOLUENE.FLD",
  choice="Refprop.WATER.FLD",
  choice="Refprop.XENON.FLD"),
-    __Dymola_Protection(
-      allowDuplicate = true,
-      showDiagram=true,
-      showText=true));
+    Protection(access=Access.packageDuplicate));
 end VLEFluidName;

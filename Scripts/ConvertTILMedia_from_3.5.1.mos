@@ -1,0 +1,13 @@
+
+// clear
+convertClear();
+
+
+//---------------------------------------
+// Start conversion from TILMedia 3.5.1 to 3.6.1
+
+convertModifiers("TILMedia.VLEFluidTypes.BaseVLEFluid",{"vleFluidNames"},fill("",0),true);
+convertModifiers("TILMedia.VLEFluidTypes.BaseVLEFluid",{"concatVLEFluidName"},{"final vleFluidNames={%concatVLEFluidName%}"});
+
+// End conversion from TILMedia 3.5.1 to 3.6.1
+//---------------------------------------

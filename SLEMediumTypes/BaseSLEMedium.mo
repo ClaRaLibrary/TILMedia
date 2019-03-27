@@ -1,5 +1,6 @@
 ﻿within TILMedia.SLEMediumTypes;
 partial model BaseSLEMedium "Base model for solid definitions"
+  extends TILMedia.Internals.ClassTypes.Record;
   input SI.Temperature T "Temperature";
   parameter SI.Temperature T_s "Melting temperature";
   parameter SI.Temperature T_l "Freezing temperature";

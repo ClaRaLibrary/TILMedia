@@ -1,5 +1,6 @@
 ﻿within TILMedia.Testers;
 model TestSolid
+  extends TILMedia.Internals.ClassTypes.ExampleModel;
 
   // This tester demonstrates the calclation of thermodynamic properties of carbon steel (St35.8)
 
@@ -13,4 +14,5 @@ model TestSolid
 equation
   T = 273.15 + 1000*time;
 
+  annotation (experiment(StopTime=1));
 end TestSolid;

@@ -15,14 +15,17 @@ The calculation of thermo-physical properties with the TILMedia Modelica interfa
   <li> <b>SLEMedium</b> - can be solid, liquid or may have a solid-liquid equilibrium (SLE)</li>
 </ul>
 <br>     
-There are three options to calculate thermo-physical properties:
+There are different options to calculate thermo-physical properties:
 <br>
 <ul>
-  <li> <b>object-oriented</b> [recommended] - An external object is created and all properties are calculated at once.</li>
-  <li> <b>function based</b> [for single evaluations only] - Only one property is calculated. Useful for parameter expressions such as start values. Very inefficient if called several times during simulation.</li>
-  <li> <b>object functions</b> [for additional properties] - Using the pointer to an existing external object additional properties can be computed efficiently. 
-   -> See <a href=\"Modelica:TILMedia.Testers.TestVLEFluidObjectFunctions\">TestVLEFluidObjectFunctions</a></li>
+  <li> <b>object-oriented</b> [recommended] - An external object is created and all properties are calculated at once (e.g. <a href=\"Modelica:TILMedia.Testers.TestGas\">TestGas</a>, <a href=\"Modelica:TILMedia.Testers.TestLiquid\">TestLiquid</a>, <a href=\"Modelica:TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>). </li>
+  <li> <b>function based</b> [for single evaluations only] - Only one property is calculated. Useful for parameter expressions such as start values. For efficient calculation of time-varying variable use objects or object functions.</li>
+  <li> <b>objects with functions</b> [for conditional/additional properties] - The classes without inputs (<a href=\"Modelica:TILMedia.Gas\">Gas</a>, <a href=\"Modelica:TILMedia.Liquid\">Liquid</a> and <a href=\"Modelica:TILMedia.VLEFluid\">VLEFluid</a>) can be used to calculate conditional or additional properties efficiently.</li>
+  <li> <b>object functions</b> [for additional properties] - Using the pointer to an existing external object additional properties can be computed efficiently.</li>
 </ul>
+<br>
+The use of functions, objects with functions and object functions is shown in the example: <a href=\"Modelica:TILMedia.Testers.TestVLEFluidObjectFunctions\">TestVLEFluidObjectFunctions</a>.
+Equivalent to the shown VLEFluid calculations are the use of Gas, Liquid and corresponding functions are possible.
 <br>
 The object-oriented calculation is recommended.
 The Fluid properties are calculated with independent variables that are declared as input.

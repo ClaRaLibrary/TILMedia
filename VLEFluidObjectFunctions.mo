@@ -1,2193 +1,2649 @@
 ﻿within TILMedia;
 package VLEFluidObjectFunctions
-  "Package for calculation of VLEFLuid properties with a functional call, referencing existing external objects for highspeed evaluation"
-  extends TILMedia.Internals.ClassTypes.ModelPackage;
+  extends TILMedia.BaseClasses.PartialVLEFluidObjectFunctions;
 
-  class VLEFluidPointer
-     extends ExternalObject;
-     function constructor "get memory"
+  class VLEFluidPointerExternalObject
+    extends ExternalObject;
+    function constructor "get memory"
       input String vleFluidName;
       input Integer flags;
       input Real[:] xi;
-      input Integer nc_propertyCalculation;
       input Integer nc;
-      input Integer redirectorDummy;
-      output VLEFluidPointer vleFluidPointer;
-      external "C" vleFluidPointer = TILMedia_VLEFluid_createExternalObject(vleFluidName, flags, xi, nc_propertyCalculation, nc) annotation(__iti_dllNoExport = true,Include=
-"void* TILMedia_VLEFluid_createExternalObject(const char*, int, double*, int, int);",Library="TILMedia131ClaRa");
-     end constructor;
+      input String instanceName;
+      output VLEFluidPointerExternalObject vleFluidPointer;
+    external"C" vleFluidPointer = TILMedia_VLEFluid_createExternalObject(
+            vleFluidName,
+            flags,
+            xi,
+            nc,
+            instanceName) annotation (
+        __iti_dllNoExport=true,
+        Include="
+#ifndef TILMEDIAVLEFLUIDCONSTRUCTOR
+#define TILMEDIAVLEFLUIDCONSTRUCTOR
+#if defined(WSM_VERSION) || defined(DYMOLA_STATIC) || (defined(ITI_CRT_INCLUDE) && !defined(ITI_COMP_SIM))
+void* TILMedia_VLEFluid_createExternalObject_errorInterface(const char* fluidName, int flags, double* xi, int _nc, const char* instanceName, void* formatMessage, void* formatError, void* dymolaErrorLev);
+#if defined(DYMOLA_STATIC)
+#ifndef _WIN32
+#define __stdcall
+#endif
+double __stdcall TILMedia_DymosimErrorLevWrapper_VLEFluid(const char* message, int level) {
+    return DymosimErrorLev(message, level);
+}
+#endif
+void* TILMedia_VLEFluid_createExternalObject(const char* fluidName, int flags, double* xi, int _nc, const char* instanceName) {
+#if defined(DYMOLA_STATIC)
+    return TILMedia_VLEFluid_createExternalObject_errorInterface(fluidName, flags, xi, _nc, instanceName, (void*)ModelicaFormatMessage, (void*)ModelicaFormatError, (void*)TILMedia_DymosimErrorLevWrapper_VLEFluid);
+#else
+    return TILMedia_VLEFluid_createExternalObject_errorInterface(fluidName, flags, xi, _nc, instanceName, (void*)ModelicaFormatMessage, (void*)ModelicaFormatError, 0);
+#endif
+}
+#endif
+#endif
+",      Library="TILMedia140ClaRa");
 
-     function destructor "free memory"
-      input VLEFluidPointer vleFluidPointer;
-      external "C" TILMedia_VLEFluid_destroyExternalObject(vleFluidPointer) annotation(__iti_dllNoExport = true,Include="void TILMedia_VLEFluid_destroyExternalObject(void*);",Library="TILMedia131ClaRa");
-     end destructor;
-  end VLEFluidPointer;
+    end constructor;
 
-  function specificEnthalpy_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h "Specific enthalpy";
-  external "C" h = TILMedia_VLEFluidObjectFunctions_specificEnthalpy_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEnthalpy_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end specificEnthalpy_dTxi;
+    function destructor "free memory"
+      input VLEFluidPointerExternalObject vleFluidPointer;
+    external"C" TILMedia_VLEFluid_destroyExternalObject(vleFluidPointer)
+        annotation (
+        __iti_dllNoExport=true,
+        Include="void TILMedia_VLEFluid_destroyExternalObject(void*);",
+        Library="TILMedia140ClaRa");
+    end destructor;
+  end VLEFluidPointerExternalObject;
 
-  function pressure_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p "Pressure";
-  external "C" p = TILMedia_VLEFluidObjectFunctions_pressure_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_pressure_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end pressure_dTxi;
+  redeclare replaceable function pressure_dTxi =
+      TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.pressure_dTxi;
+  redeclare replaceable function specificEnthalpy_dTxi =
+      TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEnthalpy_dTxi;
+  redeclare replaceable function specificEntropy_dTxi =
+      TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEntropy_dTxi;
+  redeclare replaceable function extends moleFraction_dTxin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" x = TILMedia_VLEFluidObjectFunctions_moleFraction_dTxin(
+        d,
+        T,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_moleFraction_dTxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
 
-  function specificEntropy_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s "Specific entropy";
-  external "C" s = TILMedia_VLEFluidObjectFunctions_specificEntropy_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEntropy_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end specificEntropy_dTxi;
-
-  function moleFraction_dTxin
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MoleFraction x "Mole fraction";
-  external "C" x = TILMedia_VLEFluidObjectFunctions_moleFraction_dTxin(d, T, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_moleFraction_dTxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end moleFraction_dTxin;
 
-  function steamMassFraction_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction q "Vapor quality (steam mass fraction)";
-  external "C" q = TILMedia_VLEFluidObjectFunctions_steamMassFraction_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_steamMassFraction_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends steamMassFraction_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" q = TILMedia_VLEFluidObjectFunctions_steamMassFraction_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_steamMassFraction_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end steamMassFraction_dTxi;
 
-  function specificIsobaricHeatCapacity_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp "Specific isobaric heat capacity cp";
-  external "C" cp = TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends specificIsobaricHeatCapacity_dTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp =
+      TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end specificIsobaricHeatCapacity_dTxi;
 
-  function specificIsochoricHeatCapacity_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cv "Specific isochoric heat capacity cv";
-  external "C" cv = TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends specificIsochoricHeatCapacity_dTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cv =
+      TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end specificIsochoricHeatCapacity_dTxi;
 
-  function isobaricThermalExpansionCoefficient_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta "Isobaric thermal expansion coefficient";
-  external "C" beta = TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    isobaricThermalExpansionCoefficient_dTxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta =
+      TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end isobaricThermalExpansionCoefficient_dTxi;
 
-  function isothermalCompressibility_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa "Isothermal compressibility";
-  external "C" kappa = TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends isothermalCompressibility_dTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa =
+      TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end isothermalCompressibility_dTxi;
 
-  function speedOfSound_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Velocity w "Speed of sound";
-  external "C" w = TILMedia_VLEFluidObjectFunctions_speedOfSound_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_speedOfSound_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends speedOfSound_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" w = TILMedia_VLEFluidObjectFunctions_speedOfSound_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_speedOfSound_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end speedOfSound_dTxi;
 
-  function densityDerivativeWRTspecificEnthalpy_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.DerDensityByEnthalpy drhodh_pxi "Derivative of density wrt specific enthalpy at constant pressure and mass fraction";
-  external "C" drhodh_pxi = TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    densityDerivativeWRTspecificEnthalpy_dTxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" drhodh_pxi =
+      TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end densityDerivativeWRTspecificEnthalpy_dTxi;
 
-  function densityDerivativeWRTpressure_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.DerDensityByPressure drhodp_hxi "Derivative of density wrt pressure at specific enthalpy and mass fraction";
-  external "C" drhodp_hxi = TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends densityDerivativeWRTpressure_dTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" drhodp_hxi =
+      TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end densityDerivativeWRTpressure_dTxi;
 
-  function densityDerivativeWRTmassFraction_dTxin
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density drhodxi_ph "Derivative of density wrt mass fraction of water at constant pressure and specific enthalpy";
-  external "C" drhodxi_ph = TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_dTxin(d, T, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_dTxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends densityDerivativeWRTmassFraction_dTxin(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+
+  external"C" drhodxi_ph =
+      TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_dTxin(
+        d,
+        T,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_dTxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end densityDerivativeWRTmassFraction_dTxin;
 
-  function heatCapacityRatio_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.IsentropicExponent gamma "Heat capacity ratio aka isentropic expansion factor";
-  external "C" gamma = TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends heatCapacityRatio_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" gamma = TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end heatCapacityRatio_dTxi;
 
-  function prandtlNumber_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.PrandtlNumber Pr "Prandtl number";
-  external "C" Pr = TILMedia_VLEFluidObjectFunctions_prandtlNumber_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_prandtlNumber_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends prandtlNumber_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" Pr = TILMedia_VLEFluidObjectFunctions_prandtlNumber_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_prandtlNumber_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end prandtlNumber_dTxi;
 
-  function thermalConductivity_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.ThermalConductivity lambda "Thermal conductivity";
-  external "C" lambda = TILMedia_VLEFluidObjectFunctions_thermalConductivity_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_thermalConductivity_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends thermalConductivity_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" lambda =
+      TILMedia_VLEFluidObjectFunctions_thermalConductivity_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_thermalConductivity_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end thermalConductivity_dTxi;
 
-  function dynamicViscosity_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.DynamicViscosity eta "Dynamic viscosity";
-  external "C" eta = TILMedia_VLEFluidObjectFunctions_dynamicViscosity_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dynamicViscosity_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dynamicViscosity_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" eta = TILMedia_VLEFluidObjectFunctions_dynamicViscosity_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dynamicViscosity_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dynamicViscosity_dTxi;
 
-  function surfaceTension_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SurfaceTension sigma "Surface tension";
-  external "C" sigma = TILMedia_VLEFluidObjectFunctions_surfaceTension_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_surfaceTension_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends surfaceTension_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" sigma = TILMedia_VLEFluidObjectFunctions_surfaceTension_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_surfaceTension_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end surfaceTension_dTxi;
 
-  function liquidDensity_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d_l "Density of liquid phase";
-  external "C" d_l = TILMedia_VLEFluidObjectFunctions_liquidDensity_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidDensity_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidDensity_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" d_l = TILMedia_VLEFluidObjectFunctions_liquidDensity_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidDensity_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidDensity_dTxi;
 
-  function vapourDensity_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d_v "Density of vapour phase";
-  external "C" d_v = TILMedia_VLEFluidObjectFunctions_vapourDensity_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourDensity_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourDensity_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" d_v = TILMedia_VLEFluidObjectFunctions_vapourDensity_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourDensity_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourDensity_dTxi;
 
-  function liquidSpecificEnthalpy_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h_l "Specific enthalpy of liquid phase";
-  external "C" h_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidSpecificEnthalpy_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" h_l =
+      TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidSpecificEnthalpy_dTxi;
 
-  function vapourSpecificEnthalpy_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h_v "Specific enthalpy of vapour phase";
-  external "C" h_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourSpecificEnthalpy_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" h_v =
+      TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourSpecificEnthalpy_dTxi;
 
-  function liquidPressure_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_l "Pressure of liquid phase";
-  external "C" p_l = TILMedia_VLEFluidObjectFunctions_liquidPressure_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidPressure_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidPressure_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" p_l = TILMedia_VLEFluidObjectFunctions_liquidPressure_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidPressure_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidPressure_dTxi;
 
-  function vapourPressure_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_v "Pressure of vapour phase";
-  external "C" p_v = TILMedia_VLEFluidObjectFunctions_vapourPressure_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourPressure_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourPressure_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" p_v = TILMedia_VLEFluidObjectFunctions_vapourPressure_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourPressure_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourPressure_dTxi;
 
-  function liquidSpecificEntropy_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s_l "Specific entropy of liquid phase";
-  external "C" s_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidSpecificEntropy_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" s_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidSpecificEntropy_dTxi;
 
-  function vapourSpecificEntropy_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s_v "Specific entropy of vapour phase";
-  external "C" s_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourSpecificEntropy_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" s_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourSpecificEntropy_dTxi;
 
-  function liquidTemperature_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_l "Temperature of liquid phase";
-  external "C" T_l = TILMedia_VLEFluidObjectFunctions_liquidTemperature_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidTemperature_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidTemperature_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" T_l = TILMedia_VLEFluidObjectFunctions_liquidTemperature_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidTemperature_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidTemperature_dTxi;
 
-  function vapourTemperature_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_v "Temperature of vapour phase";
-  external "C" T_v = TILMedia_VLEFluidObjectFunctions_vapourTemperature_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourTemperature_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourTemperature_dTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" T_v = TILMedia_VLEFluidObjectFunctions_vapourTemperature_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourTemperature_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourTemperature_dTxi;
 
-  function liquidMassFraction_dTxin
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction xi_l "Mass fraction of liquid phase";
-  external "C" xi_l = TILMedia_VLEFluidObjectFunctions_liquidMassFraction_dTxin(d, T, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidMassFraction_dTxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidMassFraction_dTxin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" xi_l = TILMedia_VLEFluidObjectFunctions_liquidMassFraction_dTxin(
+        d,
+        T,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidMassFraction_dTxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidMassFraction_dTxin;
 
-  function vapourMassFraction_dTxin
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction xi_v "Mass fraction of vapour phase";
-  external "C" xi_v = TILMedia_VLEFluidObjectFunctions_vapourMassFraction_dTxin(d, T, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourMassFraction_dTxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourMassFraction_dTxin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" xi_v = TILMedia_VLEFluidObjectFunctions_vapourMassFraction_dTxin(
+        d,
+        T,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourMassFraction_dTxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourMassFraction_dTxin;
 
-  function liquidSpecificHeatCapacity_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp_l "Specific heat capacity cp of liquid phase";
-  external "C" cp_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidSpecificHeatCapacity_dTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp_l =
+      TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidSpecificHeatCapacity_dTxi;
 
-  function vapourSpecificHeatCapacity_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp_v "Specific heat capacity cp of vapour phase";
-  external "C" cp_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourSpecificHeatCapacity_dTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp_v =
+      TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourSpecificHeatCapacity_dTxi;
 
-  function liquidIsobaricThermalExpansionCoefficient_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta_l "Isobaric expansion coefficient of liquid phase";
-  external "C" beta_l = TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    liquidIsobaricThermalExpansionCoefficient_dTxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta_l =
+      TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidIsobaricThermalExpansionCoefficient_dTxi;
 
-  function vapourIsobaricThermalExpansionCoefficient_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta_v "Isobaric expansion coefficient of vapour phase";
-  external "C" beta_v = TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    vapourIsobaricThermalExpansionCoefficient_dTxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta_v =
+      TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourIsobaricThermalExpansionCoefficient_dTxi;
 
-  function liquidIsothermalCompressibility_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa_l "Isothermal compressibility of liquid phase";
-  external "C" kappa_l = TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidIsothermalCompressibility_dTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa_l =
+      TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidIsothermalCompressibility_dTxi;
 
-  function vapourIsothermalCompressibility_dTxi
-    input SI.Density d "Density";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa_v "Isothermal compressibility of vapour phase";
-  external "C" kappa_v = TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_dTxi(d, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_dTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourIsothermalCompressibility_dTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa_v =
+      TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_dTxi(
+        d,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_dTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourIsothermalCompressibility_dTxi;
+  redeclare replaceable function density_phxi =
+      TILMedia.Internals.VLEFluidObjectFunctions.density_phxi;
+  redeclare replaceable function temperature_phxi =
+      TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.temperature_phxi;
+  redeclare replaceable function specificEntropy_phxi =
+      TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEntropy_phxi;
+  redeclare replaceable function extends moleFraction_phxin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" x = TILMedia_VLEFluidObjectFunctions_moleFraction_phxin(
+        p,
+        h,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_moleFraction_phxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
 
-
-  function density_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d "Density";
-  external "C" d = TILMedia_VLEFluidObjectFunctions_density_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_density_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end density_phxi;
-
-  function specificEntropy_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s "Specific entropy";
-  external "C" s = TILMedia_VLEFluidObjectFunctions_specificEntropy_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEntropy_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end specificEntropy_phxi;
-
-  function temperature_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T "Temperature";
-  external "C" T = TILMedia_VLEFluidObjectFunctions_temperature_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_temperature_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end temperature_phxi;
-
-  function moleFraction_phxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MoleFraction x "Mole fraction";
-  external "C" x = TILMedia_VLEFluidObjectFunctions_moleFraction_phxin(p, h, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_moleFraction_phxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end moleFraction_phxin;
 
-  function steamMassFraction_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction q "Vapor quality (steam mass fraction)";
-  external "C" q = TILMedia_VLEFluidObjectFunctions_steamMassFraction_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_steamMassFraction_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends steamMassFraction_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" q = TILMedia_VLEFluidObjectFunctions_steamMassFraction_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_steamMassFraction_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end steamMassFraction_phxi;
 
-  function specificIsobaricHeatCapacity_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp "Specific isobaric heat capacity cp";
-  external "C" cp = TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends specificIsobaricHeatCapacity_phxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp =
+      TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end specificIsobaricHeatCapacity_phxi;
 
-  function specificIsochoricHeatCapacity_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cv "Specific isochoric heat capacity cv";
-  external "C" cv = TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends specificIsochoricHeatCapacity_phxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cv =
+      TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end specificIsochoricHeatCapacity_phxi;
 
-  function isobaricThermalExpansionCoefficient_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta "Isobaric thermal expansion coefficient";
-  external "C" beta = TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    isobaricThermalExpansionCoefficient_phxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta =
+      TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end isobaricThermalExpansionCoefficient_phxi;
 
-  function isothermalCompressibility_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa "Isothermal compressibility";
-  external "C" kappa = TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends isothermalCompressibility_phxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa =
+      TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end isothermalCompressibility_phxi;
 
-  function speedOfSound_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Velocity w "Speed of sound";
-  external "C" w = TILMedia_VLEFluidObjectFunctions_speedOfSound_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_speedOfSound_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends speedOfSound_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" w = TILMedia_VLEFluidObjectFunctions_speedOfSound_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_speedOfSound_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end speedOfSound_phxi;
 
-  function densityDerivativeWRTspecificEnthalpy_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.DerDensityByEnthalpy drhodh_pxi "Derivative of density wrt specific enthalpy at constant pressure and mass fraction";
-  external "C" drhodh_pxi = TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    densityDerivativeWRTspecificEnthalpy_phxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" drhodh_pxi =
+      TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end densityDerivativeWRTspecificEnthalpy_phxi;
 
-  function densityDerivativeWRTpressure_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.DerDensityByPressure drhodp_hxi "Derivative of density wrt pressure at specific enthalpy and mass fraction";
-  external "C" drhodp_hxi = TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends densityDerivativeWRTpressure_phxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" drhodp_hxi =
+      TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end densityDerivativeWRTpressure_phxi;
 
-  function densityDerivativeWRTmassFraction_phxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density drhodxi_ph "Derivative of density wrt mass fraction of water at constant pressure and specific enthalpy";
-  external "C" drhodxi_ph = TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_phxin(p, h, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_phxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends densityDerivativeWRTmassFraction_phxin(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+
+  external"C" drhodxi_ph =
+      TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_phxin(
+        p,
+        h,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_phxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end densityDerivativeWRTmassFraction_phxin;
 
-  function heatCapacityRatio_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.IsentropicExponent gamma "Heat capacity ratio aka isentropic expansion factor";
-  external "C" gamma = TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends heatCapacityRatio_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" gamma = TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end heatCapacityRatio_phxi;
 
-  function prandtlNumber_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.PrandtlNumber Pr "Prandtl number";
-  external "C" Pr = TILMedia_VLEFluidObjectFunctions_prandtlNumber_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_prandtlNumber_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends prandtlNumber_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" Pr = TILMedia_VLEFluidObjectFunctions_prandtlNumber_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_prandtlNumber_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end prandtlNumber_phxi;
 
-  function thermalConductivity_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.ThermalConductivity lambda "Thermal conductivity";
-  external "C" lambda = TILMedia_VLEFluidObjectFunctions_thermalConductivity_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_thermalConductivity_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends thermalConductivity_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" lambda =
+      TILMedia_VLEFluidObjectFunctions_thermalConductivity_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_thermalConductivity_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end thermalConductivity_phxi;
 
-  function dynamicViscosity_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.DynamicViscosity eta "Dynamic viscosity";
-  external "C" eta = TILMedia_VLEFluidObjectFunctions_dynamicViscosity_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dynamicViscosity_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dynamicViscosity_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" eta = TILMedia_VLEFluidObjectFunctions_dynamicViscosity_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dynamicViscosity_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dynamicViscosity_phxi;
 
-  function surfaceTension_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SurfaceTension sigma "Surface tension";
-  external "C" sigma = TILMedia_VLEFluidObjectFunctions_surfaceTension_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_surfaceTension_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends surfaceTension_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" sigma = TILMedia_VLEFluidObjectFunctions_surfaceTension_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_surfaceTension_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end surfaceTension_phxi;
 
-  function liquidDensity_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d_l "Density of liquid phase";
-  external "C" d_l = TILMedia_VLEFluidObjectFunctions_liquidDensity_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidDensity_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidDensity_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" d_l = TILMedia_VLEFluidObjectFunctions_liquidDensity_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidDensity_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidDensity_phxi;
 
-  function vapourDensity_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d_v "Density of vapour phase";
-  external "C" d_v = TILMedia_VLEFluidObjectFunctions_vapourDensity_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourDensity_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourDensity_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" d_v = TILMedia_VLEFluidObjectFunctions_vapourDensity_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourDensity_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourDensity_phxi;
 
-  function liquidSpecificEnthalpy_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h_l "Specific enthalpy of liquid phase";
-  external "C" h_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidSpecificEnthalpy_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" h_l =
+      TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidSpecificEnthalpy_phxi;
 
-  function vapourSpecificEnthalpy_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h_v "Specific enthalpy of vapour phase";
-  external "C" h_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourSpecificEnthalpy_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" h_v =
+      TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourSpecificEnthalpy_phxi;
 
-  function liquidPressure_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_l "Pressure of liquid phase";
-  external "C" p_l = TILMedia_VLEFluidObjectFunctions_liquidPressure_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidPressure_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end liquidPressure_phxi;
+  redeclare replaceable function extends liquidSpecificEntropy_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" s_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
 
-  function vapourPressure_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_v "Pressure of vapour phase";
-  external "C" p_v = TILMedia_VLEFluidObjectFunctions_vapourPressure_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourPressure_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end vapourPressure_phxi;
-
-  function liquidSpecificEntropy_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s_l "Specific entropy of liquid phase";
-  external "C" s_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end liquidSpecificEntropy_phxi;
 
-  function vapourSpecificEntropy_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s_v "Specific entropy of vapour phase";
-  external "C" s_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourSpecificEntropy_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" s_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourSpecificEntropy_phxi;
 
-  function liquidTemperature_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_l "Temperature of liquid phase";
-  external "C" T_l = TILMedia_VLEFluidObjectFunctions_liquidTemperature_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidTemperature_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidTemperature_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" T_l = TILMedia_VLEFluidObjectFunctions_liquidTemperature_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidTemperature_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidTemperature_phxi;
 
-  function vapourTemperature_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_v "Temperature of vapour phase";
-  external "C" T_v = TILMedia_VLEFluidObjectFunctions_vapourTemperature_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourTemperature_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourTemperature_phxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" T_v = TILMedia_VLEFluidObjectFunctions_vapourTemperature_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourTemperature_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourTemperature_phxi;
 
-  function liquidMassFraction_phxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction xi_l "Mass fraction of liquid phase";
-  external "C" xi_l = TILMedia_VLEFluidObjectFunctions_liquidMassFraction_phxin(p, h, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidMassFraction_phxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidMassFraction_phxin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" xi_l = TILMedia_VLEFluidObjectFunctions_liquidMassFraction_phxin(
+        p,
+        h,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidMassFraction_phxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidMassFraction_phxin;
 
-  function vapourMassFraction_phxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction xi_v "Mass fraction of vapour phase";
-  external "C" xi_v = TILMedia_VLEFluidObjectFunctions_vapourMassFraction_phxin(p, h, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourMassFraction_phxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourMassFraction_phxin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" xi_v = TILMedia_VLEFluidObjectFunctions_vapourMassFraction_phxin(
+        p,
+        h,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourMassFraction_phxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourMassFraction_phxin;
 
-  function liquidSpecificHeatCapacity_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp_l "Specific heat capacity cp of liquid phase";
-  external "C" cp_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidSpecificHeatCapacity_phxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp_l =
+      TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidSpecificHeatCapacity_phxi;
 
-  function vapourSpecificHeatCapacity_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp_v "Specific heat capacity cp of vapour phase";
-  external "C" cp_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourSpecificHeatCapacity_phxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp_v =
+      TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourSpecificHeatCapacity_phxi;
 
-  function liquidIsobaricThermalExpansionCoefficient_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta_l "Isobaric expansion coefficient of liquid phase";
-  external "C" beta_l = TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    liquidIsobaricThermalExpansionCoefficient_phxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta_l =
+      TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidIsobaricThermalExpansionCoefficient_phxi;
 
-  function vapourIsobaricThermalExpansionCoefficient_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta_v "Isobaric expansion coefficient of vapour phase";
-  external "C" beta_v = TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    vapourIsobaricThermalExpansionCoefficient_phxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta_v =
+      TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourIsobaricThermalExpansionCoefficient_phxi;
 
-  function liquidIsothermalCompressibility_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa_l "Isothermal compressibility of liquid phase";
-  external "C" kappa_l = TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidIsothermalCompressibility_phxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa_l =
+      TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidIsothermalCompressibility_phxi;
 
-  function vapourIsothermalCompressibility_phxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa_v "Isothermal compressibility of vapour phase";
-  external "C" kappa_v = TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_phxi(p, h, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_phxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourIsothermalCompressibility_phxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa_v =
+      TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_phxi(
+        p,
+        h,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_phxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourIsothermalCompressibility_phxi;
+  redeclare replaceable function density_psxi =
+      TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_psxi;
+  redeclare replaceable function temperature_psxi =
+      TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.temperature_psxi;
+  redeclare replaceable function specificEnthalpy_psxi =
+      TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEnthalpy_psxi;
+  redeclare replaceable function extends moleFraction_psxin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" x = TILMedia_VLEFluidObjectFunctions_moleFraction_psxin(
+        p,
+        s,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_moleFraction_psxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
 
-
-  function density_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d "Density";
-  external "C" d = TILMedia_VLEFluidObjectFunctions_density_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_density_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end density_psxi;
-
-  function specificEnthalpy_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h "Specific enthalpy";
-  external "C" h = TILMedia_VLEFluidObjectFunctions_specificEnthalpy_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEnthalpy_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end specificEnthalpy_psxi;
-
-  function temperature_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T "Temperature";
-  external "C" T = TILMedia_VLEFluidObjectFunctions_temperature_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_temperature_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end temperature_psxi;
-
-  function moleFraction_psxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MoleFraction x "Mole fraction";
-  external "C" x = TILMedia_VLEFluidObjectFunctions_moleFraction_psxin(p, s, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_moleFraction_psxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end moleFraction_psxin;
 
-  function steamMassFraction_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction q "Vapor quality (steam mass fraction)";
-  external "C" q = TILMedia_VLEFluidObjectFunctions_steamMassFraction_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_steamMassFraction_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends steamMassFraction_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" q = TILMedia_VLEFluidObjectFunctions_steamMassFraction_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_steamMassFraction_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end steamMassFraction_psxi;
 
-  function specificIsobaricHeatCapacity_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp "Specific isobaric heat capacity cp";
-  external "C" cp = TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends specificIsobaricHeatCapacity_psxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp =
+      TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end specificIsobaricHeatCapacity_psxi;
 
-  function specificIsochoricHeatCapacity_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cv "Specific isochoric heat capacity cv";
-  external "C" cv = TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends specificIsochoricHeatCapacity_psxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+
+
+
+
+
+  external"C" cv =
+      TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end specificIsochoricHeatCapacity_psxi;
 
-  function isobaricThermalExpansionCoefficient_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta "Isobaric thermal expansion coefficient";
-  external "C" beta = TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    isobaricThermalExpansionCoefficient_psxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta =
+      TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end isobaricThermalExpansionCoefficient_psxi;
 
-  function isothermalCompressibility_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa "Isothermal compressibility";
-  external "C" kappa = TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends isothermalCompressibility_psxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa =
+      TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end isothermalCompressibility_psxi;
 
-  function speedOfSound_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Velocity w "Speed of sound";
-  external "C" w = TILMedia_VLEFluidObjectFunctions_speedOfSound_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_speedOfSound_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends speedOfSound_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" w = TILMedia_VLEFluidObjectFunctions_speedOfSound_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_speedOfSound_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end speedOfSound_psxi;
 
-  function densityDerivativeWRTspecificEnthalpy_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.DerDensityByEnthalpy drhodh_pxi "Derivative of density wrt specific enthalpy at constant pressure and mass fraction";
-  external "C" drhodh_pxi = TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    densityDerivativeWRTspecificEnthalpy_psxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" drhodh_pxi =
+      TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end densityDerivativeWRTspecificEnthalpy_psxi;
 
-  function densityDerivativeWRTpressure_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.DerDensityByPressure drhodp_hxi "Derivative of density wrt pressure at specific enthalpy and mass fraction";
-  external "C" drhodp_hxi = TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends densityDerivativeWRTpressure_psxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" drhodp_hxi =
+      TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end densityDerivativeWRTpressure_psxi;
 
-  function densityDerivativeWRTmassFraction_psxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density drhodxi_ph "Derivative of density wrt mass fraction of water at constant pressure and specific enthalpy";
-  external "C" drhodxi_ph = TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_psxin(p, s, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_psxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends densityDerivativeWRTmassFraction_psxin(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+
+  external"C" drhodxi_ph =
+      TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_psxin(
+        p,
+        s,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_psxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end densityDerivativeWRTmassFraction_psxin;
 
-  function heatCapacityRatio_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.IsentropicExponent gamma "Heat capacity ratio aka isentropic expansion factor";
-  external "C" gamma = TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends heatCapacityRatio_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" gamma = TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end heatCapacityRatio_psxi;
 
-  function prandtlNumber_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.PrandtlNumber Pr "Prandtl number";
-  external "C" Pr = TILMedia_VLEFluidObjectFunctions_prandtlNumber_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_prandtlNumber_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends prandtlNumber_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" Pr = TILMedia_VLEFluidObjectFunctions_prandtlNumber_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_prandtlNumber_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end prandtlNumber_psxi;
 
-  function thermalConductivity_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.ThermalConductivity lambda "Thermal conductivity";
-  external "C" lambda = TILMedia_VLEFluidObjectFunctions_thermalConductivity_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_thermalConductivity_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends thermalConductivity_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" lambda =
+      TILMedia_VLEFluidObjectFunctions_thermalConductivity_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_thermalConductivity_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end thermalConductivity_psxi;
 
-  function dynamicViscosity_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.DynamicViscosity eta "Dynamic viscosity";
-  external "C" eta = TILMedia_VLEFluidObjectFunctions_dynamicViscosity_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dynamicViscosity_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dynamicViscosity_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" eta = TILMedia_VLEFluidObjectFunctions_dynamicViscosity_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dynamicViscosity_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dynamicViscosity_psxi;
 
-  function surfaceTension_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SurfaceTension sigma "Surface tension";
-  external "C" sigma = TILMedia_VLEFluidObjectFunctions_surfaceTension_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_surfaceTension_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends surfaceTension_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" sigma = TILMedia_VLEFluidObjectFunctions_surfaceTension_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_surfaceTension_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end surfaceTension_psxi;
 
-  function liquidDensity_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d_l "Density of liquid phase";
-  external "C" d_l = TILMedia_VLEFluidObjectFunctions_liquidDensity_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidDensity_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidDensity_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" d_l = TILMedia_VLEFluidObjectFunctions_liquidDensity_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidDensity_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidDensity_psxi;
 
-  function vapourDensity_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d_v "Density of vapour phase";
-  external "C" d_v = TILMedia_VLEFluidObjectFunctions_vapourDensity_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourDensity_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourDensity_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" d_v = TILMedia_VLEFluidObjectFunctions_vapourDensity_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourDensity_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourDensity_psxi;
 
-  function liquidSpecificEnthalpy_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h_l "Specific enthalpy of liquid phase";
-  external "C" h_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidSpecificEnthalpy_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" h_l =
+      TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidSpecificEnthalpy_psxi;
 
-  function vapourSpecificEnthalpy_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h_v "Specific enthalpy of vapour phase";
-  external "C" h_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourSpecificEnthalpy_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" h_v =
+      TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourSpecificEnthalpy_psxi;
 
-  function liquidPressure_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_l "Pressure of liquid phase";
-  external "C" p_l = TILMedia_VLEFluidObjectFunctions_liquidPressure_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidPressure_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end liquidPressure_psxi;
+  redeclare replaceable function extends liquidSpecificEntropy_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" s_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
 
-  function vapourPressure_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_v "Pressure of vapour phase";
-  external "C" p_v = TILMedia_VLEFluidObjectFunctions_vapourPressure_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourPressure_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end vapourPressure_psxi;
-
-  function liquidSpecificEntropy_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s_l "Specific entropy of liquid phase";
-  external "C" s_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end liquidSpecificEntropy_psxi;
 
-  function vapourSpecificEntropy_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s_v "Specific entropy of vapour phase";
-  external "C" s_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourSpecificEntropy_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" s_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourSpecificEntropy_psxi;
 
-  function liquidTemperature_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_l "Temperature of liquid phase";
-  external "C" T_l = TILMedia_VLEFluidObjectFunctions_liquidTemperature_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidTemperature_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidTemperature_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" T_l = TILMedia_VLEFluidObjectFunctions_liquidTemperature_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidTemperature_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidTemperature_psxi;
 
-  function vapourTemperature_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_v "Temperature of vapour phase";
-  external "C" T_v = TILMedia_VLEFluidObjectFunctions_vapourTemperature_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourTemperature_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourTemperature_psxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" T_v = TILMedia_VLEFluidObjectFunctions_vapourTemperature_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourTemperature_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourTemperature_psxi;
 
-  function liquidMassFraction_psxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction xi_l "Mass fraction of liquid phase";
-  external "C" xi_l = TILMedia_VLEFluidObjectFunctions_liquidMassFraction_psxin(p, s, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidMassFraction_psxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidMassFraction_psxin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" xi_l = TILMedia_VLEFluidObjectFunctions_liquidMassFraction_psxin(
+        p,
+        s,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidMassFraction_psxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidMassFraction_psxin;
 
-  function vapourMassFraction_psxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction xi_v "Mass fraction of vapour phase";
-  external "C" xi_v = TILMedia_VLEFluidObjectFunctions_vapourMassFraction_psxin(p, s, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourMassFraction_psxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourMassFraction_psxin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" xi_v = TILMedia_VLEFluidObjectFunctions_vapourMassFraction_psxin(
+        p,
+        s,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourMassFraction_psxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourMassFraction_psxin;
 
-  function liquidSpecificHeatCapacity_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp_l "Specific heat capacity cp of liquid phase";
-  external "C" cp_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidSpecificHeatCapacity_psxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp_l =
+      TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidSpecificHeatCapacity_psxi;
 
-  function vapourSpecificHeatCapacity_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp_v "Specific heat capacity cp of vapour phase";
-  external "C" cp_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourSpecificHeatCapacity_psxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp_v =
+      TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourSpecificHeatCapacity_psxi;
 
-  function liquidIsobaricThermalExpansionCoefficient_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta_l "Isobaric expansion coefficient of liquid phase";
-  external "C" beta_l = TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    liquidIsobaricThermalExpansionCoefficient_psxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta_l =
+      TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidIsobaricThermalExpansionCoefficient_psxi;
 
-  function vapourIsobaricThermalExpansionCoefficient_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta_v "Isobaric expansion coefficient of vapour phase";
-  external "C" beta_v = TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    vapourIsobaricThermalExpansionCoefficient_psxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta_v =
+      TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourIsobaricThermalExpansionCoefficient_psxi;
 
-  function liquidIsothermalCompressibility_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa_l "Isothermal compressibility of liquid phase";
-  external "C" kappa_l = TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidIsothermalCompressibility_psxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa_l =
+      TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidIsothermalCompressibility_psxi;
 
-  function vapourIsothermalCompressibility_psxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa_v "Isothermal compressibility of vapour phase";
-  external "C" kappa_v = TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_psxi(p, s, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_psxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourIsothermalCompressibility_psxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa_v =
+      TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_psxi(
+        p,
+        s,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_psxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourIsothermalCompressibility_psxi;
+  redeclare replaceable function density_pTxi =
+      TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_pTxi;
+  redeclare replaceable function specificEnthalpy_pTxi =
+      TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEnthalpy_pTxi;
+  redeclare replaceable function specificEntropy_pTxi =
+      TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEntropy_pTxi;
+  redeclare replaceable function extends moleFraction_pTxin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" x = TILMedia_VLEFluidObjectFunctions_moleFraction_pTxin(
+        p,
+        T,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_moleFraction_pTxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
 
-
-  function density_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d "Density";
-  external "C" d = TILMedia_VLEFluidObjectFunctions_density_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_density_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end density_pTxi;
-
-  function specificEnthalpy_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h "Specific enthalpy";
-  external "C" h = TILMedia_VLEFluidObjectFunctions_specificEnthalpy_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEnthalpy_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end specificEnthalpy_pTxi;
-
-  function specificEntropy_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s "Specific entropy";
-  external "C" s = TILMedia_VLEFluidObjectFunctions_specificEntropy_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEntropy_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end specificEntropy_pTxi;
-
-  function moleFraction_pTxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MoleFraction x "Mole fraction";
-  external "C" x = TILMedia_VLEFluidObjectFunctions_moleFraction_pTxin(p, T, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_moleFraction_pTxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end moleFraction_pTxin;
 
-  function steamMassFraction_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction q "Vapor quality (steam mass fraction)";
-  external "C" q = TILMedia_VLEFluidObjectFunctions_steamMassFraction_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_steamMassFraction_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends steamMassFraction_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" q = TILMedia_VLEFluidObjectFunctions_steamMassFraction_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_steamMassFraction_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end steamMassFraction_pTxi;
 
-  function specificIsobaricHeatCapacity_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp "Specific isobaric heat capacity cp";
-  external "C" cp = TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends specificIsobaricHeatCapacity_pTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp =
+      TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_specificIsobaricHeatCapacity_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end specificIsobaricHeatCapacity_pTxi;
 
-  function specificIsochoricHeatCapacity_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cv "Specific isochoric heat capacity cv";
-  external "C" cv = TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends specificIsochoricHeatCapacity_pTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+
+
+
+
+
+  external"C" cv =
+      TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_specificIsochoricHeatCapacity_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end specificIsochoricHeatCapacity_pTxi;
 
-  function isobaricThermalExpansionCoefficient_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta "Isobaric thermal expansion coefficient";
-  external "C" beta = TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    isobaricThermalExpansionCoefficient_pTxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta =
+      TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_isobaricThermalExpansionCoefficient_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end isobaricThermalExpansionCoefficient_pTxi;
 
-  function isothermalCompressibility_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa "Isothermal compressibility";
-  external "C" kappa = TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends isothermalCompressibility_pTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa =
+      TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_isothermalCompressibility_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end isothermalCompressibility_pTxi;
 
-  function speedOfSound_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Velocity w "Speed of sound";
-  external "C" w = TILMedia_VLEFluidObjectFunctions_speedOfSound_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_speedOfSound_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends speedOfSound_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" w = TILMedia_VLEFluidObjectFunctions_speedOfSound_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_speedOfSound_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end speedOfSound_pTxi;
 
-  function densityDerivativeWRTspecificEnthalpy_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.DerDensityByEnthalpy drhodh_pxi "Derivative of density wrt specific enthalpy at constant pressure and mass fraction";
-  external "C" drhodh_pxi = TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    densityDerivativeWRTspecificEnthalpy_pTxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" drhodh_pxi =
+      TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTspecificEnthalpy_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end densityDerivativeWRTspecificEnthalpy_pTxi;
 
-  function densityDerivativeWRTpressure_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.DerDensityByPressure drhodp_hxi "Derivative of density wrt pressure at specific enthalpy and mass fraction";
-  external "C" drhodp_hxi = TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends densityDerivativeWRTpressure_pTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" drhodp_hxi =
+      TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTpressure_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end densityDerivativeWRTpressure_pTxi;
 
-  function densityDerivativeWRTmassFraction_pTxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density drhodxi_ph "Derivative of density wrt mass fraction of water at constant pressure and specific enthalpy";
-  external "C" drhodxi_ph = TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_pTxin(p, T, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_pTxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends densityDerivativeWRTmassFraction_pTxin(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+
+  external"C" drhodxi_ph =
+      TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_pTxin(
+        p,
+        T,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_densityDerivativeWRTmassFraction_pTxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end densityDerivativeWRTmassFraction_pTxin;
 
-  function heatCapacityRatio_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.IsentropicExponent gamma "Heat capacity ratio aka isentropic expansion factor";
-  external "C" gamma = TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends heatCapacityRatio_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" gamma = TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_heatCapacityRatio_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end heatCapacityRatio_pTxi;
 
-  function prandtlNumber_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.PrandtlNumber Pr "Prandtl number";
-  external "C" Pr = TILMedia_VLEFluidObjectFunctions_prandtlNumber_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_prandtlNumber_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends prandtlNumber_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" Pr = TILMedia_VLEFluidObjectFunctions_prandtlNumber_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_prandtlNumber_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end prandtlNumber_pTxi;
 
-  function thermalConductivity_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.ThermalConductivity lambda "Thermal conductivity";
-  external "C" lambda = TILMedia_VLEFluidObjectFunctions_thermalConductivity_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_thermalConductivity_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends thermalConductivity_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" lambda =
+      TILMedia_VLEFluidObjectFunctions_thermalConductivity_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_thermalConductivity_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end thermalConductivity_pTxi;
 
-  function dynamicViscosity_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.DynamicViscosity eta "Dynamic viscosity";
-  external "C" eta = TILMedia_VLEFluidObjectFunctions_dynamicViscosity_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dynamicViscosity_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dynamicViscosity_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" eta = TILMedia_VLEFluidObjectFunctions_dynamicViscosity_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dynamicViscosity_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dynamicViscosity_pTxi;
 
-  function surfaceTension_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SurfaceTension sigma "Surface tension";
-  external "C" sigma = TILMedia_VLEFluidObjectFunctions_surfaceTension_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_surfaceTension_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends surfaceTension_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" sigma = TILMedia_VLEFluidObjectFunctions_surfaceTension_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_surfaceTension_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end surfaceTension_pTxi;
 
-  function liquidDensity_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d_l "Density of liquid phase";
-  external "C" d_l = TILMedia_VLEFluidObjectFunctions_liquidDensity_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidDensity_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidDensity_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" d_l = TILMedia_VLEFluidObjectFunctions_liquidDensity_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidDensity_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidDensity_pTxi;
 
-  function vapourDensity_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d_v "Density of vapour phase";
-  external "C" d_v = TILMedia_VLEFluidObjectFunctions_vapourDensity_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourDensity_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourDensity_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" d_v = TILMedia_VLEFluidObjectFunctions_vapourDensity_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourDensity_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourDensity_pTxi;
 
-  function liquidSpecificEnthalpy_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h_l "Specific enthalpy of liquid phase";
-  external "C" h_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidSpecificEnthalpy_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" h_l =
+      TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEnthalpy_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidSpecificEnthalpy_pTxi;
 
-  function vapourSpecificEnthalpy_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h_v "Specific enthalpy of vapour phase";
-  external "C" h_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourSpecificEnthalpy_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" h_v =
+      TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEnthalpy_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourSpecificEnthalpy_pTxi;
 
-  function liquidPressure_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_l "Pressure of liquid phase";
-  external "C" p_l = TILMedia_VLEFluidObjectFunctions_liquidPressure_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidPressure_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end liquidPressure_pTxi;
+  redeclare replaceable function extends liquidSpecificEntropy_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" s_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
 
-  function vapourPressure_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_v "Pressure of vapour phase";
-  external "C" p_v = TILMedia_VLEFluidObjectFunctions_vapourPressure_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourPressure_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end vapourPressure_pTxi;
-
-  function liquidSpecificEntropy_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s_l "Specific entropy of liquid phase";
-  external "C" s_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificEntropy_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end liquidSpecificEntropy_pTxi;
 
-  function vapourSpecificEntropy_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s_v "Specific entropy of vapour phase";
-  external "C" s_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourSpecificEntropy_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" s_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificEntropy_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourSpecificEntropy_pTxi;
 
-  function liquidTemperature_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_l "Temperature of liquid phase";
-  external "C" T_l = TILMedia_VLEFluidObjectFunctions_liquidTemperature_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidTemperature_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidTemperature_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" T_l = TILMedia_VLEFluidObjectFunctions_liquidTemperature_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidTemperature_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidTemperature_pTxi;
 
-  function vapourTemperature_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_v "Temperature of vapour phase";
-  external "C" T_v = TILMedia_VLEFluidObjectFunctions_vapourTemperature_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourTemperature_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourTemperature_pTxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" T_v = TILMedia_VLEFluidObjectFunctions_vapourTemperature_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourTemperature_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourTemperature_pTxi;
 
-  function liquidMassFraction_pTxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction xi_l "Mass fraction of liquid phase";
-  external "C" xi_l = TILMedia_VLEFluidObjectFunctions_liquidMassFraction_pTxin(p, T, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidMassFraction_pTxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidMassFraction_pTxin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" xi_l = TILMedia_VLEFluidObjectFunctions_liquidMassFraction_pTxin(
+        p,
+        T,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidMassFraction_pTxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidMassFraction_pTxin;
 
-  function vapourMassFraction_pTxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction xi_v "Mass fraction of vapour phase";
-  external "C" xi_v = TILMedia_VLEFluidObjectFunctions_vapourMassFraction_pTxin(p, T, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourMassFraction_pTxin(double, double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourMassFraction_pTxin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" xi_v = TILMedia_VLEFluidObjectFunctions_vapourMassFraction_pTxin(
+        p,
+        T,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourMassFraction_pTxin(double, double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourMassFraction_pTxin;
 
-  function liquidSpecificHeatCapacity_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp_l "Specific heat capacity cp of liquid phase";
-  external "C" cp_l = TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidSpecificHeatCapacity_pTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp_l =
+      TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidSpecificHeatCapacity_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidSpecificHeatCapacity_pTxi;
 
-  function vapourSpecificHeatCapacity_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp_v "Specific heat capacity cp of vapour phase";
-  external "C" cp_v = TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourSpecificHeatCapacity_pTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp_v =
+      TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourSpecificHeatCapacity_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourSpecificHeatCapacity_pTxi;
 
-  function liquidIsobaricThermalExpansionCoefficient_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta_l "Isobaric expansion coefficient of liquid phase";
-  external "C" beta_l = TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    liquidIsobaricThermalExpansionCoefficient_pTxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta_l =
+      TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidIsobaricThermalExpansionCoefficient_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidIsobaricThermalExpansionCoefficient_pTxi;
 
-  function vapourIsobaricThermalExpansionCoefficient_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta_v "Isobaric expansion coefficient of vapour phase";
-  external "C" beta_v = TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    vapourIsobaricThermalExpansionCoefficient_pTxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta_v =
+      TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourIsobaricThermalExpansionCoefficient_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourIsobaricThermalExpansionCoefficient_pTxi;
 
-  function liquidIsothermalCompressibility_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa_l "Isothermal compressibility of liquid phase";
-  external "C" kappa_l = TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends liquidIsothermalCompressibility_pTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa_l =
+      TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_liquidIsothermalCompressibility_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end liquidIsothermalCompressibility_pTxi;
 
-  function vapourIsothermalCompressibility_pTxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa_v "Isothermal compressibility of vapour phase";
-  external "C" kappa_v = TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_pTxi(p, T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_pTxi(double, double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends vapourIsothermalCompressibility_pTxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa_v =
+      TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_pTxi(
+        p,
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_vapourIsothermalCompressibility_pTxi(double, double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end vapourIsothermalCompressibility_pTxi;
 
+  redeclare replaceable function extends dewDensity_Txi(redeclare replaceable input
+            VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" d_dew = TILMedia_VLEFluidObjectFunctions_dewDensity_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewDensity_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
 
-
-  function dewDensity_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d_dew "Density at dew point";
-  external "C" d_dew = TILMedia_VLEFluidObjectFunctions_dewDensity_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewDensity_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end dewDensity_Txi;
 
-  function bubbleDensity_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d_bubble "Density at bubble point";
-  external "C" d_bubble = TILMedia_VLEFluidObjectFunctions_bubbleDensity_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleDensity_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleDensity_Txi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" d_bubble = TILMedia_VLEFluidObjectFunctions_bubbleDensity_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleDensity_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleDensity_Txi;
 
-  function dewSpecificEnthalpy_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h_dew "Specific enthalpy at dew point";
-  external "C" h_dew = TILMedia_VLEFluidObjectFunctions_dewSpecificEnthalpy_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewSpecificEnthalpy_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dewSpecificEnthalpy_Txi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" h_dew = TILMedia_VLEFluidObjectFunctions_dewSpecificEnthalpy_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewSpecificEnthalpy_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dewSpecificEnthalpy_Txi;
 
-  function bubbleSpecificEnthalpy_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h_bubble "Specific enthalpy at bubble point";
-  external "C" h_bubble = TILMedia_VLEFluidObjectFunctions_bubbleSpecificEnthalpy_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpecificEnthalpy_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleSpecificEnthalpy_Txi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" h_bubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleSpecificEnthalpy_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpecificEnthalpy_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleSpecificEnthalpy_Txi;
 
-  function dewPressure_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_dew "Pressure at dew point";
-  external "C" p_dew = TILMedia_VLEFluidObjectFunctions_dewPressure_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewPressure_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dewPressure_Txi(redeclare replaceable input
+            VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" p_dew = TILMedia_VLEFluidObjectFunctions_dewPressure_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewPressure_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dewPressure_Txi;
 
-  function bubblePressure_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_bubble "Pressure at bubble point";
-  external "C" p_bubble = TILMedia_VLEFluidObjectFunctions_bubblePressure_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubblePressure_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubblePressure_Txi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" p_bubble = TILMedia_VLEFluidObjectFunctions_bubblePressure_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubblePressure_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubblePressure_Txi;
 
-  function dewSpecificEntropy_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s_dew "Specific entropy at dew point";
-  external "C" s_dew = TILMedia_VLEFluidObjectFunctions_dewSpecificEntropy_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewSpecificEntropy_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dewSpecificEntropy_Txi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" s_dew = TILMedia_VLEFluidObjectFunctions_dewSpecificEntropy_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewSpecificEntropy_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dewSpecificEntropy_Txi;
 
-  function bubbleSpecificEntropy_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s_bubble "Specific entropy at bubble point";
-  external "C" s_bubble = TILMedia_VLEFluidObjectFunctions_bubbleSpecificEntropy_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpecificEntropy_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleSpecificEntropy_Txi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" s_bubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleSpecificEntropy_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpecificEntropy_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleSpecificEntropy_Txi;
 
-  function dewTemperature_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_dew "Temperature at dew point";
-  external "C" T_dew = TILMedia_VLEFluidObjectFunctions_dewTemperature_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewTemperature_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end dewTemperature_Txi;
+  redeclare replaceable function extends dewLiquidMassFraction_Txin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" xi_ldew =
+      TILMedia_VLEFluidObjectFunctions_dewLiquidMassFraction_Txin(
+        T,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewLiquidMassFraction_Txin(double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
 
-  function bubbleTemperature_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_bubble "Temperature at bubble point";
-  external "C" T_bubble = TILMedia_VLEFluidObjectFunctions_bubbleTemperature_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleTemperature_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end bubbleTemperature_Txi;
-
-  function dewLiquidMassFraction_Txin
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction xi_ldew "Mass fration at dew point";
-  external "C" xi_ldew = TILMedia_VLEFluidObjectFunctions_dewLiquidMassFraction_Txin(T, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewLiquidMassFraction_Txin(double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end dewLiquidMassFraction_Txin;
 
-  function bubbleVapourMassFraction_Txin
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction xi_vbubble "Mass fration at bubble point";
-  external "C" xi_vbubble = TILMedia_VLEFluidObjectFunctions_bubbleVapourMassFraction_Txin(T, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleVapourMassFraction_Txin(double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleVapourMassFraction_Txin(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" xi_vbubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleVapourMassFraction_Txin(
+        T,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleVapourMassFraction_Txin(double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleVapourMassFraction_Txin;
 
-  function dewSpecificIsobaricHeatCapacity_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp_dew "Specific isobaric heat capacity cp at dew point";
-  external "C" cp_dew = TILMedia_VLEFluidObjectFunctions_dewSpecificIsobaricHeatCapacity_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewSpecificIsobaricHeatCapacity_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dewSpecificIsobaricHeatCapacity_Txi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp_dew =
+      TILMedia_VLEFluidObjectFunctions_dewSpecificIsobaricHeatCapacity_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewSpecificIsobaricHeatCapacity_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dewSpecificIsobaricHeatCapacity_Txi;
 
-  function bubbleSpecificIsobaricHeatCapacity_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp_bubble "Specific isobaric heat capacity cp at bubble point";
-  external "C" cp_bubble = TILMedia_VLEFluidObjectFunctions_bubbleSpecificIsobaricHeatCapacity_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpecificIsobaricHeatCapacity_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleSpecificIsobaricHeatCapacity_Txi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+
+  external"C" cp_bubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleSpecificIsobaricHeatCapacity_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpecificIsobaricHeatCapacity_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleSpecificIsobaricHeatCapacity_Txi;
 
-  function dewIsobaricThermalExpansionCoefficient_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta_dew "Isobaric thermal expansion coefficient at dew point";
-  external "C" beta_dew = TILMedia_VLEFluidObjectFunctions_dewIsobaricThermalExpansionCoefficient_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewIsobaricThermalExpansionCoefficient_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    dewIsobaricThermalExpansionCoefficient_Txi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta_dew =
+      TILMedia_VLEFluidObjectFunctions_dewIsobaricThermalExpansionCoefficient_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewIsobaricThermalExpansionCoefficient_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dewIsobaricThermalExpansionCoefficient_Txi;
 
-  function bubbleIsobaricThermalExpansionCoefficient_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta_bubble "Isobaric thermal expansion coefficient at bubble point";
-  external "C" beta_bubble = TILMedia_VLEFluidObjectFunctions_bubbleIsobaricThermalExpansionCoefficient_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleIsobaricThermalExpansionCoefficient_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    bubbleIsobaricThermalExpansionCoefficient_Txi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta_bubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleIsobaricThermalExpansionCoefficient_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleIsobaricThermalExpansionCoefficient_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleIsobaricThermalExpansionCoefficient_Txi;
 
-  function dewIsothermalCompressibility_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa_dew "Isothermal compressibility at dew point";
-  external "C" kappa_dew = TILMedia_VLEFluidObjectFunctions_dewIsothermalCompressibility_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewIsothermalCompressibility_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dewIsothermalCompressibility_Txi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa_dew =
+      TILMedia_VLEFluidObjectFunctions_dewIsothermalCompressibility_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewIsothermalCompressibility_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dewIsothermalCompressibility_Txi;
 
-  function bubbleIsothermalCompressibility_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa_bubble "Isothermal compressibility at bubble point";
-  external "C" kappa_bubble = TILMedia_VLEFluidObjectFunctions_bubbleIsothermalCompressibility_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleIsothermalCompressibility_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleIsothermalCompressibility_Txi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa_bubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleIsothermalCompressibility_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleIsothermalCompressibility_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleIsothermalCompressibility_Txi;
 
-  function dewSpeedOfSound_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Velocity w_dew "Speed of sound at dew point";
-  external "C" w_dew = TILMedia_VLEFluidObjectFunctions_dewSpeedOfSound_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewSpeedOfSound_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dewSpeedOfSound_Txi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" w_dew = TILMedia_VLEFluidObjectFunctions_dewSpeedOfSound_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewSpeedOfSound_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dewSpeedOfSound_Txi;
 
-  function bubbleSpeedOfSound_Txi
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Velocity w_bubble "Speed of sound at bubble point";
-  external "C" w_bubble = TILMedia_VLEFluidObjectFunctions_bubbleSpeedOfSound_Txi(T, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpeedOfSound_Txi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleSpeedOfSound_Txi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" w_bubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleSpeedOfSound_Txi(
+        T,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpeedOfSound_Txi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleSpeedOfSound_Txi;
 
+  redeclare replaceable function extends dewDensity_pxi(redeclare replaceable input
+            VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" d_dew = TILMedia_VLEFluidObjectFunctions_dewDensity_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewDensity_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
 
-  function dewDensity_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d_dew "Density at dew point";
-  external "C" d_dew = TILMedia_VLEFluidObjectFunctions_dewDensity_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewDensity_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end dewDensity_pxi;
 
-  function bubbleDensity_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density d_bubble "Density at bubble point";
-  external "C" d_bubble = TILMedia_VLEFluidObjectFunctions_bubbleDensity_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleDensity_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleDensity_pxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" d_bubble = TILMedia_VLEFluidObjectFunctions_bubbleDensity_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleDensity_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleDensity_pxi;
 
-  function dewSpecificEnthalpy_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h_dew "Specific enthalpy at dew point";
-  external "C" h_dew = TILMedia_VLEFluidObjectFunctions_dewSpecificEnthalpy_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewSpecificEnthalpy_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dewSpecificEnthalpy_pxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" h_dew = TILMedia_VLEFluidObjectFunctions_dewSpecificEnthalpy_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewSpecificEnthalpy_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dewSpecificEnthalpy_pxi;
 
-  function bubbleSpecificEnthalpy_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy h_bubble "Specific enthalpy at bubble point";
-  external "C" h_bubble = TILMedia_VLEFluidObjectFunctions_bubbleSpecificEnthalpy_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpecificEnthalpy_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleSpecificEnthalpy_pxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" h_bubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleSpecificEnthalpy_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpecificEnthalpy_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleSpecificEnthalpy_pxi;
 
-  function dewPressure_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_dew "Pressure at dew point";
-  external "C" p_dew = TILMedia_VLEFluidObjectFunctions_dewPressure_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewPressure_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end dewPressure_pxi;
+  redeclare replaceable function extends dewSpecificEntropy_pxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" s_dew = TILMedia_VLEFluidObjectFunctions_dewSpecificEntropy_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewSpecificEntropy_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
 
-  function bubblePressure_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_bubble "Pressure at bubble point";
-  external "C" p_bubble = TILMedia_VLEFluidObjectFunctions_bubblePressure_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubblePressure_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
-  end bubblePressure_pxi;
-
-  function dewSpecificEntropy_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s_dew "Specific entropy at dew point";
-  external "C" s_dew = TILMedia_VLEFluidObjectFunctions_dewSpecificEntropy_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewSpecificEntropy_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end dewSpecificEntropy_pxi;
 
-  function bubbleSpecificEntropy_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy s_bubble "Specific entropy at bubble point";
-  external "C" s_bubble = TILMedia_VLEFluidObjectFunctions_bubbleSpecificEntropy_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpecificEntropy_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleSpecificEntropy_pxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" s_bubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleSpecificEntropy_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpecificEntropy_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleSpecificEntropy_pxi;
 
-  function dewTemperature_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_dew "Temperature at dew point";
-  external "C" T_dew = TILMedia_VLEFluidObjectFunctions_dewTemperature_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewTemperature_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dewTemperature_pxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" T_dew = TILMedia_VLEFluidObjectFunctions_dewTemperature_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewTemperature_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dewTemperature_pxi;
 
-  function bubbleTemperature_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_bubble "Temperature at bubble point";
-  external "C" T_bubble = TILMedia_VLEFluidObjectFunctions_bubbleTemperature_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleTemperature_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleTemperature_pxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" T_bubble = TILMedia_VLEFluidObjectFunctions_bubbleTemperature_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleTemperature_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleTemperature_pxi;
 
-  function dewLiquidMassFraction_pxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction xi_ldew "Mass fration at dew point";
-  external "C" xi_ldew = TILMedia_VLEFluidObjectFunctions_dewLiquidMassFraction_pxin(p, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewLiquidMassFraction_pxin(double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dewLiquidMassFraction_pxin(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" xi_ldew =
+      TILMedia_VLEFluidObjectFunctions_dewLiquidMassFraction_pxin(
+        p,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewLiquidMassFraction_pxin(double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end dewLiquidMassFraction_pxin;
 
-  function bubbleVapourMassFraction_pxin
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MassFraction xi_vbubble "Mass fration at bubble point";
-  external "C" xi_vbubble = TILMedia_VLEFluidObjectFunctions_bubbleVapourMassFraction_pxin(p, xi, compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleVapourMassFraction_pxin(double, double*,int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleVapourMassFraction_pxin(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" xi_vbubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleVapourMassFraction_pxin(
+        p,
+        xi,
+        compNo,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleVapourMassFraction_pxin(double, double*,int, void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleVapourMassFraction_pxin;
 
-  function dewSpecificIsobaricHeatCapacity_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp_dew "Specific isobaric heat capacity cp at dew point";
-  external "C" cp_dew = TILMedia_VLEFluidObjectFunctions_dewSpecificIsobaricHeatCapacity_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewSpecificIsobaricHeatCapacity_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dewSpecificIsobaricHeatCapacity_pxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" cp_dew =
+      TILMedia_VLEFluidObjectFunctions_dewSpecificIsobaricHeatCapacity_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewSpecificIsobaricHeatCapacity_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dewSpecificIsobaricHeatCapacity_pxi;
 
-  function bubbleSpecificIsobaricHeatCapacity_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cp_bubble "Specific isobaric heat capacity cp at bubble point";
-  external "C" cp_bubble = TILMedia_VLEFluidObjectFunctions_bubbleSpecificIsobaricHeatCapacity_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpecificIsobaricHeatCapacity_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleSpecificIsobaricHeatCapacity_pxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+
+  external"C" cp_bubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleSpecificIsobaricHeatCapacity_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpecificIsobaricHeatCapacity_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleSpecificIsobaricHeatCapacity_pxi;
 
-  function dewIsobaricThermalExpansionCoefficient_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta_dew "Isobaric thermal expansion coefficient at dew point";
-  external "C" beta_dew = TILMedia_VLEFluidObjectFunctions_dewIsobaricThermalExpansionCoefficient_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewIsobaricThermalExpansionCoefficient_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    dewIsobaricThermalExpansionCoefficient_pxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta_dew =
+      TILMedia_VLEFluidObjectFunctions_dewIsobaricThermalExpansionCoefficient_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewIsobaricThermalExpansionCoefficient_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dewIsobaricThermalExpansionCoefficient_pxi;
 
-  function bubbleIsobaricThermalExpansionCoefficient_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient beta_bubble "Isobaric thermal expansion coefficient at bubble point";
-  external "C" beta_bubble = TILMedia_VLEFluidObjectFunctions_bubbleIsobaricThermalExpansionCoefficient_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleIsobaricThermalExpansionCoefficient_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    bubbleIsobaricThermalExpansionCoefficient_pxi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" beta_bubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleIsobaricThermalExpansionCoefficient_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleIsobaricThermalExpansionCoefficient_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleIsobaricThermalExpansionCoefficient_pxi;
 
-  function dewIsothermalCompressibility_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa_dew "Isothermal compressibility at dew point";
-  external "C" kappa_dew = TILMedia_VLEFluidObjectFunctions_dewIsothermalCompressibility_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewIsothermalCompressibility_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dewIsothermalCompressibility_pxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa_dew =
+      TILMedia_VLEFluidObjectFunctions_dewIsothermalCompressibility_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewIsothermalCompressibility_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dewIsothermalCompressibility_pxi;
 
-  function bubbleIsothermalCompressibility_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappa_bubble "Isothermal compressibility at bubble point";
-  external "C" kappa_bubble = TILMedia_VLEFluidObjectFunctions_bubbleIsothermalCompressibility_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleIsothermalCompressibility_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleIsothermalCompressibility_pxi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappa_bubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleIsothermalCompressibility_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleIsothermalCompressibility_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleIsothermalCompressibility_pxi;
 
-  function dewSpeedOfSound_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Velocity w_dew "Speed of sound at dew point";
-  external "C" w_dew = TILMedia_VLEFluidObjectFunctions_dewSpeedOfSound_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_dewSpeedOfSound_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends dewSpeedOfSound_pxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" w_dew = TILMedia_VLEFluidObjectFunctions_dewSpeedOfSound_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_dewSpeedOfSound_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end dewSpeedOfSound_pxi;
 
-  function bubbleSpeedOfSound_pxi
-    input SI.AbsolutePressure p "Pressure";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Velocity w_bubble "Speed of sound at bubble point";
-  external "C" w_bubble = TILMedia_VLEFluidObjectFunctions_bubbleSpeedOfSound_pxi(p, xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpeedOfSound_pxi(double, double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends bubbleSpeedOfSound_pxi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" w_bubble =
+      TILMedia_VLEFluidObjectFunctions_bubbleSpeedOfSound_pxi(
+        p,
+        xi,
+        vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_bubbleSpeedOfSound_pxi(double, double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end bubbleSpeedOfSound_pxi;
 
+  redeclare replaceable function extends averageMolarMass_xi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" M = TILMedia_VLEFluidObjectFunctions_averageMolarMass_xi(xi,
+      vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_averageMolarMass_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
 
-
-
-  function averageMolarMass_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MolarMass M "Average molar mass";
-  external "C" M = TILMedia_VLEFluidObjectFunctions_averageMolarMass_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_averageMolarMass_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end averageMolarMass_xi;
 
-  function criticalDensity_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Density dc "Critical density";
-  external "C" dc = TILMedia_VLEFluidObjectFunctions_criticalDensity_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_criticalDensity_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends criticalDensity_xi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" dc = TILMedia_VLEFluidObjectFunctions_criticalDensity_xi(xi,
+      vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_criticalDensity_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end criticalDensity_xi;
 
-  function criticalSpecificEnthalpy_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEnthalpy hc "Critical specific enthalpy";
-  external "C" hc = TILMedia_VLEFluidObjectFunctions_criticalSpecificEnthalpy_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_criticalSpecificEnthalpy_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends criticalSpecificEnthalpy_xi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" hc = TILMedia_VLEFluidObjectFunctions_criticalSpecificEnthalpy_xi(
+       xi, vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_criticalSpecificEnthalpy_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end criticalSpecificEnthalpy_xi;
 
-  function criticalPressure_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure pc "Critical pressure";
-  external "C" pc = TILMedia_VLEFluidObjectFunctions_criticalPressure_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_criticalPressure_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends criticalPressure_xi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" pc = TILMedia_VLEFluidObjectFunctions_criticalPressure_xi(xi,
+      vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_criticalPressure_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end criticalPressure_xi;
 
-  function criticalSpecificEntropy_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificEntropy sc "Critical specific entropy";
-  external "C" sc = TILMedia_VLEFluidObjectFunctions_criticalSpecificEntropy_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_criticalSpecificEntropy_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends criticalSpecificEntropy_xi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" sc = TILMedia_VLEFluidObjectFunctions_criticalSpecificEntropy_xi(
+      xi, vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_criticalSpecificEntropy_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end criticalSpecificEntropy_xi;
 
-  function criticalTemperature_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature Tc "Critical temperature";
-  external "C" Tc = TILMedia_VLEFluidObjectFunctions_criticalTemperature_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_criticalTemperature_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends criticalTemperature_xi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" Tc = TILMedia_VLEFluidObjectFunctions_criticalTemperature_xi(xi,
+      vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_criticalTemperature_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end criticalTemperature_xi;
 
-  function criticalSpecificIsobaricHeatCapacity_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SpecificHeatCapacity cpc "Critical specific isobaric heat capacity cp";
-  external "C" cpc = TILMedia_VLEFluidObjectFunctions_criticalSpecificIsobaricHeatCapacity_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_criticalSpecificIsobaricHeatCapacity_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    criticalSpecificIsobaricHeatCapacity_xi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" cpc =
+      TILMedia_VLEFluidObjectFunctions_criticalSpecificIsobaricHeatCapacity_xi(
+      xi, vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_criticalSpecificIsobaricHeatCapacity_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end criticalSpecificIsobaricHeatCapacity_xi;
 
-  function criticalIsobaricThermalExpansionCoefficient_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.LinearExpansionCoefficient betac "Critical isobaric thermal expansion coefficient";
-  external "C" betac = TILMedia_VLEFluidObjectFunctions_criticalIsobaricThermalExpansionCoefficient_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_criticalIsobaricThermalExpansionCoefficient_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends
+    criticalIsobaricThermalExpansionCoefficient_xi(redeclare replaceable input
+      VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" betac =
+      TILMedia_VLEFluidObjectFunctions_criticalIsobaricThermalExpansionCoefficient_xi(
+       xi, vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_criticalIsobaricThermalExpansionCoefficient_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end criticalIsobaricThermalExpansionCoefficient_xi;
 
-  function criticalIsothermalCompressibility_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Compressibility kappac "Critical isothermal compressibility";
-  external "C" kappac = TILMedia_VLEFluidObjectFunctions_criticalIsothermalCompressibility_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_criticalIsothermalCompressibility_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends criticalIsothermalCompressibility_xi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" kappac =
+      TILMedia_VLEFluidObjectFunctions_criticalIsothermalCompressibility_xi(xi,
+      vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_criticalIsothermalCompressibility_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end criticalIsothermalCompressibility_xi;
 
-  function criticalThermalConductivity_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.ThermalConductivity lambdac "Critical thermal conductivity";
-  external "C" lambdac = TILMedia_VLEFluidObjectFunctions_criticalThermalConductivity_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_criticalThermalConductivity_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends criticalThermalConductivity_xi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" lambdac =
+      TILMedia_VLEFluidObjectFunctions_criticalThermalConductivity_xi(xi,
+      vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_criticalThermalConductivity_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end criticalThermalConductivity_xi;
 
-  function criticalDynamicViscosity_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.DynamicViscosity etac "Critical dynamic viscosity";
-  external "C" etac = TILMedia_VLEFluidObjectFunctions_criticalDynamicViscosity_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_criticalDynamicViscosity_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends criticalDynamicViscosity_xi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" etac =
+      TILMedia_VLEFluidObjectFunctions_criticalDynamicViscosity_xi(xi,
+      vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_criticalDynamicViscosity_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end criticalDynamicViscosity_xi;
 
-  function criticalSurfaceTension_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.SurfaceTension sigmac "Critical surface tension";
-  external "C" sigmac = TILMedia_VLEFluidObjectFunctions_criticalSurfaceTension_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_criticalSurfaceTension_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends criticalSurfaceTension_xi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" sigmac =
+      TILMedia_VLEFluidObjectFunctions_criticalSurfaceTension_xi(xi,
+      vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_criticalSurfaceTension_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end criticalSurfaceTension_xi;
 
-  function cricondenbarTemperature_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_ccb "";
-  external "C" T_ccb = TILMedia_VLEFluidObjectFunctions_cricondenbarTemperature_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_cricondenbarTemperature_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends cricondenbarTemperature_xi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" T_ccb =
+      TILMedia_VLEFluidObjectFunctions_cricondenbarTemperature_xi(xi,
+      vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_cricondenbarTemperature_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end cricondenbarTemperature_xi;
 
-  function cricondenthermTemperature_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.Temperature T_cct "";
-  external "C" T_cct = TILMedia_VLEFluidObjectFunctions_cricondenthermTemperature_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_cricondenthermTemperature_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends cricondenthermTemperature_xi(
+      redeclare replaceable input VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" T_cct =
+      TILMedia_VLEFluidObjectFunctions_cricondenthermTemperature_xi(xi,
+      vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_cricondenthermTemperature_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end cricondenthermTemperature_xi;
 
-  function cricondenbarPressure_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_ccb "";
-  external "C" p_ccb = TILMedia_VLEFluidObjectFunctions_cricondenbarPressure_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_cricondenbarPressure_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends cricondenbarPressure_xi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" p_ccb = TILMedia_VLEFluidObjectFunctions_cricondenbarPressure_xi(
+      xi, vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_cricondenbarPressure_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end cricondenbarPressure_xi;
 
-  function cricondenthermPressure_xi
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.AbsolutePressure p_cct "";
-  external "C" p_cct = TILMedia_VLEFluidObjectFunctions_cricondenthermPressure_xi(xi, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_cricondenthermPressure_xi(double*,void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
+  redeclare replaceable function extends cricondenthermPressure_xi(redeclare replaceable input
+                        VLEFluidPointerExternalObject vleFluidPointer
+      constrainedby TILMedia.Internals.BasePointer)
+  external"C" p_cct =
+      TILMedia_VLEFluidObjectFunctions_cricondenthermPressure_xi(xi,
+      vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_cricondenthermPressure_xi(double*,void*);",
+      Library="TILMedia140ClaRa");
+
   end cricondenthermPressure_xi;
 
+  redeclare replaceable function extends molarMass_n(redeclare replaceable input
+            VLEFluidPointerExternalObject vleFluidPointer constrainedby
+      TILMedia.Internals.BasePointer)
+  external"C" M_i = TILMedia_VLEFluidObjectFunctions_molarMass_n(compNo,
+      vleFluidPointer) annotation (
+      __iti_dllNoExport=true,
+      Include="double TILMedia_VLEFluidObjectFunctions_molarMass_n(int, void*);",
+      Library="TILMedia140ClaRa");
 
-  function molarMass_n input Integer compNo "Component ID";
-    input TILMedia.VLEFluidObjectFunctions.VLEFluidPointer vleFluidPointer;
-    output SI.MolarMass M_i "Molar mass of component i";
-  external "C" M_i = TILMedia_VLEFluidObjectFunctions_molarMass_n(compNo, vleFluidPointer)
-    annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_molarMass_n(int, void*);",Library="TILMedia131ClaRa");
-    annotation (Icon(graphics={Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TILMedia/Images/VLE_Function.png")}));
   end molarMass_n;
-
-
 end VLEFluidObjectFunctions;

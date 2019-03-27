@@ -10,8 +10,5 @@ record SLESaturationPropertyRecord "Solid-liquid equilibrium property record"
   Modelica.SIunits.SpecificEntropy ss "Solid specific entropy";
   Modelica.SIunits.SpecificEntropy sl "Liquid specific entropy";
   annotation(defaultComponentName="sat",
-    __Dymola_Protection(
-      allowDuplicate = true,
-      showDiagram=true,
-      showText=true));
+    Protection(access=Access.packageDuplicate));
 end SLESaturationPropertyRecord;

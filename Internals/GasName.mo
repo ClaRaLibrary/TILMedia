@@ -112,8 +112,5 @@ type GasName "Gas name"
  choice="VDIWA2006.octadecane",
  choice="VDIWA2006.nonadecane",
  choice="VDIWA2006.icosane"),
-    __Dymola_Protection(
-      allowDuplicate = true,
-      showDiagram=true,
-      showText=true));
+    Protection(access=Access.packageDuplicate));
 end GasName;

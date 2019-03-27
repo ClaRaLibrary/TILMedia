@@ -11,8 +11,5 @@ record VLERecordSimple "VLE property record"
   SI.SpecificEntropy s_v "Specific entropy of vapour phase";
   SI.Temperature T_l "Temperature of liquid phase";
   SI.Temperature T_v "Temperature of vapour phase";
-  annotation(  __Dymola_Protection(
-      allowDuplicate = true,
-      showDiagram=true,
-      showText=true));
+  annotation (Protection(access=Access.packageDuplicate));
 end VLERecordSimple;

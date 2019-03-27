@@ -7,7 +7,7 @@ package UsersGuide "User's Guide"
      Documentation(info="<html>
      
 TILMedia Suite provides methods of calculation, which express thermo-physical properties of incompressible liquids, ideal gases as well as real fluids containing a vapor liquid equilibrium.
-For gases and real fluids, mixtures may be created.
+In each fluid category (Gas, Liquid and VLEFluids) mixtures may be created.
 The mathematical equations of substance properties are optimized for stable and fast dynamic simulations of systems.
 You may select substance data from different sources for your calculation:
 <br>

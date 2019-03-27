@@ -1,4 +1,4 @@
 ﻿within TILMedia.Internals;
-package SLEMedium 
+package SLEMedium
 extends TILMedia.Internals.ClassTypes.ModelPackage;
 end SLEMedium;

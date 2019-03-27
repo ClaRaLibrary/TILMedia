@@ -310,9 +310,6 @@ type LiquidName "Liquid name"
  choice="VDIWA2006.O-NITROTOLUENE",
  choice="VDIWA2006.M-NITROTOLUENE",
  choice="VDIWA2006.P-NITROTOLUENE"),
-    __Dymola_Protection(
-      allowDuplicate = true,
-      showDiagram=true,
-      showText=true));
+    Protection(access=Access.packageDuplicate));
 
 end LiquidName;
