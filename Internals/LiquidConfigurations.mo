@@ -21,6 +21,7 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
           computeTransportProperties,
           false,
           true,
+          false,
           false);
 
     equation
@@ -85,6 +86,7 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
           computeTransportProperties,
           false,
           true,
+          false,
           false);
     equation
       (d,cp,beta) =

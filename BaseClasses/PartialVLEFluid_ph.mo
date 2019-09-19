@@ -1,4 +1,4 @@
-within TILMedia.BaseClasses;
+﻿within TILMedia.BaseClasses;
 partial model PartialVLEFluid_ph
   "Compressible fluid model with p, h and xi as independent variables"
   replaceable parameter VLEFluidTypes.TILMedia_Water vleFluidType
@@ -7,7 +7,8 @@ partial model PartialVLEFluid_ph
     annotation (choicesAllMatching=true);
 
   replaceable class PointerType = TILMedia.Internals.BasePointer;
-  parameter PointerType vleFluidPointer;
+
+  parameter PointerType vleFluidPointer annotation (Dialog(tab="Advanced"));
 
   parameter Boolean stateSelectPreferForInputs=false
     "=true, StateSelect.prefer is set for input variables"
@@ -19,6 +20,9 @@ partial model PartialVLEFluid_ph
     annotation (Dialog(tab="Advanced"));
   parameter Boolean computeSurfaceTension=true
     annotation (Dialog(tab="Advanced"));
+  parameter Boolean deactivateDensityDerivatives=false
+    "Deactivate calculation of partial derivatives of density"
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean computeVLEAdditionalProperties=false
     "Compute detailed vapor liquid equilibrium properties"
     annotation (Evaluate=true);
@@ -31,12 +35,12 @@ partial model PartialVLEFluid_ph
 
   //Base Properties
   Modelica.SIunits.Density d "Density";
-  input Modelica.SIunits.SpecificEnthalpy h(stateSelect=if (
-        stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default)
-    "Specific enthalpy" annotation(Dialog);
   input Modelica.SIunits.AbsolutePressure p(stateSelect=if (
         stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default)
     "Pressure" annotation(Dialog);
+  input Modelica.SIunits.SpecificEnthalpy h(stateSelect=if (
+        stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default)
+    "Specific enthalpy" annotation(Dialog);
   Modelica.SIunits.SpecificEntropy s "Specific entropy";
   Modelica.SIunits.Temperature T "Temperature";
   input Modelica.SIunits.MassFraction[vleFluidType.nc - 1] xi(each stateSelect=if (

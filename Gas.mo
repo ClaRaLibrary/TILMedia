@@ -9,6 +9,7 @@ model Gas "Gas vapor model for object and member function based evaluation"
           computeTransportProperties,
           false,
           true,
+          false,
           false),
         gasType.mixingRatio_propertyCalculation[1:end - 1]/sum(gasType.mixingRatio_propertyCalculation),
         gasType.nc,

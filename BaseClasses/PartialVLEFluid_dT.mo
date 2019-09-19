@@ -1,4 +1,4 @@
-within TILMedia.BaseClasses;
+﻿within TILMedia.BaseClasses;
 partial model PartialVLEFluid_dT
   "Compressible fluid model with d, T and xi as independent variables"
   replaceable parameter VLEFluidTypes.TILMedia_Water vleFluidType
@@ -7,7 +7,8 @@ partial model PartialVLEFluid_dT
     annotation (choicesAllMatching=true);
 
   replaceable class PointerType = TILMedia.Internals.BasePointer;
-  parameter PointerType vleFluidPointer;
+
+  parameter PointerType vleFluidPointer annotation (Dialog(tab="Advanced"));
 
   parameter Boolean stateSelectPreferForInputs=false
     "=true, StateSelect.prefer is set for input variables"
@@ -19,6 +20,9 @@ partial model PartialVLEFluid_dT
     annotation (Dialog(tab="Advanced"));
   parameter Boolean computeSurfaceTension=true
     annotation (Dialog(tab="Advanced"));
+  parameter Boolean deactivateDensityDerivatives=false
+    "Deactivate calculation of partial derivatives of density"
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean computeVLEAdditionalProperties=false
     "Compute detailed vapor liquid equilibrium properties"
     annotation (Evaluate=true);

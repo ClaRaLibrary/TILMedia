@@ -22,7 +22,8 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
             computeTransportProperties,
             interpolateTransportProperties,
             computeSurfaceTension,
-            deactivateTwoPhaseRegion);
+            deactivateTwoPhaseRegion,
+            deactivateDensityDerivatives);
 
       equation
         assert(vleFluidType.nc==1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
@@ -149,7 +150,8 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
             computeTransportProperties,
             interpolateTransportProperties,
             computeSurfaceTension,
-            deactivateTwoPhaseRegion);
+            deactivateTwoPhaseRegion,
+            deactivateDensityDerivatives);
 
       equation
         assert(vleFluidType.nc==1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
@@ -276,7 +278,8 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
             computeTransportProperties,
             interpolateTransportProperties,
             computeSurfaceTension,
-            deactivateTwoPhaseRegion);
+            deactivateTwoPhaseRegion,
+            deactivateDensityDerivatives);
 
       equation
         assert(vleFluidType.nc==1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
@@ -403,7 +406,8 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
             computeTransportProperties,
             interpolateTransportProperties,
             computeSurfaceTension,
-            deactivateTwoPhaseRegion);
+            deactivateTwoPhaseRegion,
+            deactivateDensityDerivatives);
 
       equation
         assert(vleFluidType.nc==1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
@@ -535,7 +539,8 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
             computeTransportProperties,
             interpolateTransportProperties,
             computeSurfaceTension,
-            deactivateTwoPhaseRegion);
+            deactivateTwoPhaseRegion,
+            deactivateDensityDerivatives);
 
       equation
         assert(vleFluidType.nc == 1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
@@ -669,7 +674,8 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
             computeTransportProperties,
             interpolateTransportProperties,
             computeSurfaceTension,
-            deactivateTwoPhaseRegion);
+            deactivateTwoPhaseRegion,
+            deactivateDensityDerivatives);
 
       equation
         assert(vleFluidType.nc == 1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
@@ -803,7 +809,8 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
             computeTransportProperties,
             interpolateTransportProperties,
             computeSurfaceTension,
-            deactivateTwoPhaseRegion);
+            deactivateTwoPhaseRegion,
+            deactivateDensityDerivatives);
 
       equation
         assert(vleFluidType.nc == 1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
@@ -935,84 +942,85 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
               computeTransportProperties,
               interpolateTransportProperties,
               computeSurfaceTension,
-              deactivateTwoPhaseRegion),
+              deactivateTwoPhaseRegion,
+              deactivateDensityDerivatives),
             vleFluidType.mixingRatio_propertyCalculation[1:end - 1]/sum(
               vleFluidType.mixingRatio_propertyCalculation),
             vleFluidType.nc,
             getInstanceName()),
-        replaceable function d_phxi =
+        redeclare replaceable function d_phxi =
             TILMedia.VLEFluidObjectFunctions.density_phxi (
              vleFluidPointer=vleFluidPointer),
-        replaceable function T_phxi =
+        redeclare replaceable function T_phxi =
             Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.temperature_phxi
             (vleFluidPointer=vleFluidPointer),
-        replaceable function s_phxi =
+        redeclare replaceable function s_phxi =
             Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEntropy_phxi
             (vleFluidPointer=vleFluidPointer),
-        replaceable function cp_phxi =
+        redeclare replaceable function cp_phxi =
             TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi
             ( vleFluidPointer=vleFluidPointer),
-        replaceable function eta_phxi =
+        redeclare replaceable function eta_phxi =
             TILMedia.VLEFluidObjectFunctions.dynamicViscosity_phxi (vleFluidPointer=
                vleFluidPointer),
-        replaceable function Pr_phxi =
+        redeclare replaceable function Pr_phxi =
             TILMedia.VLEFluidObjectFunctions.prandtlNumber_phxi (vleFluidPointer=
                 vleFluidPointer),
-        replaceable function lambda_phxi =
+        redeclare replaceable function lambda_phxi =
             TILMedia.VLEFluidObjectFunctions.thermalConductivity_phxi (
               vleFluidPointer=vleFluidPointer),
-        replaceable function d_pTxi =
+        redeclare replaceable function d_pTxi =
             Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_pTxi
             (vleFluidPointer=vleFluidPointer),
-        replaceable function h_pTxi =
+        redeclare replaceable function h_pTxi =
             Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEnthalpy_pTxi
             (vleFluidPointer=vleFluidPointer),
-        replaceable function s_pTxi =
+        redeclare replaceable function s_pTxi =
             Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEntropy_pTxi
             (vleFluidPointer=vleFluidPointer),
-        replaceable function cp_pTxi =
+        redeclare replaceable function cp_pTxi =
             TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi
             ( vleFluidPointer=vleFluidPointer),
-        replaceable function eta_pTxi =
+        redeclare replaceable function eta_pTxi =
             TILMedia.VLEFluidObjectFunctions.dynamicViscosity_pTxi (vleFluidPointer=
                vleFluidPointer),
-        replaceable function Pr_pTxi =
+        redeclare replaceable function Pr_pTxi =
             TILMedia.VLEFluidObjectFunctions.prandtlNumber_pTxi (vleFluidPointer=
                 vleFluidPointer),
-        replaceable function lambda_pTxi =
+        redeclare replaceable function lambda_pTxi =
             TILMedia.VLEFluidObjectFunctions.thermalConductivity_pTxi (
               vleFluidPointer=vleFluidPointer),
-        replaceable function d_psxi =
+        redeclare replaceable function d_psxi =
             Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.density_psxi
             (vleFluidPointer=vleFluidPointer),
-        replaceable function h_psxi =
+        redeclare replaceable function h_psxi =
             Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.specificEnthalpy_psxi
             (vleFluidPointer=vleFluidPointer),
-        replaceable function T_psxi =
+        redeclare replaceable function T_psxi =
             Internals.VLEFluidConfigurations.FullyMixtureCompatible.VLEFluidObjectFunctions.temperature_psxi
             (vleFluidPointer=vleFluidPointer),
-        replaceable function cp_psxi =
+        redeclare replaceable function cp_psxi =
             TILMedia.VLEFluidObjectFunctions.specificIsobaricHeatCapacity_psxi
             ( vleFluidPointer=vleFluidPointer),
-        replaceable function eta_psxi =
+        redeclare replaceable function eta_psxi =
             TILMedia.VLEFluidObjectFunctions.dynamicViscosity_psxi (vleFluidPointer=
                vleFluidPointer),
-        replaceable function Pr_psxi =
+        redeclare replaceable function Pr_psxi =
             TILMedia.VLEFluidObjectFunctions.prandtlNumber_psxi (vleFluidPointer=
                 vleFluidPointer),
-        replaceable function lambda_psxi =
+        redeclare replaceable function lambda_psxi =
             TILMedia.VLEFluidObjectFunctions.thermalConductivity_psxi (
               vleFluidPointer=vleFluidPointer),
-        replaceable function T_dew_pxi =
+        redeclare replaceable function T_dew_pxi =
             TILMedia.VLEFluidObjectFunctions.dewTemperature_pxi (vleFluidPointer=
                 vleFluidPointer),
-        replaceable function p_dew_Txi =
+        redeclare replaceable function p_dew_Txi =
             TILMedia.VLEFluidObjectFunctions.dewPressure_Txi (vleFluidPointer=
                 vleFluidPointer),
-        replaceable function h_vap_dew_Txi =
+        redeclare replaceable function h_vap_dew_Txi =
             TILMedia.VLEFluidObjectFunctions.dewSpecificEnthalpy_Txi (
               vleFluidPointer=vleFluidPointer),
-        replaceable function h_liq_bubble_Txi =
+        redeclare replaceable function h_liq_bubble_Txi =
             TILMedia.VLEFluidObjectFunctions.bubbleSpecificEnthalpy_Txi (
               vleFluidPointer=vleFluidPointer));
 
@@ -1037,7 +1045,8 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
           computeTransportProperties,
           interpolateTransportProperties,
           computeSurfaceTension,
-          deactivateTwoPhaseRegion);
+          deactivateTwoPhaseRegion,
+          deactivateDensityDerivatives);
 
     equation
       M_i = TILMedia.Internals.VLEFluidObjectFunctions.molarMass_nc(vleFluidType.nc,
@@ -1212,7 +1221,8 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
           computeTransportProperties,
           interpolateTransportProperties,
           computeSurfaceTension,
-          deactivateTwoPhaseRegion);
+          deactivateTwoPhaseRegion,
+          deactivateDensityDerivatives);
 
     equation
       M_i = TILMedia.Internals.VLEFluidObjectFunctions.molarMass_nc(vleFluidType.nc,
@@ -1387,7 +1397,8 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
           computeTransportProperties,
           interpolateTransportProperties,
           computeSurfaceTension,
-          deactivateTwoPhaseRegion);
+          deactivateTwoPhaseRegion,
+          deactivateDensityDerivatives);
 
     equation
       M_i = TILMedia.Internals.VLEFluidObjectFunctions.molarMass_nc(vleFluidType.nc,
@@ -1562,7 +1573,8 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
           computeTransportProperties,
           interpolateTransportProperties,
           computeSurfaceTension,
-          deactivateTwoPhaseRegion);
+          deactivateTwoPhaseRegion,
+          deactivateDensityDerivatives);
 
     equation
       M_i = TILMedia.Internals.VLEFluidObjectFunctions.molarMass_nc(vleFluidType.nc,
@@ -1725,62 +1737,62 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
 
       redeclare replaceable function extends pressure_dTxi
       external "C" p = TILMedia_VLEFluidObjectFunctions_pressure_dTxi(d, T, xi, vleFluidPointer)
-        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_pressure_dTxi(double, double, double*, void*);",Library="TILMedia140ClaRa");
+        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_pressure_dTxi(double, double, double*, void*);",Library="TILMedia141ClaRa");
         annotation(inverse(d=TILMedia.VLEFluidObjectFunctions.density_pTxi(p, T, xi, vleFluidPointer)));
       end pressure_dTxi;
 
       redeclare replaceable function extends specificEnthalpy_dTxi
       external "C" h = TILMedia_VLEFluidObjectFunctions_specificEnthalpy_dTxi(d, T, xi, vleFluidPointer)
-        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEnthalpy_dTxi(double, double, double*, void*);",Library="TILMedia140ClaRa");
+        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEnthalpy_dTxi(double, double, double*, void*);",Library="TILMedia141ClaRa");
       end specificEnthalpy_dTxi;
 
       redeclare replaceable function extends specificEntropy_dTxi
       external "C" s = TILMedia_VLEFluidObjectFunctions_specificEntropy_dTxi(d, T, xi, vleFluidPointer)
-        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEntropy_dTxi(double, double, double*, void*);",Library="TILMedia140ClaRa");
+        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEntropy_dTxi(double, double, double*, void*);",Library="TILMedia141ClaRa");
       end specificEntropy_dTxi;
 
       redeclare replaceable function extends temperature_phxi
       external "C" T = TILMedia_VLEFluidObjectFunctions_temperature_phxi(p, h, xi, vleFluidPointer)
-        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_temperature_phxi(double, double, double*, void*);",Library="TILMedia140ClaRa");
+        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_temperature_phxi(double, double, double*, void*);",Library="TILMedia141ClaRa");
       annotation(inverse(h=TILMedia.VLEFluidObjectFunctions.specificEnthalpy_pTxi(p, T, xi, vleFluidPointer)),Impure=false);
       end temperature_phxi;
 
       redeclare replaceable function extends specificEntropy_phxi
       external "C" s = TILMedia_VLEFluidObjectFunctions_specificEntropy_phxi(p, h, xi, vleFluidPointer)
-        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEntropy_phxi(double, double, double*, void*);",Library="TILMedia140ClaRa");
+        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEntropy_phxi(double, double, double*, void*);",Library="TILMedia141ClaRa");
       end specificEntropy_phxi;
 
       redeclare replaceable function extends density_pTxi
       external "C" d = TILMedia_VLEFluidObjectFunctions_density_pTxi(p, T, xi, vleFluidPointer)
-        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_density_pTxi(double, double, double*, void*);",Library="TILMedia140ClaRa");
+        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_density_pTxi(double, double, double*, void*);",Library="TILMedia141ClaRa");
       end density_pTxi;
 
       redeclare replaceable function extends specificEnthalpy_pTxi
       external "C" h = TILMedia_VLEFluidObjectFunctions_specificEnthalpy_pTxi(p, T, xi, vleFluidPointer)
-        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEnthalpy_pTxi(double, double, double*, void*);",Library="TILMedia140ClaRa");
+        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEnthalpy_pTxi(double, double, double*, void*);",Library="TILMedia141ClaRa");
       annotation(inverse(T=TILMedia.VLEFluidObjectFunctions.temperature_phxi(p, h, xi, vleFluidPointer)),Impure=false);
       end specificEnthalpy_pTxi;
 
       redeclare replaceable function extends specificEntropy_pTxi
       external "C" s = TILMedia_VLEFluidObjectFunctions_specificEntropy_pTxi(p, T, xi, vleFluidPointer)
-        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEntropy_pTxi(double, double, double*, void*);",Library="TILMedia140ClaRa");
+        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEntropy_pTxi(double, double, double*, void*);",Library="TILMedia141ClaRa");
       annotation(inverse(T=TILMedia.VLEFluidObjectFunctions.temperature_psxi(p, s, xi, vleFluidPointer)),Impure=false);
       end specificEntropy_pTxi;
 
       redeclare replaceable function extends density_psxi
       external "C" d = TILMedia_VLEFluidObjectFunctions_density_psxi(p, s, xi, vleFluidPointer)
-        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_density_psxi(double, double, double*, void*);",Library="TILMedia140ClaRa");
+        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_density_psxi(double, double, double*, void*);",Library="TILMedia141ClaRa");
       end density_psxi;
 
       redeclare replaceable function extends temperature_psxi
       external "C" T = TILMedia_VLEFluidObjectFunctions_temperature_psxi(p, s, xi, vleFluidPointer)
-        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_temperature_psxi(double, double, double*, void*);",Library="TILMedia140ClaRa");
+        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_temperature_psxi(double, double, double*, void*);",Library="TILMedia141ClaRa");
       annotation(inverse(s=TILMedia.VLEFluidObjectFunctions.specificEntropy_pTxi(p, T, xi, vleFluidPointer)),Impure=false);
       end temperature_psxi;
 
       redeclare replaceable function extends specificEnthalpy_psxi
       external "C" h = TILMedia_VLEFluidObjectFunctions_specificEnthalpy_psxi(p, s, xi, vleFluidPointer)
-        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEnthalpy_psxi(double, double, double*, void*);",Library="TILMedia140ClaRa");
+        annotation(__iti_dllNoExport = true,Include="double TILMedia_VLEFluidObjectFunctions_specificEnthalpy_psxi(double, double, double*, void*);",Library="TILMedia141ClaRa");
       annotation(inverse(s=TILMedia.VLEFluidObjectFunctions.specificEntropy_phxi(p, h, xi, vleFluidPointer)),Impure=false);
       end specificEnthalpy_psxi;
 

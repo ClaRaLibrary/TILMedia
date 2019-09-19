@@ -10,6 +10,7 @@ model Liquid "Incompressible liquid model for object and member function based e
           computeTransportProperties,
           false,
           true,
+          false,
           false),
         liquidType.mixingRatio_propertyCalculation[1:end - 1]/sum(liquidType.mixingRatio_propertyCalculation),
         liquidType.nc,

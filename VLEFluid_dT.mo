@@ -17,7 +17,8 @@ protected
       computeTransportProperties,
       interpolateTransportProperties,
       computeSurfaceTension,
-      deactivateTwoPhaseRegion);
+      deactivateTwoPhaseRegion,
+      deactivateDensityDerivatives);
 
 equation
   assert(vleFluidType.nc == 1, "This TILMedia VLEFluid interface cannot handle variable concentrations");

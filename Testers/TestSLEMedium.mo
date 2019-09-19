@@ -17,7 +17,8 @@ model TestSLEMedium
     annotation (Placement(transformation(extent={{-20,0},{0,20}},rotation=0)));
 
   SLEMedium sleSodiumAcetateNormalSupercooling(
-    p=p, h=h,iota=(50 - time)*0.1,
+    p=p, h=h,
+    iota=min(1, max(0, (50 - time)*0.1)),
     redeclare model SLEMediumType = SLEMediumTypes.TILMedia_SodiumAcetate)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}},rotation=0)));
   Boolean supercooledPhaseIsUnstable;
@@ -30,5 +31,5 @@ equation
     supercooledPhaseIsUnstable = false;
   end if;
 
-  annotation (experiment(StopTime=100), experimentSetupOutput);
+  annotation (experiment(StopTime=100));
 end TestSLEMedium;

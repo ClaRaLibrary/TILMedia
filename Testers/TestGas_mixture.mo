@@ -16,15 +16,15 @@ model TestGas_mixture
   // The gasType is VDIWA_MoistAir_nc3
   TILMedia.Gas_pT
              gas_pT(p=p, T=T, xi=xi,
-    redeclare GasTypes.FlueGasTILMedia gasType)
-          annotation (extent=[-20,20; 0,40], Placement(transformation(extent={{-20,0},
+    redeclare TILMedia.GasTypes.VDIWA_MoistAir_nc3 gasType)
+          annotation (Placement(transformation(extent={{-20,0},
             {0,20}})));
    // Instance of the gas object Gas_ph that requires the pressure p, the specific enthalpy and the mass fractions xi[i] as inputs.
    // The gasType is VDIWA_MoistAir_nc3
   TILMedia.Gas_ph
              gas_ph(p=p, h=gas_pT.h, xi=xi,
-    redeclare GasTypes.FlueGasTILMedia gasType)
-          annotation (extent=[-20,20; 0,40], Placement(transformation(extent={{0,0},{
+    redeclare TILMedia.GasTypes.VDIWA_MoistAir_nc3 gasType)
+          annotation (Placement(transformation(extent={{0,0},{
             20,20}})));
 
   // Custom definition of an ideal gas mixture that consists of Argon, Nitrogen, Oxygen and Helium
@@ -40,9 +40,8 @@ model TestGas_mixture
 
   // Instance of the gas object Gas_pT that requires the pressure p, the temperature T and the mass fractions xi[i] as inputs.
   // The gasType is MyGasMixture
-  TILMedia.Gas_pT myGas( p=p, T=T,
-    redeclare GasTypes.FlueGasTILMedia gasType)
-          annotation (extent=[-20,20; 0,40], Placement(transformation(extent={{-18,-40},
+  TILMedia.Gas_pT myGas( p=p, T=T, xi={0.02,0.6,0.3}, redeclare MyGasMixture gasType)
+          annotation (Placement(transformation(extent={{-18,-40},
             {2,-20}})));
 equation
   p = 1e5;

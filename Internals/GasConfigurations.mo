@@ -25,6 +25,7 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
           computeTransportProperties,
           false,
           true,
+          false,
           false);
     equation
       //calculate molar mass
@@ -206,6 +207,7 @@ extends TILMedia.Internals.ClassTypes.ModelPackage;
           computeTransportProperties,
           false,
           true,
+          false,
           false);
     equation
       //calculate molar mass

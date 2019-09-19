@@ -29,7 +29,7 @@ annotation(__Dymola_DocumentationClass=true,
   </tr>
    <tr>
     <td>TILMedia.EXHAUSTGAS_LAMBDA_1 &nbsp; </td>
-    <td>Intendet for gasoline/petrol exhaust gas with lambda value equal one, T = -20°C bis 1050°C &nbsp; </td>
+    <td>Intendet for gasoline/petrol exhaust gas with lambda value equal one, T = -20°C to 1050°C &nbsp; </td>
   </tr>
    <tr>
     <td>TILMedia.DIESELEXHAUSTGAS_x.x &nbsp; </td>
@@ -157,7 +157,7 @@ annotation(__Dymola_DocumentationClass=true,
   </tr>
 </table><br><br>
 
-<h4>Liquid Names TILMedia</h4>
+<h4>Liquid Names TILMedia and IIR_SWF</h4>
 <table border=1>
    <tr>
     <th>Substance name</th>
@@ -657,586 +657,658 @@ annotation(__Dymola_DocumentationClass=true,
     <th>Substance name</th>    
   </tr>
    <tr>
-    <td>REFPROP.1BUTENE.FLD &nbsp; </td>
+    <td>Refprop.13BUTADIENE.FLD &nbsp; </td>
 
-    <td>REFPROP.ACETONE.FLD &nbsp; </td>
+    <td>Refprop.1BUTENE.FLD &nbsp; </td>
 
-    <td>REFPROP.AMMONIA.FLD &nbsp; </td>
+    <td>Refprop.1BUTYNE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.ARGON.FLD &nbsp; </td>
+    <td>Refprop.1PENTENE.FLD &nbsp; </td>
 
-    <td>REFPROP.BENZENE.FLD &nbsp; </td>
+    <td>Refprop.22DIMETHYLBUTANE.FLD &nbsp; </td>
 
-    <td>REFPROP.BUTANE.FLD &nbsp; </td>
+    <td>Refprop.23DIMETHYLBUTANE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.C11.FLD &nbsp; </td>
+    <td>Refprop.3METHYLPENTANE.FLD &nbsp; </td>
 
-    <td>REFPROP.C12.FLD &nbsp; </td>
+    <td>Refprop.ACETONE.FLD &nbsp; </td>
 
-    <td>REFPROP.C1CC6.FLD &nbsp; </td>
+    <td>Refprop.ACETYLENE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.C2BUTENE.FLD &nbsp; </td>
+    <td>Refprop.AMMONIA.FLD &nbsp; </td>
 
-    <td>REFPROP.C3CC6.FLD &nbsp; </td>
+    <td>Refprop.ARGON.FLD &nbsp; </td>
 
-    <td>REFPROP.C4F10.FLD &nbsp; </td>
+    <td>Refprop.BENZENE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.C5F12.FLD &nbsp; </td>
+    <td>Refprop.BUTANE.FLD &nbsp; </td>
 
-    <td>REFPROP.CF3I.FLD &nbsp; </td>
+    <td>Refprop.C11.FLD &nbsp; </td>
 
-    <td>REFPROP.CO.FLD &nbsp; </td>
+    <td>Refprop.C12.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.CO2.FLD &nbsp; </td>
+    <td>Refprop.C16.FLD &nbsp; </td>
 
-    <td>REFPROP.CO2_ACL.FLD &nbsp; </td>
+    <td>Refprop.C1CC6.FLD &nbsp; </td>
 
-    <td>REFPROP.COS.FLD &nbsp; </td>
+    <td>Refprop.C22.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.CYCLOHEX.FLD &nbsp; </td>
+    <td>Refprop.C2BUTENE.FLD &nbsp; </td>
 
-    <td>REFPROP.CYCLOPEN.FLD &nbsp; </td>
+    <td>Refprop.C3CC6.FLD &nbsp; </td>
 
-    <td>REFPROP.CYCLOPRO.FLD &nbsp; </td>
+    <td>Refprop.C4F10.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.D2.FLD &nbsp; </td>
+    <td>Refprop.C5F12.FLD &nbsp; </td>
 
-    <td>REFPROP.D2O.FLD &nbsp; </td>
+    <td>Refprop.C6F14.FLD &nbsp; </td>
 
-    <td>REFPROP.D4.FLD &nbsp; </td>
+    <td>Refprop.CF3I.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.D5.FLD &nbsp; </td>
+    <td>Refprop.CHLORINE.FLD &nbsp; </td>
 
-    <td>REFPROP.D6.FLD &nbsp; </td>
+    <td>Refprop.CHLOROBENZENE.FLD &nbsp; </td>
 
-    <td>REFPROP.DECANE.FLD &nbsp; </td>
+    <td>Refprop.CO.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.DEE.FLD &nbsp; </td>
+    <td>Refprop.CO2.FLD &nbsp; </td>
 
-    <td>REFPROP.DMC.FLD &nbsp; </td>
+    <td>Refprop.CO2_ACL.FLD &nbsp; </td>
 
-    <td>REFPROP.DME.FLD &nbsp; </td>
+    <td>Refprop.COS.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.EBENZENE.FLD &nbsp; </td>
+    <td>Refprop.CYCLOBUTENE.FLD &nbsp; </td>
 
-    <td>REFPROP.ETHANE.FLD &nbsp; </td>
+    <td>Refprop.CYCLOHEX.FLD &nbsp; </td>
 
-    <td>REFPROP.ETHANOL.FLD &nbsp; </td>
+    <td>Refprop.CYCLOPEN.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.ETHYLENE.FLD &nbsp; </td>
+    <td>Refprop.CYCLOPRO.FLD &nbsp; </td>
 
-    <td>REFPROP.FLUORINE.FLD &nbsp; </td>
+    <td>Refprop.D2.FLD &nbsp; </td>
 
-    <td>REFPROP.H2S.FLD &nbsp; </td>
+    <td>Refprop.D2O.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.HCL.FLD &nbsp; </td>
+    <td>Refprop.D4.FLD &nbsp; </td>
 
-    <td>REFPROP.HELIUM.FLD &nbsp; </td>
+    <td>Refprop.D5.FLD &nbsp; </td>
 
-    <td>REFPROP.HEPTANE.FLD &nbsp; </td>
+    <td>Refprop.D6.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.HEXANE.FLD &nbsp; </td>
+    <td>Refprop.DEA.FLD &nbsp; </td>
 
-    <td>REFPROP.HFE-7100.FLD &nbsp; </td>
+    <td>Refprop.DECANE.FLD &nbsp; </td>
 
-    <td>REFPROP.HFE-7200.FLD &nbsp; </td>
+    <td>Refprop.DEE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.HFE-7300.FLD &nbsp; </td>
+    <td>Refprop.DMC.FLD &nbsp; </td>
 
-    <td>REFPROP.HFE-7500.FLD &nbsp; </td>
+    <td>Refprop.DME.FLD &nbsp; </td>
 
-    <td>REFPROP.HYDROGEN.FLD &nbsp; </td>
+    <td>Refprop.EBENZENE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.IBUTENE.FLD &nbsp; </td>
+    <td>Refprop.EGLYCOL.FLD &nbsp; </td>
 
-    <td>REFPROP.IHEXANE.FLD &nbsp; </td>
+    <td>Refprop.ETHANE.FLD &nbsp; </td>
 
-    <td>REFPROP.IOCTANE.FLD &nbsp; </td>
+    <td>Refprop.ETHANOL.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.IPENTANE.FLD &nbsp; </td>
+    <td>Refprop.ETHYLENE.FLD &nbsp; </td>
 
-    <td>REFPROP.ISOBUTAN.FLD &nbsp; </td>
+    <td>Refprop.ETHYLENEOXIDE.FLD &nbsp; </td>
 
-    <td>REFPROP.KRYPTON.FLD &nbsp; </td>
+    <td>Refprop.FLUORINE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.MD2M.FLD &nbsp; </td>
+    <td>Refprop.H2S.FLD &nbsp; </td>
 
-    <td>REFPROP.MD3M.FLD &nbsp; </td>
+    <td>Refprop.HCL.FLD &nbsp; </td>
 
-    <td>REFPROP.MD4M.FLD &nbsp; </td>
+    <td>Refprop.HELIUM.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.MDM.FLD &nbsp; </td>
+    <td>Refprop.HEPTANE.FLD &nbsp; </td>
 
-    <td>REFPROP.METHANE.FLD &nbsp; </td>
+    <td>Refprop.HEXANE.FLD &nbsp; </td>
 
-    <td>REFPROP.METHANOL.FLD &nbsp; </td>
+    <td>Refprop.HFE-7100.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.MLINOLEA.FLD &nbsp; </td>
+    <td>Refprop.HFE-7200.FLD &nbsp; </td>
 
-    <td>REFPROP.MLINOLEN.FLD &nbsp; </td>
+    <td>Refprop.HFE-7300.FLD &nbsp; </td>
 
-    <td>REFPROP.MM.FLD &nbsp; </td>
+    <td>Refprop.HFE-7500.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.MOLEATE.FLD &nbsp; </td>
+    <td>Refprop.HYDROGEN.FLD &nbsp; </td>
 
-    <td>REFPROP.MPALMITA.FLD &nbsp; </td>
+    <td>Refprop.IBUTENE.FLD &nbsp; </td>
 
-    <td>REFPROP.MSTEARAT.FLD &nbsp; </td>
+    <td>Refprop.IHEXANE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.MXYLENE.FLD &nbsp; </td>
+    <td>Refprop.IOCTANE.FLD &nbsp; </td>
 
-    <td>REFPROP.N2O.FLD &nbsp; </td>
+    <td>Refprop.IPENTANE.FLD &nbsp; </td>
 
-    <td>REFPROP.NEON.FLD &nbsp; </td>
+    <td>Refprop.ISOBUTAN.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.NEOPENTN.FLD &nbsp; </td>
+    <td>Refprop.KRYPTON.FLD &nbsp; </td>
 
-    <td>REFPROP.NF3.FLD &nbsp; </td>
+    <td>Refprop.MD2M.FLD &nbsp; </td>
 
-    <td>REFPROP.NITROGEN.FLD &nbsp; </td>
+    <td>Refprop.MD3M.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.NONANE.FLD &nbsp; </td>
+    <td>Refprop.MD4M.FLD &nbsp; </td>
 
-    <td>REFPROP.Novec 7000.FLD &nbsp; </td>
+    <td>Refprop.MDM.FLD &nbsp; </td>
 
-    <td>REFPROP.Novec 774.FLD &nbsp; </td>
+    <td>Refprop.MEA.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.NOVEC649.FLD &nbsp; </td>
+    <td>Refprop.METHANE.FLD &nbsp; </td>
 
-    <td>REFPROP.OCTANE.FLD &nbsp; </td>
+    <td>Refprop.METHANOL.FLD &nbsp; </td>
 
-    <td>REFPROP.ORTHOHYD.FLD &nbsp; </td>
+    <td>Refprop.MLINOLEA.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.OXYGEN.FLD &nbsp; </td>
+    <td>Refprop.MLINOLEN.FLD &nbsp; </td>
 
-    <td>REFPROP.OXYLENE.FLD &nbsp; </td>
+    <td>Refprop.MM.FLD &nbsp; </td>
 
-    <td>REFPROP.PARAHYD.FLD &nbsp; </td>
+    <td>Refprop.MOLEATE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.PENTANE.FLD &nbsp; </td>
+    <td>Refprop.MPALMITA.FLD &nbsp; </td>
 
-    <td>REFPROP.PROPANE.FLD &nbsp; </td>
+    <td>Refprop.MSTEARAT.FLD &nbsp; </td>
 
-    <td>REFPROP.PROPYLEN.FLD &nbsp; </td>
+    <td>Refprop.MXYLENE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.PROPYNE.FLD &nbsp; </td>
+    <td>Refprop.N2O.FLD &nbsp; </td>
 
-    <td>REFPROP.PXYLENE.FLD &nbsp; </td>
+    <td>Refprop.NEON.FLD &nbsp; </td>
 
-    <td>REFPROP.R11.FLD &nbsp; </td>
+    <td>Refprop.NEOPENTN.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R113.FLD &nbsp; </td>
+    <td>Refprop.NF3.FLD &nbsp; </td>
 
-    <td>REFPROP.R114.FLD &nbsp; </td>
+    <td>Refprop.NITROGEN.FLD &nbsp; </td>
 
-    <td>REFPROP.R115.FLD &nbsp; </td>
+    <td>Refprop.NONANE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R116.FLD &nbsp; </td>
+    <td>Refprop.NOVEC 7000.FLD &nbsp; </td>
 
-    <td>REFPROP.R12.FLD &nbsp; </td>
+    <td>Refprop.NOVEC 774.FLD &nbsp; </td>
 
-    <td>REFPROP.R1216.FLD &nbsp; </td>
+    <td>Refprop.NOVEC649.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R123.FLD &nbsp; </td>
+    <td>Refprop.OCTANE.FLD &nbsp; </td>
 
-    <td>REFPROP.R1233ZD.FLD &nbsp; </td>
+    <td>Refprop.ORTHOHYD.FLD &nbsp; </td>
 
-    <td>REFPROP.R1233ZDE.FLD &nbsp; </td>
+    <td>Refprop.OXYGEN.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R1234YF.FLD &nbsp; </td>
+    <td>Refprop.OXYLENE.FLD &nbsp; </td>
 
-    <td>REFPROP.R1234ZE.FLD &nbsp; </td>
+    <td>Refprop.PARAHYD.FLD &nbsp; </td>
 
-    <td>REFPROP.R1234ZEE.FLD &nbsp; </td>
+    <td>Refprop.PENTANE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R1234ZEZ.FLD &nbsp; </td>
+    <td>Refprop.PROPADIENE.FLD &nbsp; </td>
 
-    <td>REFPROP.R124.FLD &nbsp; </td>
+    <td>Refprop.PROPANE.FLD &nbsp; </td>
 
-    <td>REFPROP.R125.FLD &nbsp; </td>
+    <td>Refprop.PROPYLEN.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R13.FLD &nbsp; </td>
+    <td>Refprop.PROPYLENEOXIDE.FLD &nbsp; </td>
 
-    <td>REFPROP.R1336MZZ.FLD &nbsp; </td>
+    <td>Refprop.PROPYNE.FLD &nbsp; </td>
 
-    <td>REFPROP.R134A.FLD &nbsp; </td>
+    <td>Refprop.PXYLENE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R14.FLD &nbsp; </td>
+    <td>Refprop.R11.FLD &nbsp; </td>
 
-    <td>REFPROP.R141B.FLD &nbsp; </td>
+    <td>Refprop.R1123.FLD &nbsp; </td>
 
-    <td>REFPROP.R142B.FLD &nbsp; </td>
+    <td>Refprop.R113.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R143A.FLD &nbsp; </td>
+    <td>Refprop.R114.FLD &nbsp; </td>
 
-    <td>REFPROP.R152A.FLD &nbsp; </td>
+    <td>Refprop.R115.FLD &nbsp; </td>
 
-    <td>REFPROP.R161.FLD &nbsp; </td>
+    <td>Refprop.R116.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R21.FLD &nbsp; </td>
+    <td>Refprop.R12.FLD &nbsp; </td>
 
-    <td>REFPROP.R218.FLD &nbsp; </td>
+    <td>Refprop.R1216.FLD &nbsp; </td>
 
-    <td>REFPROP.R22.FLD &nbsp; </td>
+    <td>Refprop.R1224YDZ.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R227EA.FLD &nbsp; </td>
+    <td>Refprop.R123.FLD &nbsp; </td>
 
-    <td>REFPROP.R23.FLD &nbsp; </td>
+    <td>Refprop.R1233ZDE.FLD &nbsp; </td>
 
-    <td>REFPROP.R236EA.FLD &nbsp; </td>
+    <td>Refprop.R1234YF.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R236FA.FLD &nbsp; </td>
+    <td>Refprop.R1234ZEE.FLD &nbsp; </td>
 
-    <td>REFPROP.R245CA.FLD &nbsp; </td>
+    <td>Refprop.R1234ZEZ.FLD &nbsp; </td>
 
-    <td>REFPROP.R245FA.FLD &nbsp; </td>
+    <td>Refprop.R124.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R32.FLD &nbsp; </td>
+    <td>Refprop.R1243ZF.FLD &nbsp; </td>
 
-    <td>REFPROP.R365MFC.FLD &nbsp; </td>
+    <td>Refprop.R125.FLD &nbsp; </td>
 
-    <td>REFPROP.R40.FLD &nbsp; </td>
+    <td>Refprop.R13.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R41.FLD &nbsp; </td>
+    <td>Refprop.R1336MZZ.FLD &nbsp; </td>
 
-    <td>REFPROP.RC318.FLD &nbsp; </td>
+    <td>Refprop.R1336MZZZ.FLD &nbsp; </td>
 
-    <td>REFPROP.RE143A.FLD &nbsp; </td>
+    <td>Refprop.R134A.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.RE245CB2.FLD &nbsp; </td>
+    <td>Refprop.R14.FLD &nbsp; </td>
 
-    <td>REFPROP.RE245FA2.FLD &nbsp; </td>
+    <td>Refprop.R141B.FLD &nbsp; </td>
 
-    <td>REFPROP.RE347MCC.FLD &nbsp; </td>
+    <td>Refprop.R142B.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.SF6.FLD &nbsp; </td>
+    <td>Refprop.R143A.FLD &nbsp; </td>
 
-    <td>REFPROP.SO2.FLD &nbsp; </td>
+    <td>Refprop.R150.FLD &nbsp; </td>
 
-    <td>REFPROP.T2BUTENE.FLD &nbsp; </td>
+    <td>Refprop.R152A.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.TOLUENE.FLD &nbsp; </td>
+    <td>Refprop.R161.FLD &nbsp; </td>
 
-    <td>REFPROP.WATER.FLD &nbsp; </td>
+    <td>Refprop.R21.FLD &nbsp; </td>
 
-    <td>REFPROP.XENON.FLD &nbsp; </td>
+    <td>Refprop.R218.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.AIR.PPF &nbsp; </td>
+    <td>Refprop.R22.FLD &nbsp; </td>
 
-    <td>REFPROP.R404A.PPF &nbsp; </td>
+    <td>Refprop.R227EA.FLD &nbsp; </td>
 
-    <td>REFPROP.R407C.PPF &nbsp; </td>
+    <td>Refprop.R23.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R410A.PPF &nbsp; </td>
+    <td>Refprop.R236EA.FLD &nbsp; </td>
 
-    <td>REFPROP.R507A.PPF &nbsp; </td>
+    <td>Refprop.R236FA.FLD &nbsp; </td>
 
-    <td>REFPROP.AIR.MIX &nbsp; </td>
+    <td>Refprop.R245CA.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.AMARILLO.MIX &nbsp; </td>
+    <td>Refprop.R245FA.FLD &nbsp; </td>
 
-    <td>REFPROP.EKOFISK.MIX &nbsp; </td>
+    <td>Refprop.R32.FLD &nbsp; </td>
 
-    <td>REFPROP.GLFCOAST.MIX &nbsp; </td>
+    <td>Refprop.R365MFC.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.HIGHCO2.MIX &nbsp; </td>
+    <td>Refprop.R40.FLD &nbsp; </td>
 
-    <td>REFPROP.HIGHN2.MIX &nbsp; </td>
+    <td>Refprop.R41.FLD &nbsp; </td>
 
-    <td>REFPROP.NGSAMPLE.MIX &nbsp; </td>
+    <td>Refprop.RC318.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R401A.MIX &nbsp; </td>
+    <td>Refprop.RE143A.FLD &nbsp; </td>
 
-    <td>REFPROP.R401B.MIX &nbsp; </td>
+    <td>Refprop.RE245CB2.FLD &nbsp; </td>
 
-    <td>REFPROP.R401C.MIX &nbsp; </td>
+    <td>Refprop.RE245FA2.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R402A.MIX &nbsp; </td>
+    <td>Refprop.RE347MCC.FLD &nbsp; </td>
 
-    <td>REFPROP.R402B.MIX &nbsp; </td>
+    <td>Refprop.SF6.FLD &nbsp; </td>
 
-    <td>REFPROP.R403A.MIX &nbsp; </td>
+    <td>Refprop.SO2.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R403B.MIX &nbsp; </td>
+    <td>Refprop.T2BUTENE.FLD &nbsp; </td>
 
-    <td>REFPROP.R404A.MIX &nbsp; </td>
+    <td>Refprop.TOLUENE.FLD &nbsp; </td>
 
-    <td>REFPROP.R405A.MIX &nbsp; </td>
+    <td>Refprop.VINYLCHLORIDE.FLD &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R406A.MIX &nbsp; </td>
+    <td>Refprop.WATER.FLD &nbsp; </td>
 
-    <td>REFPROP.R407A.MIX &nbsp; </td>
+    <td>Refprop.XENON.FLD &nbsp; </td>
 
-    <td>REFPROP.R407B.MIX &nbsp; </td>
+    <td>Refprop.AIR.PPF &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R407C.MIX &nbsp; </td>
+    <td>Refprop.R404A.PPF &nbsp; </td>
 
-    <td>REFPROP.R407D.MIX &nbsp; </td>
+    <td>Refprop.R407C.PPF &nbsp; </td>
 
-    <td>REFPROP.R407E.MIX &nbsp; </td>
+    <td>Refprop.R410A.PPF &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R407F.MIX &nbsp; </td>
+    <td>Refprop.R507A.PPF &nbsp; </td>
 
-    <td>REFPROP.R407G.MIX &nbsp; </td>
+    <td>Refprop.AIR.MIX &nbsp; </td>
 
-    <td>REFPROP.R408A.MIX &nbsp; </td>
+    <td>Refprop.AMARILLO.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R409A.MIX &nbsp; </td>
+    <td>Refprop.EKOFISK.MIX &nbsp; </td>
 
-    <td>REFPROP.R409B.MIX &nbsp; </td>
+    <td>Refprop.GLFCOAST.MIX &nbsp; </td>
 
-    <td>REFPROP.R410A.MIX &nbsp; </td>
+    <td>Refprop.HIGHCO2.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R410B.MIX &nbsp; </td>
+    <td>Refprop.HIGHN2.MIX &nbsp; </td>
 
-    <td>REFPROP.R411A.MIX &nbsp; </td>
+    <td>Refprop.NGSAMPLE.MIX &nbsp; </td>
 
-    <td>REFPROP.R411B.MIX &nbsp; </td>
+    <td>Refprop.R401A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R412A.MIX &nbsp; </td>
+    <td>Refprop.R401B.MIX &nbsp; </td>
 
-    <td>REFPROP.R413A.MIX &nbsp; </td>
+    <td>Refprop.R401C.MIX &nbsp; </td>
 
-    <td>REFPROP.R414A.MIX &nbsp; </td>
+    <td>Refprop.R402A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R414B.MIX &nbsp; </td>
+    <td>Refprop.R402B.MIX &nbsp; </td>
 
-    <td>REFPROP.R415A.MIX &nbsp; </td>
+    <td>Refprop.R403A.MIX &nbsp; </td>
 
-    <td>REFPROP.R415B.MIX &nbsp; </td>
+    <td>Refprop.R403B.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R416A.MIX &nbsp; </td>
+    <td>Refprop.R404A.MIX &nbsp; </td>
 
-    <td>REFPROP.R417A.MIX &nbsp; </td>
+    <td>Refprop.R405A.MIX &nbsp; </td>
 
-    <td>REFPROP.R417B.MIX &nbsp; </td>
+    <td>Refprop.R406A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R417C.MIX &nbsp; </td>
+    <td>Refprop.R407A.MIX &nbsp; </td>
 
-    <td>REFPROP.R418A.MIX &nbsp; </td>
+    <td>Refprop.R407B.MIX &nbsp; </td>
 
-    <td>REFPROP.R419A.MIX &nbsp; </td>
+    <td>Refprop.R407C.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R419B.MIX &nbsp; </td>
+    <td>Refprop.R407D.MIX &nbsp; </td>
 
-    <td>REFPROP.R420A.MIX &nbsp; </td>
+    <td>Refprop.R407E.MIX &nbsp; </td>
 
-    <td>REFPROP.R421A.MIX &nbsp; </td>
+    <td>Refprop.R407F.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R421B.MIX &nbsp; </td>
+    <td>Refprop.R407G.MIX &nbsp; </td>
 
-    <td>REFPROP.R422A.MIX &nbsp; </td>
+    <td>Refprop.R407H.MIX &nbsp; </td>
 
-    <td>REFPROP.R422B.MIX &nbsp; </td>
+    <td>Refprop.R408A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R422C.MIX &nbsp; </td>
+    <td>Refprop.R409A.MIX &nbsp; </td>
 
-    <td>REFPROP.r422d.mix &nbsp; </td>
+    <td>Refprop.R409B.MIX &nbsp; </td>
 
-    <td>REFPROP.R422E.MIX &nbsp; </td>
+    <td>Refprop.R410A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R423A.mix &nbsp; </td>
+    <td>Refprop.R410B.MIX &nbsp; </td>
 
-    <td>REFPROP.R424A.MIX &nbsp; </td>
+    <td>Refprop.R411A.MIX &nbsp; </td>
 
-    <td>REFPROP.R425A.mix &nbsp; </td>
+    <td>Refprop.R411B.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R426A.MIX &nbsp; </td>
+    <td>Refprop.R412A.MIX &nbsp; </td>
 
-    <td>REFPROP.R427A.MIX &nbsp; </td>
+    <td>Refprop.R413A.MIX &nbsp; </td>
 
-    <td>REFPROP.R428A.MIX &nbsp; </td>
+    <td>Refprop.R414A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R429A.mix &nbsp; </td>
+    <td>Refprop.R414B.MIX &nbsp; </td>
 
-    <td>REFPROP.R430A.mix &nbsp; </td>
+    <td>Refprop.R415A.MIX &nbsp; </td>
 
-    <td>REFPROP.R431A.mix &nbsp; </td>
+    <td>Refprop.R415B.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R432A.mix &nbsp; </td>
+    <td>Refprop.R416A.MIX &nbsp; </td>
 
-    <td>REFPROP.R433A.mix &nbsp; </td>
+    <td>Refprop.R417A.MIX &nbsp; </td>
 
-    <td>REFPROP.R433B.MIX &nbsp; </td>
+    <td>Refprop.R417B.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R433C.MIX &nbsp; </td>
+    <td>Refprop.R417C.MIX &nbsp; </td>
 
-    <td>REFPROP.R434A.mix &nbsp; </td>
+    <td>Refprop.R418A.MIX &nbsp; </td>
 
-    <td>REFPROP.R435A.MIX &nbsp; </td>
+    <td>Refprop.R419A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R436A.MIX &nbsp; </td>
+    <td>Refprop.R419B.MIX &nbsp; </td>
 
-    <td>REFPROP.R436B.MIX &nbsp; </td>
+    <td>Refprop.R420A.MIX &nbsp; </td>
 
-    <td>REFPROP.R437A.MIX &nbsp; </td>
+    <td>Refprop.R421A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R438A.mix &nbsp; </td>
+    <td>Refprop.R421B.MIX &nbsp; </td>
 
-    <td>REFPROP.R439A.MIX &nbsp; </td>
+    <td>Refprop.R422A.MIX &nbsp; </td>
 
-    <td>REFPROP.R440A.MIX &nbsp; </td>
+    <td>Refprop.R422B.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R441A.MIX &nbsp; </td>
+    <td>Refprop.R422C.MIX &nbsp; </td>
 
-    <td>REFPROP.R442A.MIX &nbsp; </td>
+    <td>Refprop.R422D.MIX &nbsp; </td>
 
-    <td>REFPROP.R443A.MIX &nbsp; </td>
+    <td>Refprop.R422E.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R444A.MIX &nbsp; </td>
+    <td>Refprop.R423A.MIX &nbsp; </td>
 
-    <td>REFPROP.R444B.MIX &nbsp; </td>
+    <td>Refprop.R424A.MIX &nbsp; </td>
 
-    <td>REFPROP.R445A.MIX &nbsp; </td>
+    <td>Refprop.R425A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R446A.MIX &nbsp; </td>
+    <td>Refprop.R426A.MIX &nbsp; </td>
 
-    <td>REFPROP.R447A.MIX &nbsp; </td>
+    <td>Refprop.R427A.MIX &nbsp; </td>
 
-    <td>REFPROP.R448A.MIX &nbsp; </td>
+    <td>Refprop.R428A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R449A.MIX &nbsp; </td>
+    <td>Refprop.R429A.MIX &nbsp; </td>
 
-    <td>REFPROP.R449B.MIX &nbsp; </td>
+    <td>Refprop.R430A.MIX &nbsp; </td>
 
-    <td>REFPROP.R450A.MIX &nbsp; </td>
+    <td>Refprop.R431A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R451A.MIX &nbsp; </td>
+    <td>Refprop.R432A.MIX &nbsp; </td>
 
-    <td>REFPROP.R451B.MIX &nbsp; </td>
+    <td>Refprop.R433A.MIX &nbsp; </td>
 
-    <td>REFPROP.R452A.MIX &nbsp; </td>
+    <td>Refprop.R433B.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R452B.MIX &nbsp; </td>
+    <td>Refprop.R433C.MIX &nbsp; </td>
 
-    <td>REFPROP.R452C.MIX &nbsp; </td>
+    <td>Refprop.R434A.MIX &nbsp; </td>
 
-    <td>REFPROP.R453A.MIX &nbsp; </td>
+    <td>Refprop.R435A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R454A.MIX &nbsp; </td>
+    <td>Refprop.R436A.MIX &nbsp; </td>
 
-    <td>REFPROP.R454B.MIX &nbsp; </td>
+    <td>Refprop.R436B.MIX &nbsp; </td>
 
-    <td>REFPROP.R454C.MIX &nbsp; </td>
+    <td>Refprop.R437A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R455A.MIX &nbsp; </td>
+    <td>Refprop.R438A.MIX &nbsp; </td>
 
-    <td>REFPROP.R456A.MIX &nbsp; </td>
+    <td>Refprop.R439A.MIX &nbsp; </td>
 
-    <td>REFPROP.R457A.MIX &nbsp; </td>
+    <td>Refprop.R440A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R500.MIX &nbsp; </td>
+    <td>Refprop.R441A.MIX &nbsp; </td>
 
-    <td>REFPROP.R501.MIX &nbsp; </td>
+    <td>Refprop.R442A.MIX &nbsp; </td>
 
-    <td>REFPROP.R502.MIX &nbsp; </td>
+    <td>Refprop.R443A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R503.MIX &nbsp; </td>
+    <td>Refprop.R444A.MIX &nbsp; </td>
 
-    <td>REFPROP.R504.MIX &nbsp; </td>
+    <td>Refprop.R444B.MIX &nbsp; </td>
 
-    <td>REFPROP.R507A.MIX &nbsp; </td>
+    <td>Refprop.R445A.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R508A.MIX &nbsp; </td>
+    <td>Refprop.R446A.MIX &nbsp; </td>
 
-    <td>REFPROP.R508B.MIX &nbsp; </td>
+    <td>Refprop.R447A.MIX &nbsp; </td>
 
-    <td>REFPROP.R509A.MIX &nbsp; </td>
+    <td>Refprop.R447B.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R510A.MIX &nbsp; </td>
+    <td>Refprop.R448A.MIX &nbsp; </td>
 
-    <td>REFPROP.R511A.MIX &nbsp; </td>
+    <td>Refprop.R449A.MIX &nbsp; </td>
 
-    <td>REFPROP.R512A.MIX &nbsp; </td>
+    <td>Refprop.R449B.MIX &nbsp; </td>
   </tr>
    <tr>
-    <td>REFPROP.R513A.MIX &nbsp; </td>
+    <td>Refprop.R449C.MIX &nbsp; </td>
 
-    <td>REFPROP.R513B.MIX &nbsp; </td>
+    <td>Refprop.R450A.MIX &nbsp; </td>
 
-    <td>REFPROP.R515A.MIX &nbsp; </td>
+    <td>Refprop.R451A.MIX &nbsp; </td>
   </tr>
+   <tr>
+    <td>Refprop.R451B.MIX &nbsp; </td>
+
+    <td>Refprop.R452A.MIX &nbsp; </td>
+
+    <td>Refprop.R452B.MIX &nbsp; </td>
+  </tr>
+   <tr>
+    <td>Refprop.R452C.MIX &nbsp; </td>
+
+    <td>Refprop.R453A.MIX &nbsp; </td>
+
+    <td>Refprop.R454A.MIX &nbsp; </td>
+  </tr>
+   <tr>
+    <td>Refprop.R454B.MIX &nbsp; </td>
+
+    <td>Refprop.R454C.MIX &nbsp; </td>
+
+    <td>Refprop.R455A.MIX &nbsp; </td>
+  </tr>
+   <tr>
+    <td>Refprop.R456A.MIX &nbsp; </td>
+
+    <td>Refprop.R457A.MIX &nbsp; </td>
+
+    <td>Refprop.R458A.MIX &nbsp; </td>
+  </tr>
+   <tr>
+    <td>Refprop.R459A.MIX &nbsp; </td>
+
+    <td>Refprop.R459B.MIX &nbsp; </td>
+
+    <td>Refprop.R460A.MIX &nbsp; </td>
+  </tr>
+   <tr>
+    <td>Refprop.R460B.MIX &nbsp; </td>
+
+    <td>Refprop.R500.MIX &nbsp; </td>
+
+    <td>Refprop.R501.MIX &nbsp; </td>
+  </tr>
+   <tr>
+    <td>Refprop.R502.MIX &nbsp; </td>
+
+    <td>Refprop.R503.MIX &nbsp; </td>
+
+    <td>Refprop.R504.MIX &nbsp; </td>
+  </tr>
+   <tr>
+    <td>Refprop.R507A.MIX &nbsp; </td>
+
+    <td>Refprop.R508A.MIX &nbsp; </td>
+
+    <td>Refprop.R508B.MIX &nbsp; </td>
+  </tr>
+   <tr>
+    <td>Refprop.R509A.MIX &nbsp; </td>
+
+    <td>Refprop.R510A.MIX &nbsp; </td>
+
+    <td>Refprop.R511A.MIX &nbsp; </td>
+  </tr>
+   <tr>
+    <td>Refprop.R512A.MIX &nbsp; </td>
+
+    <td>Refprop.R513A.MIX &nbsp; </td>
+
+    <td>Refprop.R513B.MIX &nbsp; </td>
+  </tr>
+   <tr>
+    <td>Refprop.R515A.MIX &nbsp; </td>
 </table><br><br>
 
 <h4>Gas, Liquid and VLEFluid Names (VDIWA2006)</h4>
@@ -1946,271 +2018,289 @@ annotation(__Dymola_DocumentationClass=true,
     <th>Substance name</th>    
   </tr>
    <tr>
+    <td>CoolProp.R32 &nbsp; </td>
+
     <td>CoolProp.1-Butene &nbsp; </td>
+
+    <td>CoolProp.Novec649 &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.R365MFC &nbsp; </td>
 
     <td>CoolProp.Acetone &nbsp; </td>
 
-    <td>CoolProp.Air &nbsp; </td>
+    <td>CoolProp.R40 &nbsp; </td>
   </tr>
    <tr>
+    <td>CoolProp.Air &nbsp; </td>
+
+    <td>CoolProp.R404A &nbsp; </td>
+
     <td>CoolProp.Ammonia &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.R407C &nbsp; </td>
 
     <td>CoolProp.Argon &nbsp; </td>
 
     <td>CoolProp.Benzene &nbsp; </td>
   </tr>
    <tr>
+    <td>CoolProp.OrthoHydrogen &nbsp; </td>
+
     <td>CoolProp.CarbonDioxide &nbsp; </td>
 
+    <td>CoolProp.Oxygen &nbsp; </td>
+  </tr>
+   <tr>
     <td>CoolProp.CarbonMonoxide &nbsp; </td>
+
+    <td>CoolProp.ParaDeuterium &nbsp; </td>
 
     <td>CoolProp.CarbonylSulfide &nbsp; </td>
   </tr>
    <tr>
-    <td>CoolProp.cis-2-Butene &nbsp; </td>
+    <td>CoolProp.Propylene &nbsp; </td>
 
     <td>CoolProp.CycloHexane &nbsp; </td>
 
-    <td>CoolProp.Cyclopentane &nbsp; </td>
+    <td>CoolProp.ParaHydrogen &nbsp; </td>
   </tr>
    <tr>
     <td>CoolProp.CycloPropane &nbsp; </td>
 
-    <td>CoolProp.D4 &nbsp; </td>
-
-    <td>CoolProp.D5 &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.D6 &nbsp; </td>
-
-    <td>CoolProp.Deuterium &nbsp; </td>
-
-    <td>CoolProp.DimethylCarbonate &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.DimethylEther &nbsp; </td>
-
-    <td>CoolProp.Ethane &nbsp; </td>
-
-    <td>CoolProp.Ethanol &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.EthylBenzene &nbsp; </td>
-
-    <td>CoolProp.Ethylene &nbsp; </td>
-
-    <td>CoolProp.Fluorine &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.HeavyWater &nbsp; </td>
-
-    <td>CoolProp.Helium &nbsp; </td>
-
-    <td>CoolProp.HFE143m &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.Hydrogen &nbsp; </td>
-
-    <td>CoolProp.HydrogenSulfide &nbsp; </td>
-
-    <td>CoolProp.IsoButane &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.IsoButene &nbsp; </td>
-
-    <td>CoolProp.Isohexane &nbsp; </td>
-
-    <td>CoolProp.Isopentane &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.Krypton &nbsp; </td>
-
-    <td>CoolProp.m-Xylene &nbsp; </td>
-
-    <td>CoolProp.MD2M &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.MD3M &nbsp; </td>
-
-    <td>CoolProp.MD4M &nbsp; </td>
-
-    <td>CoolProp.MDM &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.Methane &nbsp; </td>
-
-    <td>CoolProp.Methanol &nbsp; </td>
-
-    <td>CoolProp.MethylLinoleate &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.MethylLinolenate &nbsp; </td>
-
-    <td>CoolProp.MethylOleate &nbsp; </td>
-
-    <td>CoolProp.MethylPalmitate &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.MethylStearate &nbsp; </td>
-
-    <td>CoolProp.MM &nbsp; </td>
-
-    <td>CoolProp.n-Butane &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.n-Decane &nbsp; </td>
-
-    <td>CoolProp.n-Dodecane &nbsp; </td>
-
-    <td>CoolProp.n-Heptane &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.n-Hexane &nbsp; </td>
-
-    <td>CoolProp.n-Nonane &nbsp; </td>
-
-    <td>CoolProp.n-Octane &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.n-Pentane &nbsp; </td>
-
-    <td>CoolProp.n-Propane &nbsp; </td>
-
-    <td>CoolProp.n-Undecane &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.Neon &nbsp; </td>
-
-    <td>CoolProp.Neopentane &nbsp; </td>
-
-    <td>CoolProp.Nitrogen &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.NitrousOxide &nbsp; </td>
-
-    <td>CoolProp.o-Xylene &nbsp; </td>
-
-    <td>CoolProp.OrthoDeuterium &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.OrthoHydrogen &nbsp; </td>
-
-    <td>CoolProp.Oxygen &nbsp; </td>
-
-    <td>CoolProp.p-Xylene &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.ParaDeuterium &nbsp; </td>
-
-    <td>CoolProp.ParaHydrogen &nbsp; </td>
-
-    <td>CoolProp.Propylene &nbsp; </td>
-  </tr>
-   <tr>
     <td>CoolProp.Propyne &nbsp; </td>
 
-    <td>CoolProp.R11 &nbsp; </td>
-
-    <td>CoolProp.R113 &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.R114 &nbsp; </td>
-
-    <td>CoolProp.R116 &nbsp; </td>
-
-    <td>CoolProp.R12 &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.R123 &nbsp; </td>
-
-    <td>CoolProp.R1233zd(E) &nbsp; </td>
-
-    <td>CoolProp.R1234yf &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.R1234ze(E) &nbsp; </td>
-
-    <td>CoolProp.R1234ze(Z) &nbsp; </td>
-
-    <td>CoolProp.R124 &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.R125 &nbsp; </td>
-
-    <td>CoolProp.R13 &nbsp; </td>
-
-    <td>CoolProp.R134a &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.R14 &nbsp; </td>
-
-    <td>CoolProp.R141b &nbsp; </td>
-
-    <td>CoolProp.R142b &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.R143a &nbsp; </td>
-
-    <td>CoolProp.R152A &nbsp; </td>
-
-    <td>CoolProp.R161 &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.R21 &nbsp; </td>
-
-    <td>CoolProp.R218 &nbsp; </td>
-
-    <td>CoolProp.R22 &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.R227EA &nbsp; </td>
-
-    <td>CoolProp.R23 &nbsp; </td>
-
-    <td>CoolProp.R236EA &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.R236FA &nbsp; </td>
-
-    <td>CoolProp.R245fa &nbsp; </td>
-
-    <td>CoolProp.R32 &nbsp; </td>
-  </tr>
-   <tr>
-    <td>CoolProp.R365MFC &nbsp; </td>
-
-    <td>CoolProp.R404A &nbsp; </td>
-
-    <td>CoolProp.R407C &nbsp; </td>
+    <td>CoolProp.Cyclopentane &nbsp; </td>
   </tr>
    <tr>
     <td>CoolProp.R41 &nbsp; </td>
 
-    <td>CoolProp.R410A &nbsp; </td>
+    <td>CoolProp.D4 &nbsp; </td>
 
-    <td>CoolProp.R507A &nbsp; </td>
+    <td>CoolProp.R410A &nbsp; </td>
   </tr>
    <tr>
+    <td>CoolProp.D5 &nbsp; </td>
+
+    <td>CoolProp.R507A &nbsp; </td>
+
+    <td>CoolProp.D6 &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.R11 &nbsp; </td>
+
+    <td>CoolProp.Deuterium &nbsp; </td>
+
+    <td>CoolProp.R113 &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.Dichloroethane &nbsp; </td>
+
+    <td>CoolProp.R125 &nbsp; </td>
+
+    <td>CoolProp.DiethylEther &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.OrthoDeuterium &nbsp; </td>
+
+    <td>CoolProp.DimethylCarbonate &nbsp; </td>
+
+    <td>CoolProp.R124 &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.DimethylEther &nbsp; </td>
+
     <td>CoolProp.RC318 &nbsp; </td>
 
+    <td>CoolProp.Ethane &nbsp; </td>
+  </tr>
+   <tr>
     <td>CoolProp.SES36 &nbsp; </td>
 
+    <td>CoolProp.Ethanol &nbsp; </td>
+
+    <td>CoolProp.R13 &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.EthylBenzene &nbsp; </td>
+
     <td>CoolProp.SulfurDioxide &nbsp; </td>
+
+    <td>CoolProp.Ethylene &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.R134a &nbsp; </td>
+
+    <td>CoolProp.EthyleneOxide &nbsp; </td>
+
+    <td>CoolProp.Water &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.Fluorine &nbsp; </td>
+
+    <td>CoolProp.Toluene &nbsp; </td>
+
+    <td>CoolProp.HFE143m &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.R13I1 &nbsp; </td>
+
+    <td>CoolProp.HeavyWater &nbsp; </td>
+
+    <td>CoolProp.Xenon &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.Helium &nbsp; </td>
+
+    <td>CoolProp.n-Butane &nbsp; </td>
+
+    <td>CoolProp.Hydrogen &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.R14 &nbsp; </td>
+
+    <td>CoolProp.HydrogenChloride &nbsp; </td>
+
+    <td>CoolProp.R141b &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.HydrogenSulfide &nbsp; </td>
+
+    <td>CoolProp.R142b &nbsp; </td>
+
+    <td>CoolProp.IsoButane &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.R143a &nbsp; </td>
+
+    <td>CoolProp.IsoButene &nbsp; </td>
+
+    <td>CoolProp.R152A &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.Isohexane &nbsp; </td>
+
+    <td>CoolProp.R161 &nbsp; </td>
+
+    <td>CoolProp.Isopentane &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.cis-2-Butene &nbsp; </td>
+
+    <td>CoolProp.Krypton &nbsp; </td>
+
+    <td>CoolProp.m-Xylene &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.MD2M &nbsp; </td>
+
+    <td>CoolProp.n-Decane &nbsp; </td>
+
+    <td>CoolProp.MD3M &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.n-Heptane &nbsp; </td>
+
+    <td>CoolProp.MD4M &nbsp; </td>
+
+    <td>CoolProp.n-Dodecane &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.MDM &nbsp; </td>
+
+    <td>CoolProp.n-Nonane &nbsp; </td>
+
+    <td>CoolProp.MM &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.n-Hexane &nbsp; </td>
+
+    <td>CoolProp.Methane &nbsp; </td>
+
+    <td>CoolProp.n-Octane &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.Methanol &nbsp; </td>
+
+    <td>CoolProp.R21 &nbsp; </td>
+
+    <td>CoolProp.MethylLinoleate &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.R218 &nbsp; </td>
+
+    <td>CoolProp.MethylLinolenate &nbsp; </td>
+
+    <td>CoolProp.R22 &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.MethylOleate &nbsp; </td>
+
+    <td>CoolProp.R227EA &nbsp; </td>
+
+    <td>CoolProp.MethylPalmitate &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.R23 &nbsp; </td>
+
+    <td>CoolProp.MethylStearate &nbsp; </td>
+
+    <td>CoolProp.n-Propane &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.Neon &nbsp; </td>
+
+    <td>CoolProp.R236EA &nbsp; </td>
+
+    <td>CoolProp.Neopentane &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.n-Pentane &nbsp; </td>
+
+    <td>CoolProp.Nitrogen &nbsp; </td>
+
+    <td>CoolProp.R236FA &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.NitrousOxide &nbsp; </td>
+
+    <td>CoolProp.R114 &nbsp; </td>
+
+    <td>CoolProp.n-Undecane &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.R115 &nbsp; </td>
+
+    <td>CoolProp.p-Xylene &nbsp; </td>
+
+    <td>CoolProp.R116 &nbsp; </td>
+  </tr>
+   <tr>
+    <td>CoolProp.o-Xylene &nbsp; </td>
+
+    <td>CoolProp.R12 &nbsp; </td>
+
+    <td>CoolProp.R123 &nbsp; </td>
   </tr>
    <tr>
     <td>CoolProp.SulfurHexafluoride &nbsp; </td>
 
-    <td>CoolProp.Toluene &nbsp; </td>
+    <td>CoolProp.R1233zd(E) &nbsp; </td>
 
     <td>CoolProp.trans-2-Butene &nbsp; </td>
   </tr>
    <tr>
-    <td>CoolProp.Water &nbsp; </td>
+    <td>CoolProp.R1234yf &nbsp; </td>
 
-    <td>CoolProp.Xenon &nbsp; </td>
+    <td>CoolProp.R245ca &nbsp; </td>
 
-    <td> &nbsp; </td>
+    <td>CoolProp.R1234ze(E) &nbsp; </td>
   </tr>
+   <tr>
+    <td>CoolProp.R245fa &nbsp; </td>
+
+    <td>CoolProp.R1234ze(Z) &nbsp; </td>
 </table><br><br>
 
 <h4>Gas Names NASA</h4>

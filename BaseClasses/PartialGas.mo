@@ -1,4 +1,4 @@
-within TILMedia.BaseClasses;
+﻿within TILMedia.BaseClasses;
 partial model PartialGas "Gas vapor model for object and member function based evaluation"
 
   replaceable parameter TILMedia.GasTypes.FlueGasTILMedia gasType
@@ -6,80 +6,106 @@ partial model PartialGas "Gas vapor model for object and member function based e
     "type record of the gas or gas mixture" annotation (choicesAllMatching=true);
 
   replaceable class PointerType = TILMedia.Internals.BasePointer;
-  parameter PointerType gasPointer;
+
+  parameter PointerType gasPointer annotation (Dialog(tab="Advanced"));
 
   parameter Boolean computeTransportProperties=false
     "=true, if transport properties are calculated"
     annotation (Dialog(tab="Advanced"));
 
-  replaceable function d_phxi = GasObjectFunctions.density_phxi (
-        gasPointer=gasPointer);
-  replaceable function T_phxi = GasObjectFunctions.temperature_phxi (
-        gasPointer=gasPointer);
-  replaceable function s_phxi = GasObjectFunctions.specificEntropy_phxi (
-       gasPointer=gasPointer);
-  replaceable function cp_phxi =
-      GasObjectFunctions.specificIsobaricHeatCapacity_phxi (gasPointer=
+  replaceable partial function d_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.density_phxi (gasPointer=
           gasPointer);
-  replaceable function phi_phxi =
-      GasObjectFunctions.relativeHumidity_phxi (gasPointer=gasPointer);
-  replaceable function eta_phxi =
-      GasObjectFunctions.dynamicViscosity_phxi (gasPointer=gasPointer);
-  replaceable function Pr_phxi = GasObjectFunctions.prandtlNumber_phxi (
-       gasPointer=gasPointer);
-  replaceable function lambda_phxi =
-      GasObjectFunctions.thermalConductivity_phxi (gasPointer=gasPointer);
+  replaceable partial function T_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.temperature_phxi (
+        gasPointer=gasPointer);
+  replaceable partial function s_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.specificEntropy_phxi (
+        gasPointer=gasPointer);
+  replaceable partial function cp_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_phxi
+      (gasPointer=gasPointer);
+  replaceable partial function phi_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_phxi (
+        gasPointer=gasPointer);
+  replaceable partial function eta_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_phxi (
+        gasPointer=gasPointer);
+  replaceable partial function Pr_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_phxi (
+        gasPointer=gasPointer);
+  replaceable partial function lambda_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_phxi (
+        gasPointer=gasPointer);
 
-  replaceable function d_pTxi = GasObjectFunctions.density_pTxi (
-        gasPointer=gasPointer);
-  replaceable function h_pTxi =
-      GasObjectFunctions.specificEnthalpy_pTxi (gasPointer=gasPointer);
-  replaceable function s_pTxi = GasObjectFunctions.specificEntropy_pTxi (
-       gasPointer=gasPointer);
-  replaceable function cp_pTxi =
-      GasObjectFunctions.specificIsobaricHeatCapacity_pTxi (gasPointer=
+  replaceable partial function d_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.density_pTxi (gasPointer=
           gasPointer);
-  replaceable function phi_pTxi =
-      GasObjectFunctions.relativeHumidity_pTxi (gasPointer=gasPointer);
-  replaceable function xi_s_pTxidg =
-      GasObjectFunctions.saturationMassFraction_pTxidg (gasPointer=gasPointer);
-  replaceable function eta_pTxi =
-      GasObjectFunctions.dynamicViscosity_pTxi (gasPointer=gasPointer);
-  replaceable function Pr_pTxi = GasObjectFunctions.prandtlNumber_pTxi (
-       gasPointer=gasPointer);
-  replaceable function lambda_pTxi =
-      GasObjectFunctions.thermalConductivity_pTxi (gasPointer=gasPointer);
+  replaceable partial function h_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy_pTxi (
+        gasPointer=gasPointer);
+  replaceable partial function s_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.specificEntropy_pTxi (
+        gasPointer=gasPointer);
+  replaceable partial function cp_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_pTxi
+      (gasPointer=gasPointer);
+  replaceable partial function phi_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_pTxi (
+        gasPointer=gasPointer);
+  replaceable partial function xi_s_pTxidg =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.saturationMassFraction_pTxidg
+      (gasPointer=gasPointer);
+  replaceable partial function eta_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_pTxi (
+        gasPointer=gasPointer);
+  replaceable partial function Pr_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_pTxi (
+        gasPointer=gasPointer);
+  replaceable partial function lambda_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_pTxi (
+        gasPointer=gasPointer);
 
-  replaceable function d_psxi = GasObjectFunctions.density_psxi (
-        gasPointer=gasPointer);
-  replaceable function h_psxi =
-      GasObjectFunctions.specificEnthalpy_psxi (gasPointer=gasPointer);
-  replaceable function T_psxi = GasObjectFunctions.temperature_psxi (
-        gasPointer=gasPointer);
-  replaceable function cp_psxi =
-      GasObjectFunctions.specificIsobaricHeatCapacity_psxi (gasPointer=
+  replaceable partial function d_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.density_psxi (gasPointer=
           gasPointer);
-  replaceable function phi_psxi =
-      GasObjectFunctions.relativeHumidity_psxi (gasPointer=gasPointer);
-  replaceable function eta_psxi =
-      GasObjectFunctions.dynamicViscosity_psxi (gasPointer=gasPointer);
-  replaceable function Pr_psxi = GasObjectFunctions.prandtlNumber_psxi (
-       gasPointer=gasPointer);
-  replaceable function lambda_psxi =
-      GasObjectFunctions.thermalConductivity_psxi (gasPointer=gasPointer);
+  replaceable partial function h_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpy_psxi (
+        gasPointer=gasPointer);
+  replaceable partial function T_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.temperature_psxi (
+        gasPointer=gasPointer);
+  replaceable partial function cp_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.specificIsobaricHeatCapacity_psxi
+      (gasPointer=gasPointer);
+  replaceable partial function phi_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.relativeHumidity_psxi (
+        gasPointer=gasPointer);
+  replaceable partial function eta_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.dynamicViscosity_psxi (
+        gasPointer=gasPointer);
+  replaceable partial function Pr_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.prandtlNumber_psxi (
+        gasPointer=gasPointer);
+  replaceable partial function lambda_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.thermalConductivity_psxi (
+        gasPointer=gasPointer);
 
-  replaceable function p_s_T =
-      GasObjectFunctions.saturationPartialPressure_T (gasPointer=gasPointer);
-  replaceable function h_i_Tn =
-      GasObjectFunctions.specificEnthalpyOfPureGas_Tn (gasPointer=gasPointer);
-  replaceable function delta_hv_T =
-      GasObjectFunctions.specificEnthalpyOfVaporisation_T (gasPointer=
+  replaceable partial function p_s_T =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.saturationPartialPressure_T
+      (gasPointer=gasPointer);
+  replaceable partial function h_i_Tn =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfPureGas_Tn
+      (gasPointer=gasPointer);
+  replaceable partial function delta_hv_T =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfVaporisation_T
+      (gasPointer=gasPointer);
+  replaceable partial function delta_hd_T =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.specificEnthalpyOfDesublimation_T
+      (gasPointer=gasPointer);
+  replaceable partial function T_freeze =
+      TILMedia.BaseClasses.PartialGasObjectFunctions.freezingPoint (gasPointer=
           gasPointer);
-  replaceable function delta_hd_T =
-      GasObjectFunctions.specificEnthalpyOfDesublimation_T (gasPointer=
-          gasPointer);
-  replaceable function T_freeze = GasObjectFunctions.freezingPoint (
-        gasPointer=gasPointer);
 
 equation
 

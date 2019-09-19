@@ -4,19 +4,19 @@ convertClear();
 
 
 //---------------------------------------
-// Start conversion from TILMedia 3.2.1 to 3.2.2
+// Start conversion from TILMedia 1.4.1 ClaRa to 3.2.2
 
 convertElement("TILMedia.VLEFluidTypes.BaseVLEFluid","VLEFluidNames","vleFluidNames");
 
-// End conversion from TILMedia 3.2.1 to 3.2.2
+// End conversion from TILMedia 1.4.1 ClaRa to 3.2.2
 //---------------------------------------
 
 
 //---------------------------------------
-// Start conversion from TILMedia 3.2.2 to 3.6.1
+// Start conversion from TILMedia 1.4.1 ClaRa to 3.6.1
 
 convertModifiers("TILMedia.VLEFluidTypes.BaseVLEFluid",{"vleFluidNames"},fill("",0),true);
 convertModifiers("TILMedia.VLEFluidTypes.BaseVLEFluid",{"concatVLEFluidName"},{"final vleFluidNames={%concatVLEFluidName%}"});
 
-// End conversion from TILMedia 3.2.2 to 3.6.1
+// End conversion from TILMedia 1.4.1 ClaRa to 3.6.1
 //---------------------------------------

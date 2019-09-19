@@ -12,7 +12,7 @@ model Gas_pT
         getInstanceName()));
 protected
   constant Real invalidValue=-1;
-  final parameter Integer computeFlags = TILMedia.Internals.calcComputeFlags(computeTransportProperties,false,true,false);
+  final parameter Integer computeFlags = TILMedia.Internals.calcComputeFlags(computeTransportProperties,false,true,false,false);
 equation
   //calculate molar mass
   M = 1/sum(cat(1,xi,{1-sum(xi)})./M_i);

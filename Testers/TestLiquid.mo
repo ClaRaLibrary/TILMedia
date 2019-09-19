@@ -1,7 +1,7 @@
 ﻿within TILMedia.Testers;
 model TestLiquid
   extends TILMedia.Internals.ClassTypes.ExampleModel;
-  
+
   // This tester demonstrates the calculation of thermodynamic properties of water
   // using the liquid objects Liquid_pT and Liquid_ph
 

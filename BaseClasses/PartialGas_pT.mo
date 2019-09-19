@@ -1,4 +1,4 @@
-within TILMedia.BaseClasses;
+﻿within TILMedia.BaseClasses;
 partial model PartialGas_pT
   "Gas vapor model with p, T and xi as independent variables"
   replaceable parameter TILMedia.GasTypes.FlueGasTILMedia gasType
@@ -7,7 +7,8 @@ partial model PartialGas_pT
     annotation(choicesAllMatching=true);
 
   replaceable class PointerType = TILMedia.Internals.BasePointer;
-  parameter PointerType gasPointer;
+
+  parameter PointerType gasPointer annotation(Dialog(tab="Advanced"));
 
   parameter Boolean stateSelectPreferForInputs=false
     "=true, StateSelect.prefer is set for input variables"

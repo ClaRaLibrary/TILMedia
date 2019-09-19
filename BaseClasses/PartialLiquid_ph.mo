@@ -4,9 +4,9 @@ partial model PartialLiquid_ph
   replaceable parameter TILMedia.LiquidTypes.TILMedia_Water liquidType constrainedby
     TILMedia.LiquidTypes.BaseLiquid "type record of the liquid"
     annotation(choicesAllMatching=true);
-protected
+
   replaceable class PointerType = TILMedia.Internals.BasePointer;
-public
+
   parameter PointerType liquidPointer annotation (Dialog(tab="Advanced"));
 
   parameter Boolean computeTransportProperties = false

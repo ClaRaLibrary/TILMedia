@@ -1,4 +1,4 @@
-within TILMedia.Testers;
+﻿within TILMedia.Testers;
 model TestVLEFluidObjectFunctions
   extends TILMedia.Internals.ClassTypes.ExampleModel;
 
@@ -18,7 +18,7 @@ model TestVLEFluidObjectFunctions
   SI.MassFraction xi[vleFluidType.nc-1];
 
   // Record which defines the VLEFluid (see User's Guide -> Substance Record)
-  parameter TILMedia.VLEFluidTypes.TILMedia_Water vleFluidType;
+  parameter TILMedia.VLEFluidTypes.TILMedia_CO2 vleFluidType;
 
   // Start values for the the temperature
   parameter SI.Temperature T_start = 273.15+20;
@@ -29,7 +29,7 @@ model TestVLEFluidObjectFunctions
   parameter Real h_start = TILMedia.VLEFluidFunctions.specificEnthalpy_pTxi(vleFluidType,  p_start, T_start);
   // or by using the vleFluid instance:
   parameter Real T_startValue = vleFluid.T_phxi(13e5, 300e3, zeros(0));
-  // xi does not exist for a pure substance like Water, because the array of mass fractions has the size nc-1.
+  // xi does not exist for a pure substance like CO2, because the array of mass fractions has the size nc-1.
   // Therefore xi is set to zeros(0).
 
   // Instance of a VLEFluid object that requires the vleFluidType as input.

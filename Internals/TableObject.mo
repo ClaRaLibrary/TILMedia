@@ -6,13 +6,13 @@ class TableObject
       input String value2;
     output TableObject pointer;
     external "C" pointer = TILMedia_allocateTable(value1, value2)
-      annotation(__iti_dllNoExport = true,Include="void* TILMedia_allocateTable(const char*, const char*);",Library="TILMedia140ClaRa");
+      annotation(__iti_dllNoExport = true,Include="void* TILMedia_allocateTable(const char*, const char*);",Library="TILMedia141ClaRa");
    end constructor;
 
    function destructor "free memory"
     input TableObject pointer;
     external "C" TILMedia_freeTable(pointer)
-              annotation(__iti_dllNoExport = true,Include="void TILMedia_freeTable(void*);",Library="TILMedia140ClaRa");
+              annotation(__iti_dllNoExport = true,Include="void TILMedia_freeTable(void*);",Library="TILMedia141ClaRa");
    end destructor;
 
   annotation(Protection(access=Access.documentation));

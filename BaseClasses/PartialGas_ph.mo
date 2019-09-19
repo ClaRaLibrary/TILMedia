@@ -1,4 +1,4 @@
-within TILMedia.BaseClasses;
+﻿within TILMedia.BaseClasses;
 partial model PartialGas_ph
   "Gas vapor model with p, h and xi as independent variables"
   replaceable parameter TILMedia.GasTypes.FlueGasTILMedia gasType
@@ -7,7 +7,8 @@ partial model PartialGas_ph
     annotation(choicesAllMatching=true);
 
   replaceable class PointerType = ExternalObject;
-  parameter PointerType gasPointer;
+
+  parameter PointerType gasPointer annotation(Dialog(tab="Advanced"));
 
   parameter Boolean stateSelectPreferForInputs = false
     "=true, StateSelect.prefer is set for input variables"
@@ -18,10 +19,10 @@ partial model PartialGas_ph
 
   //Base Properties
   SI.Density d "Density";
-  input SI.SpecificEnthalpy h(stateSelect=if (stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default)
-    "Specific enthalpy" annotation(Dialog);
   input SI.AbsolutePressure p(stateSelect=if (stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default)
     "Pressure" annotation(Dialog);
+  input SI.SpecificEnthalpy h(stateSelect=if (stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default)
+    "Specific enthalpy" annotation(Dialog);
   SI.SpecificEntropy s "Specific entropy";
   SI.Temperature T "Temperature";
   input SI.MassFraction xi[gasType.nc-1](each stateSelect=if (stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default) = gasType.xi_default
