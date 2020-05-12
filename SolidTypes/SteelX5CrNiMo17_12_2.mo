@@ -1,4 +1,4 @@
-within TILMedia.SolidTypes;
+﻿within TILMedia.SolidTypes;
 model SteelX5CrNiMo17_12_2 "SteelX5CrNiMo17_12_2 - 1.4401"
    //Source: /http://www.s-k-h.com/media/de/Service/Werkstoffblaetter_deutsch/1.4401.pdf"
 

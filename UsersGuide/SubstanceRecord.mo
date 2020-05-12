@@ -30,13 +30,13 @@ package SubstanceRecord "Substance Record"
 </ul>
 <p>To access the properties of an additional substance, it is recommended to create a new substance record. A new substance record is easily created by duplicating the substance record of an existing medium (e.g. &QUOT;TILMedia.VLEFluidTypes.TILMedia_R134a&QUOT;). To assign the new substance, the <code>vleFluidNames</code> parameter has to be changed to the new substance name (e.g. &QUOT;TILMedia.TILMedia_R1233ZD&QUOT;), included in the <a href=\"Modelica:TILMedia.UsersGuide.SubstanceNames\">list of available substances</a>. In the record, the parameters listed above have to be specified, using the modifier (brackets behind the base class) of the new substance record. An example of a user-defined substance record is shown below: </p>
 <p>Pure substance example:
-<p><code><span style=\"color: #0000ff;\">record</span>&nbsp;TILMedia_R1233ZD&nbsp;<span style=\"color: #006400;\">&quot;TILMedia.R1233ZD&quot;</span></code>
+<p><code><span style=\"color: #0000ff;\">record</span>&nbsp;TILMedia_R1233ZDE&nbsp;<span style=\"color: #006400;\">&quot;TILMedia.R1233ZDE&quot;</span></code>
 <br><code>&nbsp;&nbsp;<span style=\"color: #0000ff;\">extends&nbsp;</span><span style=\"color: #ff0000;\">TILMedia.VLEFluidTypes.BaseVLEFluid</span>(</code>
-<br><code>&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"color: #0000ff;\">final&nbsp;</span>fixedMixingRatio=false,</code>
+<br><code>&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"color: #0000ff;\">final&nbsp;</span>fixedMixingRatio=true,</code>
 <br><code>&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"color: #0000ff;\">final&nbsp;</span>nc_propertyCalculation=1,</code>
-<br><code>&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"color: #0000ff;\">final&nbsp;</span>vleFluidNames={&quot;TILMedia.R1233ZD&quot;},</code>
+<br><code>&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"color: #0000ff;\">final&nbsp;</span>vleFluidNames={&quot;TILMedia.R1233ZDE&quot;},</code>
 <br><code>&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"color: #0000ff;\">final&nbsp;</span>mixingRatio_propertyCalculation={1});</code>
-<br><code><span style=\"color: #0000ff;\">end&nbsp;</span>TILMedia_R1233ZD;</code></p></p>
+<br><code><span style=\"color: #0000ff;\">end&nbsp;</span>TILMedia_R1233ZDE;</code></p></p>
 <p>Mixture example:
 <p><code><span style=\"color: #0000ff;\">record</span>&nbsp;TILMediaXTR_MyGasMixture&nbsp;<span style=\"color: #006400;\">&quot;MyGasMixture&quot;</span></code>
 <br><code>&nbsp;&nbsp;<span style=\"color: #0000ff;\">extends&nbsp;</span><span style=\"color: #ff0000;\">TILMedia.GasTypes.BaseGas</span>(</code>

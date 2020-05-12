@@ -1,4 +1,4 @@
-within TILMedia.VLEFluidTypes;
+﻿within TILMedia.VLEFluidTypes;
 record TILMedia_SplineWater
   "Water, IAPWS1995, Bicubic Spline Interpolation, table based calculation (TLK Implementation)"
   extends TILMedia.VLEFluidTypes.BaseVLEFluid(

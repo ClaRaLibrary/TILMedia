@@ -1,4 +1,4 @@
-within TILMedia.SolidTypes;
+﻿within TILMedia.SolidTypes;
 model Steel13CrMo4_5 "Steel13CrMo4_5 - 1.7335"
    //Source: http://www.thyssenkrupp-stahlkontor.de/tl_files/ThyssenKrupp/pdf/13CrMo4-5.pdf"
 

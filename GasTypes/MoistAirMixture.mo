@@ -1,4 +1,4 @@
-within TILMedia.GasTypes;
+﻿within TILMedia.GasTypes;
 record MoistAirMixture "Moist air gas mixture with a condensing component"
   extends TILMedia.GasTypes.BaseGas(
     final fixedMixingRatio=false,

@@ -23,82 +23,133 @@ partial model PartialVLEFluid "Compressible fluid model for object and member fu
     "Deactivate calculation of two phase region" annotation (Evaluate=true);
 
   replaceable partial function d_phxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.density_phxi;
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.density_phxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.density_phxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function T_phxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.temperature_phxi (
-        vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.temperature_phxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.temperature_phxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function s_phxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificEntropy_phxi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificEntropy_phxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificEntropy_phxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function cp_phxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi
+       constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificIsobaricHeatCapacity_phxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function eta_phxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dynamicViscosity_phxi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dynamicViscosity_phxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dynamicViscosity_phxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function Pr_phxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.prandtlNumber_phxi (
-        vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.prandtlNumber_phxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.prandtlNumber_phxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function lambda_phxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.thermalConductivity_phxi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.thermalConductivity_phxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.thermalConductivity_phxi(
+       vleFluidPointer=vleFluidPointer);
 
   replaceable partial function d_pTxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.density_pTxi (
-        vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.density_pTxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.density_pTxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function h_pTxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificEnthalpy_pTxi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificEnthalpy_pTxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificEnthalpy_pTxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function s_pTxi =
       TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificEntropy_pTxi
-      (vleFluidPointer=vleFluidPointer);
+      (vleFluidPointer=vleFluidPointer) constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificEntropy_pTxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function cp_pTxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificIsobaricHeatCapacity_pTxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function eta_pTxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dynamicViscosity_pTxi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dynamicViscosity_pTxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dynamicViscosity_pTxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function Pr_pTxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.prandtlNumber_pTxi (
-        vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.prandtlNumber_pTxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.prandtlNumber_pTxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function lambda_pTxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.thermalConductivity_pTxi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.thermalConductivity_pTxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.thermalConductivity_pTxi(
+       vleFluidPointer=vleFluidPointer);
 
   replaceable partial function d_psxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.density_psxi (
-        vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.density_psxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.density_psxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function h_psxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificEnthalpy_psxi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificEnthalpy_psxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificEnthalpy_psxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function T_psxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.temperature_psxi (
-        vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.temperature_psxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.temperature_psxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function cp_psxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificIsobaricHeatCapacity_psxi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificIsobaricHeatCapacity_psxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.specificIsobaricHeatCapacity_psxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function eta_psxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dynamicViscosity_psxi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dynamicViscosity_psxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dynamicViscosity_psxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function Pr_psxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.prandtlNumber_psxi (
-        vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.prandtlNumber_psxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.prandtlNumber_psxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function lambda_psxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.thermalConductivity_psxi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.thermalConductivity_psxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.thermalConductivity_psxi(
+       vleFluidPointer=vleFluidPointer);
 
   replaceable partial function T_dew_pxi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dewTemperature_pxi (
-        vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dewTemperature_pxi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dewTemperature_pxi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function p_dew_Txi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dewPressure_Txi (
-        vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dewPressure_Txi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dewPressure_Txi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function h_vap_dew_Txi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dewSpecificEnthalpy_Txi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dewSpecificEnthalpy_Txi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.dewSpecificEnthalpy_Txi(
+       vleFluidPointer=vleFluidPointer);
   replaceable partial function h_liq_bubble_Txi =
-      TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.bubbleSpecificEnthalpy_Txi
-      (vleFluidPointer=vleFluidPointer);
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.bubbleSpecificEnthalpy_Txi
+      constrainedby
+    TILMedia.BaseClasses.PartialVLEFluidObjectFunctions.bubbleSpecificEnthalpy_Txi(
+       vleFluidPointer=vleFluidPointer);
   annotation (
     defaultComponentName="vleFluid",
     Icon(graphics={Bitmap(

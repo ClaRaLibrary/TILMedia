@@ -1,4 +1,4 @@
-within TILMedia.VLEFluidTypes;
+﻿within TILMedia.VLEFluidTypes;
 record TILMedia_GERGCO2 "TILMedia.GERGCO2"
   extends TILMedia.VLEFluidTypes.BaseVLEFluid(
     final fixedMixingRatio=true,

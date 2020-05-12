@@ -1,4 +1,4 @@
-within TILMedia.SolidTypes;
+﻿within TILMedia.SolidTypes;
 model InsulationOrstechLSP_H_const "Orstech Insulation"
   extends TILMedia.SolidTypes.BaseSolid(
     final d = 100.0,

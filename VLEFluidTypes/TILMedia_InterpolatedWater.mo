@@ -1,4 +1,4 @@
-within TILMedia.VLEFluidTypes;
+﻿within TILMedia.VLEFluidTypes;
 record TILMedia_InterpolatedWater
   "Water, IAPWS1995, Linear Interpolation, table based calculation (TLK Implementation)"
   extends TILMedia.VLEFluidTypes.BaseVLEFluid(

@@ -1,4 +1,4 @@
-within TILMedia.SolidTypes;
+﻿within TILMedia.SolidTypes;
 model SteelAISI_904L "SteelAISI_904L - 1.4539"
    //Source: http://www.pxprecimet.ch/data/documents/fiches-techniques/DE/904L.pdf"
 

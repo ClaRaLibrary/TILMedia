@@ -1,4 +1,4 @@
-within TILMedia.VLEFluidTypes;
+﻿within TILMedia.VLEFluidTypes;
 record TILMedia_Water "TILMedia.Water"
   extends TILMedia.VLEFluidTypes.BaseVLEFluid(
     final fixedMixingRatio=true,

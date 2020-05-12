@@ -2,20 +2,28 @@
 record BaseLiquid "Base record for liquid definitions"
   extends Internals.ClassTypes.Record;
   constant Boolean fixedMixingRatio
-    "Treat medium as pseudo pure in Modelica if it is a mixture" annotation(HideResult = true);
+    "Treat medium as pseudo pure in Modelica if it is a mixture"
+    annotation(Dialog, HideResult = true);
   constant Integer nc_propertyCalculation(min=1)
-    "Number of components for fluid property calculations" annotation(HideResult = true);
+    "Number of components for fluid property calculations"
+    annotation(Dialog, HideResult = true);
   final constant Integer nc=if fixedMixingRatio then 1 else nc_propertyCalculation
-    "Number of components in Modelica models" annotation(Evaluate=true, HideResult = true);
-  constant Internals.LiquidName[nc_propertyCalculation] liquidNames "Array of liquid names e.g. {\"liquidName\"} for pure component"
-                                                              annotation(choices);
-  constant Real[nc_propertyCalculation] mixingRatio_propertyCalculation
-    "Mixing ratio for fluid property calculation (={1} for pure components)" annotation(HideResult = true);
-  constant Real[nc] defaultMixingRatio = if fixedMixingRatio then {1} else mixingRatio_propertyCalculation
-    "Default composition for models in Modelica (={1} for pure components)" annotation(HideResult = true);
-  constant Real xi_default[nc-1] = defaultMixingRatio[1:end-1]/sum(defaultMixingRatio)
-    "Default mass fractions" annotation(HideResult = true);
-  constant String concatLiquidName=TILMedia.Internals.concatNames(liquidNames);
+    "Number of components in Modelica models"
+    annotation(Evaluate=true, HideResult = true);
+  parameter Internals.LiquidName[:] liquidNames = {""}
+    "Array of liquid names e.g. {\"liquidName\"} for pure component"
+    annotation(Dialog, choices);
+  parameter Real[nc_propertyCalculation] mixingRatio_propertyCalculation = {1}
+    "Mixing ratio for fluid property calculation (={1} for pure components)"
+    annotation(Dialog, HideResult = true);
+  final parameter Real[nc] defaultMixingRatio = if fixedMixingRatio then {1} else mixingRatio_propertyCalculation
+    "Default composition for models in Modelica (={1} for pure components)"
+    annotation(HideResult = true);
+  final parameter Real xi_default[nc-1] = defaultMixingRatio[1:end-1]/sum(defaultMixingRatio)
+    "Default mass fractions"
+    annotation(HideResult = true);
+  final parameter String concatLiquidName=TILMedia.Internals.concatNames(liquidNames)
+    annotation(Dialog(tab="Internals"));
   constant Integer ID=0
     "ID is used to map the selected Liquid to the sim.cumulatedLiquidMass array item" annotation(HideResult = true);
   annotation (Documentation(info="<html>
