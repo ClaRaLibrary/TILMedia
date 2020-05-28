@@ -18,7 +18,7 @@ model TestVLEFluidObjectFunctions
   SI.MassFraction xi[vleFluidType.nc-1];
 
   // Record which defines the VLEFluid (see User's Guide -> Substance Record)
-  parameter TILMedia.VLEFluidTypes.TILMedia_CO2 vleFluidType;
+  parameter TILMedia.VLEFluidTypes.TILMedia_GERGCO2 vleFluidType;
 
   // Start values for the the temperature
   parameter SI.Temperature T_start = 273.15+20;

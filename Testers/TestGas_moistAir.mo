@@ -11,7 +11,7 @@ model TestGas_moistAir
     p=p,
     h=h,
     xi=xi1,
-    redeclare TILMedia.GasTypes.VDI4670_MoistAir gasType)
+    redeclare GasTypes.MoistAirMixture gasType)
                     annotation (Placement(transformation(extent={{-20,60},{0,80}},
                   rotation=0)));
 
@@ -21,14 +21,15 @@ model TestGas_moistAir
     p=p,
     T=moistAir1.T,
     xi=xi2,
-    redeclare TILMedia.GasTypes.VDI4670_MoistAir gasType)
+    redeclare GasTypes.MoistAirMixture gasType)
                     annotation (Placement(transformation(extent={{-20,20},{0,40}},
                   rotation=0)));
 equation
   p = 1e5;
   h = 1e4+time*2e4;
-  xi1[1] = 0.003;
+  xi1 = moistAir1.gasType.xi_default;
 
+  moistAir2.xi_dryGas=moistAir1.xi_dryGas;
   moistAir2.phi = 90;
 
   annotation (experiment(StopTime=1));

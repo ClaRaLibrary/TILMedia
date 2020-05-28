@@ -32,13 +32,13 @@ void* TILMedia_allocateTable(const char* table, const char* parameters){
 }
 
 #endif
-",    Library="TILMedia150ClaRa");
+",    Library="TILMedia151ClaRa");
    end constructor;
 
    function destructor "free memory"
     input TableObject pointer;
     external "C" TILMedia_freeTable(pointer)
-              annotation(__iti_dllNoExport = true,Include="void TILMedia_freeTable(void*);",Library="TILMedia150ClaRa");
+              annotation(__iti_dllNoExport = true,Include="void TILMedia_freeTable(void*);",Library="TILMedia151ClaRa");
    end destructor;
 
   annotation(Protection(access=Access.documentation));
