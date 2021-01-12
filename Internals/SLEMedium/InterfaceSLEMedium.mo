@@ -1,41 +1,40 @@
 ﻿within TILMedia.Internals.SLEMedium;
 model InterfaceSLEMedium
 
-  parameter TILMedia.Internals.SLEMediumName mediumName=
+  parameter .TILMedia.Internals.SLEMediumName mediumName=
                                                      "Water";
-  input Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
-  Modelica.SIunits.Density d "Density";
-  input Modelica.SIunits.AbsolutePressure p "Pressure";
-  Modelica.SIunits.SpecificEntropy s "Specific entropy";
-  Modelica.SIunits.Temperature T "Temperature";
-  Modelica.SIunits.SpecificHeatCapacity cp "Specific heat capacity";
-  Modelica.SIunits.LinearExpansionCoefficient beta
+  input SI.SpecificEnthalpy h "Specific enthalpy";
+  SI.Density d "Density";
+  input SI.AbsolutePressure p "Pressure";
+  SI.SpecificEntropy s "Specific entropy";
+  SI.Temperature T "Temperature";
+  SI.SpecificHeatCapacity cp "Specific heat capacity";
+  SI.LinearExpansionCoefficient beta
     "Isothermal expansion coefficient";
-  Modelica.SIunits.MassFraction x "Liquid mass fraction";
-  TILMedia.Internals.SLESaturationPropertyRecord sat
+  SI.MassFraction x "Liquid mass fraction";
+  .TILMedia.Internals.SLESaturationPropertyRecord sat
                                          annotation (Placement(
         transformation(extent={{-80,20},{-60,40}}, rotation=0)));
-  TILMedia.Internals.TransportPropertyRecord transp "Transport property record"
+  .TILMedia.Internals.TransportPropertyRecord transp "Transport property record"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}},
           rotation=0)));
 
 protected
-  Modelica.SIunits.Temperature TS "Saturated freezing temperature";
-  Modelica.SIunits.Temperature TL "Saturated melting temperature";
-  Modelica.SIunits.SpecificHeatCapacity cpS;
-  Modelica.SIunits.SpecificHeatCapacity cpL;
-  Modelica.SIunits.Density dS;
-  Modelica.SIunits.Density dL;
-  Modelica.SIunits.SpecificEnthalpy meltingEnthalpy;
-  Modelica.SIunits.LinearExpansionCoefficient betaL;
-  Modelica.SIunits.LinearExpansionCoefficient betaS;
-  Modelica.SIunits.PrandtlNumber PrL;
-  Modelica.SIunits.KinematicViscosity nuL;
-  Modelica.SIunits.ThermalConductivity lambdaL;
-  Modelica.SIunits.ThermalConductivity lambdaS;
+  SI.Temperature TS "Saturated freezing temperature";
+  SI.Temperature TL "Saturated melting temperature";
+  SI.SpecificHeatCapacity cpS;
+  SI.SpecificHeatCapacity cpL;
+  SI.Density dS;
+  SI.Density dL;
+  SI.SpecificEnthalpy meltingEnthalpy;
+  SI.LinearExpansionCoefficient betaL;
+  SI.LinearExpansionCoefficient betaS;
+  SI.PrandtlNumber PrL;
+  SI.KinematicViscosity nuL;
+  SI.ThermalConductivity lambdaL;
+  SI.ThermalConductivity lambdaS;
 
-  final parameter Modelica.SIunits.SpecificEnthalpy h0=
-                                                     0;
+  final parameter SI.SpecificEnthalpy h0 = 0;
 
   Integer region;
 
@@ -137,14 +136,14 @@ spez. W&auml;rmekapazit&auml;t fl&uuml;ssig: 2.4 kJ/(kg*K) (2.4)
 W&auml;rmeleitf&auml;higkeit 0.2 W/(m*K) (0.2 W/(m*K))
 kin. Viskosit&auml;t bei 40degC: 2.6 mm^2/s (3.1 mm^2/s)
  
-     Modelica.SIunits.Temperature Ts "Solid temperature";
-  Modelica.SIunits.Temperature Tl "Liquid temperature";
-  Modelica.SIunits.Density ds "Solid density";
-  Modelica.SIunits.Density dl "Liquid density";
-  Modelica.SIunits.SpecificEnthalpy hs "Solid specific enthalpy";
-  Modelica.SIunits.SpecificEnthalpy hl "Liquid specific enthalpy";
-  Modelica.SIunits.SpecificEntropy ss "Solid specific entropy";
-  Modelica.SIunits.SpecificEntropy sl "Liquid specific entropy";
+     SI.Temperature Ts "Solid temperature";
+  SI.Temperature Tl "Liquid temperature";
+  SI.Density ds "Solid density";
+  SI.Density dl "Liquid density";
+  SI.SpecificEnthalpy hs "Solid specific enthalpy";
+  SI.SpecificEnthalpy hl "Liquid specific enthalpy";
+  SI.SpecificEntropy ss "Solid specific entropy";
+  SI.SpecificEntropy sl "Liquid specific entropy";
  
 */
   transp.sigma = -1;

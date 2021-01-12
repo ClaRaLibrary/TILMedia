@@ -1,6 +1,6 @@
 ﻿within TILMedia.SLEMediumTypes;
 model TILMedia_SodiumAcetate "TILMedia.SodiumAcetate (Trihydrate)"
-  extends TILMedia.SLEMediumTypes.BaseSLEMedium(
+  extends .TILMedia.SLEMediumTypes.BaseSLEMedium(
     cp_l = 3100,
     cp_s = 2050,
     T_s = 331.15,

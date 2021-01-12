@@ -1,14 +1,12 @@
 ﻿within TILMedia.BaseClasses;
 partial model PartialVLEFluid_pT
   "Compressible fluid model with p, T and xi as independent variables"
-  replaceable parameter VLEFluidTypes.TILMedia_Water vleFluidType
-    constrainedby TILMedia.VLEFluidTypes.BaseVLEFluid
+  replaceable parameter .TILMedia.VLEFluidTypes.TILMedia_Water vleFluidType
+    constrainedby .TILMedia.VLEFluidTypes.BaseVLEFluid
     "type record of the VLE fluid or VLE fluid mixture"
     annotation (choicesAllMatching=true);
 
-  replaceable class PointerType = TILMedia.Internals.BasePointer;
-
-  parameter PointerType vleFluidPointer annotation (Dialog(tab="Advanced"));
+  parameter .TILMedia.Internals.TILMediaExternalObject vleFluidPointer annotation (Dialog(tab="Advanced"));
 
   parameter Boolean stateSelectPreferForInputs=false
     "=true, StateSelect.prefer is set for input variables"
@@ -34,16 +32,16 @@ partial model PartialVLEFluid_pT
     annotation (Evaluate=true);
 
   //Base Properties
-  Modelica.SIunits.Density d "Density";
-  Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
-  input Modelica.SIunits.AbsolutePressure p(stateSelect=if (
+  SI.Density d "Density";
+  SI.SpecificEnthalpy h "Specific enthalpy";
+  input SI.AbsolutePressure p(stateSelect=if (
         stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default)
     "Pressure" annotation(Dialog);
-  Modelica.SIunits.SpecificEntropy s "Specific entropy";
-  input Modelica.SIunits.Temperature T(stateSelect=if (
+  SI.SpecificEntropy s "Specific entropy";
+  input SI.Temperature T(stateSelect=if (
         stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default)
     "Temperature" annotation(Dialog);
-  input Modelica.SIunits.MassFraction[vleFluidType.nc - 1] xi(each stateSelect=if (
+  input SI.MassFraction[vleFluidType.nc - 1] xi(each stateSelect=if (
         stateSelectPreferForInputs) then StateSelect.prefer else StateSelect.default)=vleFluidType.xi_default
     "Mass Fraction of Component i" annotation(Dialog);
   SI.MoleFraction x[vleFluidType.nc - 1] "Mole fraction";
@@ -60,25 +58,25 @@ partial model PartialVLEFluid_pT
     "1st derivative of density wrt specific enthalpy at constant pressure and mass fraction";
   SI.DerDensityByPressure drhodp_hxi
     "1st derivative of density wrt pressure at specific enthalpy and mass fraction";
-  TILMedia.Internals.Units.DensityDerMassFraction drhodxi_ph[vleFluidType.nc - 1]
+  .TILMedia.Internals.Units.DensityDerMassFraction drhodxi_ph[vleFluidType.nc - 1]
     "1st derivative of density wrt mass fraction of water at constant pressure and specific enthalpy";
   Real gamma "Heat capacity ratio aka isentropic expansion factor";
 
-  SI.MolarMass M_i[vleFluidType.nc] "Molar mass of component i";
+  parameter SI.MolarMass M_i[vleFluidType.nc] "Molar mass of component i";
 
-  TILMedia.Internals.CriticalDataRecord crit "Critical data record" annotation (
+  .TILMedia.Internals.CriticalDataRecord crit "Critical data record" annotation (
      Placement(transformation(extent={{-80,60},{-60,80}}, rotation=0)));
-  TILMedia.Internals.TransportPropertyRecord transp(eta(min=-1))
+  .TILMedia.Internals.TransportPropertyRecord transp(eta(min=-1))
     "Transport property record" annotation (Placement(transformation(extent={{-80,
             -100},{-60,-80}}, rotation=0)));
-  TILMedia.Internals.VLERecord VLE(final nc=vleFluidType.nc) annotation (
+  .TILMedia.Internals.VLERecord VLE(final nc=vleFluidType.nc) annotation (
       Placement(transformation(extent={{-80,20},{-60,40}}, rotation=0)));
-  TILMedia.Internals.AdditionalVLERecord VLEAdditional annotation (Placement(
+  .TILMedia.Internals.AdditionalVLERecord VLEAdditional annotation (Placement(
         transformation(extent={{-80,-20},{-60,0}}, rotation=0)));
-  TILMedia.Internals.VLETransportPropertyRecord VLETransp(eta_l(min=-1), eta_v(min=-1)) annotation (Placement(
+  .TILMedia.Internals.VLETransportPropertyRecord VLETransp(eta_l(min=-1), eta_v(min=-1)) annotation (Placement(
         transformation(extent={{-80,-60},{-60,-40}}, rotation=0)));
 
-  function getProperties = TILMedia.Internals.getPropertiesVLE (
+  function getProperties = .TILMedia.Internals.getPropertiesVLE (
       d=d,
       h=h,
       p=p,
@@ -126,7 +124,7 @@ partial model PartialVLEFluid_pT
     Documentation(info="<html>
                    <p>
                    The VLE-fluid model VLEFluid_pT calculates the thermopyhsical property data with given inputs: pressure (p), temperature (T), mass fraction (xi) and the parameter vleFluidType.<br>
-                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"Modelica:TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
+                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
                    </p>
                    <hr>
                    </html>"));

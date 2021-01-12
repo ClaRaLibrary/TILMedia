@@ -1,6 +1,6 @@
 ﻿within TILMedia.Internals.SLEMediumFunctions;
 function density_h
-  extends BaseClasses.PartialSLEMediumFunction;
+  extends .TILMedia.BaseClasses.PartialSLEMediumFunction;
   input Real h;
   input Real stableSupercooling;
   input Real d_s;

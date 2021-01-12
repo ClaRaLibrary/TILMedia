@@ -1,13 +1,11 @@
 ﻿within TILMedia.BaseClasses;
 partial model PartialLiquid_pT
   "Incompressible liquid model with p and T as independent variables"
-  replaceable parameter TILMedia.LiquidTypes.TILMedia_Water liquidType constrainedby
-    TILMedia.LiquidTypes.BaseLiquid "type record of the liquid"
+  replaceable parameter .TILMedia.LiquidTypes.TILMedia_Water liquidType constrainedby
+    .TILMedia.LiquidTypes.BaseLiquid "type record of the liquid"
     annotation(choicesAllMatching=true);
 
-  replaceable class PointerType = TILMedia.Internals.BasePointer;
-
-  parameter PointerType liquidPointer annotation (Dialog(tab="Advanced"));
+  parameter .TILMedia.Internals.TILMediaExternalObject liquidPointer annotation (Dialog(tab="Advanced"));
 
   parameter Boolean computeTransportProperties = false
     "=true, if transport properties are calculated"
@@ -26,11 +24,11 @@ partial model PartialLiquid_pT
   SI.SpecificHeatCapacity cp "Specific heat capacity";
   SI.LinearExpansionCoefficient beta "Isobaric expansion coefficient";
 
-  TILMedia.Internals.TransportPropertyRecord transp "Transport property record"
+  .TILMedia.Internals.TransportPropertyRecord transp "Transport property record"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
            0)));
 
-  function getProperties = TILMedia.Internals.getProperties (
+  function getProperties = .TILMedia.Internals.getProperties (
       d=d,
       h=h,
       p=p,
@@ -54,8 +52,8 @@ annotation (defaultComponentName="liquid", Icon(graphics={Text(
           All thermophysical properties are calculated dependent on the temperature (T). 
           Only the specific entropy (s) is dependent on the temperature (T) <b>and</b> the given pressure (p). 
           The parameter liquidType defines the medium. 
-          All available liquids are listed in the User's Guide -> <a href=\"Modelica:TILMedia.UsersGuide.SubstanceNames\">Substance Names</a>. 
-          The interface and the way of using, is demonstrated in the Testers -> <a href=\"Modelica:TILMedia.Testers.TestLiquid\">TestLiquid</a>.
+          All available liquids are listed in the User's Guide -> <a href=\"modelica://TILMedia.UsersGuide.SubstanceNames\">Substance Names</a>. 
+          The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestLiquid\">TestLiquid</a>.
           </p>
           <hr>
           </html>"));

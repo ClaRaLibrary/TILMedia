@@ -1,16 +1,14 @@
 ﻿within TILMedia.BaseClasses;
 partial model PartialGas_pT
   "Gas vapor model with p, T and xi as independent variables"
-  replaceable parameter TILMedia.GasTypes.FlueGasTILMedia gasType
-    constrainedby TILMedia.GasTypes.BaseGas
+  replaceable parameter .TILMedia.GasTypes.FlueGasTILMedia gasType
+    constrainedby .TILMedia.GasTypes.BaseGas
     "type record of the gas or gas mixture"
     annotation(choicesAllMatching=true);
 
-  replaceable class PointerType = TILMedia.Internals.BasePointer;
+  parameter .TILMedia.Internals.TILMediaExternalObject gasPointer annotation(Dialog(tab="Advanced"));
 
-  parameter PointerType gasPointer annotation(Dialog(tab="Advanced"));
-
-  parameter Boolean stateSelectPreferForInputs=false
+  parameter Boolean stateSelectPreferForInputs = false
     "=true, StateSelect.prefer is set for input variables"
     annotation(Evaluate=true,Dialog(tab="Advanced",group "StateSelect"));
   parameter Boolean computeTransportProperties = false
@@ -42,11 +40,11 @@ partial model PartialGas_pT
     "Derivative of density wrt specific enthalpy at constant pressure and mass fraction";
   SI.DerDensityByPressure drhodp_hxi
     "Derivative of density wrt pressure at specific enthalpy and mass fraction";
-  TILMedia.Internals.Units.DensityDerMassFraction drhodxi_ph[gasType.nc-1]
+  .TILMedia.Internals.Units.DensityDerMassFraction drhodxi_ph[gasType.nc-1]
     "Derivative of density wrt mass fraction of water at constant pressure and specific enthalpy";
   SI.PartialPressure p_i[gasType.nc] "Partial pressure";
   SI.MassFraction xi_gas "Mass fraction of gasoues condensing component";
-  TILMedia.Internals.Units.RelativeHumidity phi(min=-1)
+  .TILMedia.Internals.Units.RelativeHumidity phi(min=-1)
     "Relative humidity";
 
   //Pure Component Properties
@@ -59,7 +57,7 @@ partial model PartialGas_pT
     "Specific enthalpy of desublimation of condensing component";
   SI.SpecificEnthalpy h_i[gasType.nc]
     "Specific enthalpy of theoretical pure component";
-  SI.MolarMass M_i[gasType.nc] "Molar mass of component i";
+  parameter SI.MolarMass M_i[gasType.nc] "Molar mass of component i";
 
   //Dry Component Specific Properties
   Real humRatio "Content of condensing component aka humidity ratio";
@@ -68,7 +66,7 @@ partial model PartialGas_pT
   SI.SpecificEnthalpy h1px
     "Enthalpy H divided by the mass of components that cannot condense";
 
-  TILMedia.Internals.TransportPropertyRecord transp "Transport property record"
+  .TILMedia.Internals.TransportPropertyRecord transp "Transport property record"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
            0)));
 
@@ -81,7 +79,7 @@ partial model PartialGas_pT
                    Documentation(info="<html>
                    <p>
                    The gas model Gas_pT calculates the thermopyhsical property data with given inputs: pressure (p), temperature (T), mass fraction (xi) and the parameter gasType.<br>
-                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"Modelica:TILMedia.Testers.TestGas\">TestGas</a>.
+                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestGas\">TestGas</a>.
                    </p>
                    <hr>
                    </html>"));

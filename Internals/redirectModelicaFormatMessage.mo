@@ -3,7 +3,7 @@ function redirectModelicaFormatMessage
   input Real y=0;
   //protected
   output Integer x;
-  external "C" x = TILMedia_redirectModelicaFormatMessage_wrapper() annotation(__iti_dllNoExport = true,Library="TILMedia151ClaRa",
+  external "C" x = TILMedia_redirectModelicaFormatMessage_wrapper() annotation(__iti_dllNoExport = true,Library="TILMedia160ClaRa",
     Include="
 /* uncomment for source code version
 #ifndef TILMEDIA_REAL_TIME
@@ -14,7 +14,7 @@ function redirectModelicaFormatMessage
 */
 #ifndef TILMEDIAMODELICAFORMATMESSAGE
 #define TILMEDIAMODELICAFORMATMESSAGE
-#if defined(WSM_VERSION) || defined(DYMOLA_STATIC) || (defined(ITI_CRT_INCLUDE) && !defined(ITI_COMP_SIM))
+#if defined(_JMI_GLOBAL_H) || defined(WSM_VERSION) || defined(DYMOLA_STATIC) || (defined(ITI_CRT_INCLUDE) && !defined(ITI_COMP_SIM))
 int TILMedia_redirectModelicaFormatMessage(void* _str);
 int TILMedia_redirectModelicaFormatError(void* _str);
 int TILMedia_redirectDymolaErrorFunction(void* _str);
@@ -37,4 +37,5 @@ int TILMedia_redirectModelicaFormatMessage_wrapper(void) {
 #endif
 #endif
 ");
+annotation(Inline=false, LateInline=true);
 end redirectModelicaFormatMessage;

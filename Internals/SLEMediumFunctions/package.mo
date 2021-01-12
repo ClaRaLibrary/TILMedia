@@ -1,4 +1,4 @@
 ﻿within TILMedia.Internals;
 package SLEMediumFunctions
-extends ClassTypes.ModelPackage;
+extends .TILMedia.Internals.ClassTypes.ModelPackage;
 end SLEMediumFunctions;

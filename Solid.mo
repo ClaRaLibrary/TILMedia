@@ -1,8 +1,8 @@
 ﻿within TILMedia;
 model Solid "Solid model with T as independent variable"
 
-  replaceable model SolidType = TILMedia.SolidTypes.BaseSolid constrainedby
-    TILMedia.SolidTypes.BaseSolid "type record of the solid"
+  replaceable model SolidType = .TILMedia.SolidTypes.BaseSolid constrainedby
+    .TILMedia.SolidTypes.BaseSolid "type record of the solid"
     annotation(choicesAllMatching=true);
 
   constant SI.Density d = solid.d "Density";
@@ -32,7 +32,7 @@ equation
           Documentation(info="<html>
                    <p>
                    The solid model calculates the thermopyhsical property data with given input: temperature (T) and the model SolidType.<br>
-                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"Modelica:TILMedia.Testers.TestSolid\">TestSolid</a>.
+                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestSolid\">TestSolid</a>.
                    </p>
                    </html>"));
 end Solid;

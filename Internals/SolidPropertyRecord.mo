@@ -1,11 +1,11 @@
 ﻿within TILMedia.Internals;
 record SolidPropertyRecord
-   extends TILMedia.Internals.ClassTypes.Record;
+   extends .TILMedia.Internals.ClassTypes.Record;
 
-  Modelica.SIunits.Density d "Density";
-  Modelica.SIunits.Temperature T "Temperature";
-  Modelica.SIunits.SpecificHeatCapacity cp "Heat capacity";
-  Modelica.SIunits.ThermalConductivity lambda "Thermal conductivity";
+  SI.Density d "Density";
+  SI.Temperature T "Temperature";
+  SI.SpecificHeatCapacity cp "Heat capacity";
+  SI.ThermalConductivity lambda "Thermal conductivity";
 
 annotation (Protection(access=Access.packageDuplicate));
 end SolidPropertyRecord;

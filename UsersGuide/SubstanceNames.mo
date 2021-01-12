@@ -1,6 +1,6 @@
 ﻿within TILMedia.UsersGuide;
 model SubstanceNames "Substance Names"
-    extends Internals.ClassTypes.Information;
+    extends .TILMedia.Internals.ClassTypes.Information;
 
 
 
@@ -10,7 +10,7 @@ model SubstanceNames "Substance Names"
 /*  TILMediaSuite/documentation/codegen/scriptModelicaTILMediaSubstanceNames.input.	*/
 /***********************************************************************/
 
-annotation(__Dymola_DocumentationClass=true,
+annotation(DocumentationClass=true,
      Documentation(info="<html>
 
 <h4>Gas Names TILMedia</h4>

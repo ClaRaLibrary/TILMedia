@@ -1,6 +1,6 @@
 ﻿within TILMedia.GasTypes;
 record BaseGas "Base record for gas definitions"
-  extends Internals.ClassTypes.Record;
+  extends .TILMedia.Internals.ClassTypes.Record;
   constant Boolean fixedMixingRatio
     "Treat medium as pseudo pure in Modelica if it is a mixture"
     annotation(Dialog, HideResult = true);
@@ -10,7 +10,7 @@ record BaseGas "Base record for gas definitions"
   final constant Integer nc=if fixedMixingRatio then 1 else nc_propertyCalculation
     "Number of components in Modelica models"
     annotation(Evaluate=true, HideResult = true);
-  parameter Internals.GasName[:] gasNames = {""}
+  parameter .TILMedia.Internals.GasName[:] gasNames = {""}
     "Array of gas names e.g. {\"gasName\"} for pure component"
     annotation(Dialog, choices);
   parameter Real[nc_propertyCalculation] mixingRatio_propertyCalculation = {1}
@@ -25,7 +25,7 @@ record BaseGas "Base record for gas definitions"
   constant Integer condensingIndex
     "Index of condensing component (=0, if no condensation is desired)"
     annotation(HideResult = true);
-  final parameter String concatGasName = TILMedia.Internals.concatNames(gasNames)
+  final parameter String concatGasName = .TILMedia.Internals.concatNames(gasNames)
     annotation(Dialog(tab="Internals"));
   constant Integer ID=0
     "ID is used to map the selected Gas to the sim.cumulatedGasMass array item" annotation(HideResult = true);
@@ -39,8 +39,8 @@ record BaseGas "Base record for gas definitions"
 <li>condensingIndex - Only for gas mixtures: Integer with the index of the component that can condense. </li>
 </ul>
 <p><b>Access additional substances:</b> </p>
-<p>To acces the properties of an additional substance, it is possible to create a new substance reccord. For more information on the acces of additional propeties see the <a href=\"Modelica:TILMedia.UsersGuide.SubstanceRecord\">substance record documentation</a>. </p>
-<p>Furthermore it is possible to parameterize this gase base record, using a gas substance name, listed in the <a href=\"Modelica:TILMedia.UsersGuide.SubstanceNames\">substance names documentation</a>. An example how to parameterize the base gas model is shown below. However note that this is only a local configuration and therefore only accesible in the corresponding model.</p>
-<p><img src=\"modelica://TILMedia/Images/Base_Gas_Parameter_frame.png\"/> </p>
+<p>To acces the properties of an additional substance, it is possible to create a new substance reccord. For more information on the acces of additional propeties see the <a href=\"modelica://TILMedia.UsersGuide.SubstanceRecord\">substance record documentation</a>. </p>
+<p>Furthermore it is possible to parameterize this gase base record, using a gas substance name, listed in the <a href=\"modelica://TILMedia.UsersGuide.SubstanceNames\">substance names documentation</a>. An example how to parameterize the base gas model is shown below. However note that this is only a local configuration and therefore only accesible in the corresponding model.</p>
+<p><img src=\"modelica://TILMedia/Images/Base_Gas_Parameter_frame.PNG\"/> </p>
 </html>"));
 end BaseGas;

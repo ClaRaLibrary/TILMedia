@@ -1,6 +1,6 @@
 ﻿within TILMedia.LiquidTypes;
 record BaseLiquid "Base record for liquid definitions"
-  extends Internals.ClassTypes.Record;
+  extends .TILMedia.Internals.ClassTypes.Record;
   constant Boolean fixedMixingRatio
     "Treat medium as pseudo pure in Modelica if it is a mixture"
     annotation(Dialog, HideResult = true);
@@ -10,7 +10,7 @@ record BaseLiquid "Base record for liquid definitions"
   final constant Integer nc=if fixedMixingRatio then 1 else nc_propertyCalculation
     "Number of components in Modelica models"
     annotation(Evaluate=true, HideResult = true);
-  parameter Internals.LiquidName[:] liquidNames = {""}
+  parameter .TILMedia.Internals.LiquidName[:] liquidNames = {""}
     "Array of liquid names e.g. {\"liquidName\"} for pure component"
     annotation(Dialog, choices);
   parameter Real[nc_propertyCalculation] mixingRatio_propertyCalculation = {1}
@@ -22,7 +22,7 @@ record BaseLiquid "Base record for liquid definitions"
   final parameter Real xi_default[nc-1] = defaultMixingRatio[1:end-1]/sum(defaultMixingRatio)
     "Default mass fractions"
     annotation(HideResult = true);
-  final parameter String concatLiquidName=TILMedia.Internals.concatNames(liquidNames)
+  final parameter String concatLiquidName=.TILMedia.Internals.concatNames(liquidNames)
     annotation(Dialog(tab="Internals"));
   constant Integer ID=0
     "ID is used to map the selected Liquid to the sim.cumulatedLiquidMass array item" annotation(HideResult = true);
@@ -35,8 +35,8 @@ record BaseLiquid "Base record for liquid definitions"
 <li>mixingRatio_propertyCalculation - Array with the mixing ratio of all substances. </li>
 </ul>
 <p><b>Access additional substances:</b> </p>
-<p>To acces the properties of an additional substance, it is possible to create a new substance reccord. For more information on the acces of additional propeties see the <a href=\"Modelica:TILMedia.UsersGuide.SubstanceRecord\">substance record documentation</a>. </p>
-<p>Furthermore it is possible to parameterize this liquide base record, using a liquid substance name, listed in the <a href=\"Modelica:TILMedia.UsersGuide.SubstanceNames\">substance names documentation</a>. An example how to parameterize the base liquid model is shown below. However note that this is only a local configuration and therefore only accesible in the corresponding model.</p>
-<p><img src=\"modelica://TILMedia/Images/Base_Liquid_Parameter_frame.png\"/> </p>
+<p>To acces the properties of an additional substance, it is possible to create a new substance reccord. For more information on the acces of additional propeties see the <a href=\"modelica://TILMedia.UsersGuide.SubstanceRecord\">substance record documentation</a>. </p>
+<p>Furthermore it is possible to parameterize this liquide base record, using a liquid substance name, listed in the <a href=\"modelica://TILMedia.UsersGuide.SubstanceNames\">substance names documentation</a>. An example how to parameterize the base liquid model is shown below. However note that this is only a local configuration and therefore only accesible in the corresponding model.</p>
+<p><img src=\"modelica://TILMedia/Images/Base_Liquid_Parameter_frame.PNG\"/> </p>
 </html>"));
 end BaseLiquid;
