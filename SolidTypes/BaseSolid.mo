@@ -1,4 +1,4 @@
-﻿within TILMedia.SolidTypes;
+within TILMedia.SolidTypes;
 partial model BaseSolid "Base model for solid definitions"
   constant SI.SpecificHeatCapacity cp_nominal "Specific heat capacity at standard reference point";
   constant SI.ThermalConductivity lambda_nominal "Thermal conductivity at standard reference point";

@@ -1,6 +1,6 @@
 ﻿within TILMedia.Internals;
 record TransportPropertyRecord "Transport property record"
-   extends .TILMedia.Internals.ClassTypes.Record;
+   extends TILMedia.Internals.ClassTypes.Record;
   SI.PrandtlNumber Pr "Prandtl number";
   SI.ThermalConductivity lambda "Thermal conductivity";
   SI.DynamicViscosity eta(min=-1) "Dynamic viscosity";

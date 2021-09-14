@@ -1,6 +1,6 @@
 ﻿within TILMedia.Internals;
 record VLETransportPropertyRecord "Transport property record"
-   extends .TILMedia.Internals.ClassTypes.Record;
+   extends TILMedia.Internals.ClassTypes.Record;
   SI.PrandtlNumber Pr_l "Prandtl number of liquid phase";
   SI.PrandtlNumber Pr_v "Prandtl number of vapour phase";
   SI.ThermalConductivity lambda_l "Thermal conductivity of liquid phase";

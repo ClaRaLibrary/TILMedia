@@ -1,4 +1,4 @@
-﻿within TILMedia.SolidTypes;
+within TILMedia.SolidTypes;
 model TILMedia_Copper "TILMedia.Copper"
   extends TILMedia.SolidTypes.BaseSolid(
     final d = 8960.0,

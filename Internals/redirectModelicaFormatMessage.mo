@@ -3,13 +3,17 @@ function redirectModelicaFormatMessage
   input Real y=0;
   //protected
   output Integer x;
-  external "C" x = TILMedia_redirectModelicaFormatMessage_wrapper() annotation(__iti_dllNoExport = true,Library="TILMedia160ClaRa",
+  external "C" x = TILMedia_redirectModelicaFormatMessage_wrapper() annotation(__iti_dllNoExport = true,Library="TILMedia170ClaRa",
     Include="
 /* uncomment for source code version
 #ifndef TILMEDIA_REAL_TIME
 #define TILMEDIA_REAL_TIME
 #define TILMEDIA_STATIC_LIBRARY
+#if defined(FMU_SOURCE_CODE_EXPORT) && defined(DYMOLA_STATIC)
+#include \"include/TILMediaTotal.c\"
+#else
 #include \"TILMediaTotal.c\"
+#endif
 #endif
 */
 #ifndef TILMEDIAMODELICAFORMATMESSAGE

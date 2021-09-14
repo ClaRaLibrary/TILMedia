@@ -1,7 +1,7 @@
 ﻿within TILMedia.Internals.SLEMedium;
 model InterfaceSLEMedium
 
-  parameter .TILMedia.Internals.SLEMediumName mediumName=
+  parameter TILMedia.Internals.SLEMediumName mediumName=
                                                      "Water";
   input SI.SpecificEnthalpy h "Specific enthalpy";
   SI.Density d "Density";
@@ -12,10 +12,10 @@ model InterfaceSLEMedium
   SI.LinearExpansionCoefficient beta
     "Isothermal expansion coefficient";
   SI.MassFraction x "Liquid mass fraction";
-  .TILMedia.Internals.SLESaturationPropertyRecord sat
+  TILMedia.Internals.SLESaturationPropertyRecord sat
                                          annotation (Placement(
         transformation(extent={{-80,20},{-60,40}}, rotation=0)));
-  .TILMedia.Internals.TransportPropertyRecord transp "Transport property record"
+  TILMedia.Internals.TransportPropertyRecord transp "Transport property record"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}},
           rotation=0)));
 

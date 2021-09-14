@@ -1,642 +1,181 @@
 ﻿within TILMedia.BaseClasses;
 package PartialGasObjectFunctions
   "Package for calculation of gas vapor properties with a functional call, referencing existing external objects for highspeed evaluation"
-  extends .TILMedia.Internals.ClassTypes.ModelPackage;
+  extends TILMedia.Internals.ClassTypes.ModelPackage;
 
-  replaceable partial function density_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Density d "Density";
-  end density_phxi;
-  replaceable partial function specificEntropy_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificEntropy s "Specific entropy";
-  end specificEntropy_phxi;
-  replaceable partial function temperature_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Temperature T "Temperature";
-  end temperature_phxi;
-  replaceable partial function specificIsobaricHeatCapacity_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificHeatCapacity cp "Specific isobaric heat capacity cp";
-  end specificIsobaricHeatCapacity_phxi;
-  replaceable partial function specificIsochoricHeatCapacity_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificHeatCapacity cv "Specific isochoric heat capacity cv";
-  end specificIsochoricHeatCapacity_phxi;
-  replaceable partial function isobaricThermalExpansionCoefficient_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.LinearExpansionCoefficient beta "Isobaric thermal expansion coefficient";
-  end isobaricThermalExpansionCoefficient_phxi;
-  replaceable partial function isothermalCompressibility_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Compressibility kappa "Isothermal compressibility";
-  end isothermalCompressibility_phxi;
-  replaceable partial function speedOfSound_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Velocity w "Speed of sound";
-  end speedOfSound_phxi;
-  replaceable partial function densityDerivativeWRTspecificEnthalpy_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.DerDensityByEnthalpy drhodh_pxi "Derivative of density wrt specific enthalpy at constant pressure and mass fraction";
-  end densityDerivativeWRTspecificEnthalpy_phxi;
-  replaceable partial function densityDerivativeWRTpressure_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.DerDensityByPressure drhodp_hxi "Derivative of density wrt pressure at specific enthalpy and mass fraction";
-  end densityDerivativeWRTpressure_phxi;
-  replaceable partial function densityDerivativeWRTmassFraction_phxin
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Density drhodxi_ph "Derivative of density wrt mass fraction of water at constant pressure and specific enthalpy";
-  end densityDerivativeWRTmassFraction_phxin;
-  replaceable partial function partialPressure_phxin
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.PartialPressure p_i "Partial pressure";
-  end partialPressure_phxin;
-  replaceable partial function gaseousMassFraction_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.MassFraction xi_gas "Mass fraction of gasoues condensing component";
-  end gaseousMassFraction_phxi;
-  replaceable partial function relativeHumidity_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output .TILMedia.Internals.Units.RelativeHumidity phi "Relative humidity";
-  end relativeHumidity_phxi;
-  replaceable partial function saturationMassFraction_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.MassFraction xi_s "Saturation mass fraction of condensing component";
-  end saturationMassFraction_phxi;
-  replaceable partial function saturationHumidityRatio_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output Real humRatio_s "Saturation content of condensing component aka saturation humidity ratio";
-  end saturationHumidityRatio_phxi;
-  replaceable partial function specificEnthalpy1px_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificEnthalpy h1px "Specific enthalpy h related to the mass of components that cannot condense";
-  end specificEnthalpy1px_phxi;
-  replaceable partial function prandtlNumber_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.PrandtlNumber Pr "Prandtl number";
-  end prandtlNumber_phxi;
-  replaceable partial function thermalConductivity_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.ThermalConductivity lambda "Thermal conductivity";
-  end thermalConductivity_phxi;
-  replaceable partial function dynamicViscosity_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.DynamicViscosity eta "Dynamic viscosity";
-  end dynamicViscosity_phxi;
-  replaceable partial function dewTemperature_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Temperature T_dew "Temperature at dew point";
-  end dewTemperature_phxi;
-  replaceable partial function wetBulbTemperature_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Temperature T_wetBulb "Wet bulb temperature";
-  end wetBulbTemperature_phxi;
-  replaceable partial function iceBulbTemperature_phxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEnthalpy h "Specific enthalpy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Temperature T_iceBulb "Ice bulb temperature";
-  end iceBulbTemperature_phxi;
+  replaceable partial function density_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.density_phxi;
+  replaceable partial function specificEntropy_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificEntropy_phxi;
+  replaceable partial function temperature_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.temperature_phxi;
+  replaceable partial function specificIsobaricHeatCapacity_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificIsobaricHeatCapacity_phxi;
+  replaceable partial function specificIsochoricHeatCapacity_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificIsochoricHeatCapacity_phxi;
+  replaceable partial function isobaricThermalExpansionCoefficient_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.isobaricThermalExpansionCoefficient_phxi;
+  replaceable partial function isothermalCompressibility_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.isothermalCompressibility_phxi;
+  replaceable partial function speedOfSound_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.speedOfSound_phxi;
+  replaceable partial function densityDerivativeWRTspecificEnthalpy_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.densityDerivativeWRTspecificEnthalpy_phxi;
+  replaceable partial function densityDerivativeWRTpressure_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.densityDerivativeWRTpressure_phxi;
+  replaceable partial function densityDerivativeWRTmassFraction_phxin =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.densityDerivativeWRTmassFraction_phxin;
+  replaceable partial function partialPressure_phxin =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.partialPressure_phxin;
+  replaceable partial function gaseousMassFraction_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.gaseousMassFraction_phxi;
+  replaceable partial function relativeHumidity_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.relativeHumidity_phxi;
+  replaceable partial function saturationMassFraction_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.saturationMassFraction_phxi;
+  replaceable partial function saturationHumidityRatio_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.saturationHumidityRatio_phxi;
+  replaceable partial function specificEnthalpy1px_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificEnthalpy1px_phxi;
+  replaceable partial function prandtlNumber_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.prandtlNumber_phxi;
+  replaceable partial function thermalConductivity_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.thermalConductivity_phxi;
+  replaceable partial function dynamicViscosity_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.dynamicViscosity_phxi;
+  replaceable partial function dewTemperature_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.dewTemperature_phxi;
+  replaceable partial function wetBulbTemperature_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.wetBulbTemperature_phxi;
+  replaceable partial function iceBulbTemperature_phxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.iceBulbTemperature_phxi;
 
-  replaceable partial function density_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Density d "Density";
-  end density_psxi;
-  replaceable partial function specificEnthalpy_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificEnthalpy h "Specific enthalpy";
-  end specificEnthalpy_psxi;
-  replaceable partial function temperature_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Temperature T "Temperature";
-  end temperature_psxi;
-  replaceable partial function specificIsobaricHeatCapacity_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificHeatCapacity cp "Specific isobaric heat capacity cp";
-  end specificIsobaricHeatCapacity_psxi;
-  replaceable partial function specificIsochoricHeatCapacity_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificHeatCapacity cv "Specific isochoric heat capacity cv";
-  end specificIsochoricHeatCapacity_psxi;
-  replaceable partial function isobaricThermalExpansionCoefficient_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.LinearExpansionCoefficient beta "Isobaric thermal expansion coefficient";
-  end isobaricThermalExpansionCoefficient_psxi;
-  replaceable partial function isothermalCompressibility_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Compressibility kappa "Isothermal compressibility";
-  end isothermalCompressibility_psxi;
-  replaceable partial function speedOfSound_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Velocity w "Speed of sound";
-  end speedOfSound_psxi;
-  replaceable partial function densityDerivativeWRTspecificEnthalpy_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.DerDensityByEnthalpy drhodh_pxi "Derivative of density wrt specific enthalpy at constant pressure and mass fraction";
-  end densityDerivativeWRTspecificEnthalpy_psxi;
-  replaceable partial function densityDerivativeWRTpressure_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.DerDensityByPressure drhodp_hxi "Derivative of density wrt pressure at specific enthalpy and mass fraction";
-  end densityDerivativeWRTpressure_psxi;
-  replaceable partial function densityDerivativeWRTmassFraction_psxin
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Density drhodxi_ph "Derivative of density wrt mass fraction of water at constant pressure and specific enthalpy";
-  end densityDerivativeWRTmassFraction_psxin;
-  replaceable partial function partialPressure_psxin
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.PartialPressure p_i "Partial pressure";
-  end partialPressure_psxin;
-  replaceable partial function gaseousMassFraction_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.MassFraction xi_gas "Mass fraction of gasoues condensing component";
-  end gaseousMassFraction_psxi;
-  replaceable partial function relativeHumidity_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output .TILMedia.Internals.Units.RelativeHumidity phi "Relative humidity";
-  end relativeHumidity_psxi;
-  replaceable partial function saturationMassFraction_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.MassFraction xi_s "Saturation mass fraction of condensing component";
-  end saturationMassFraction_psxi;
-  replaceable partial function saturationHumidityRatio_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output Real humRatio_s "Saturation content of condensing component aka saturation humidity ratio";
-  end saturationHumidityRatio_psxi;
-  replaceable partial function specificEnthalpy1px_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificEnthalpy h1px "Specific enthalpy h related to the mass of components that cannot condense";
-  end specificEnthalpy1px_psxi;
-  replaceable partial function prandtlNumber_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.PrandtlNumber Pr "Prandtl number";
-  end prandtlNumber_psxi;
-  replaceable partial function thermalConductivity_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.ThermalConductivity lambda "Thermal conductivity";
-  end thermalConductivity_psxi;
-  replaceable partial function dynamicViscosity_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.DynamicViscosity eta "Dynamic viscosity";
-  end dynamicViscosity_psxi;
-  replaceable partial function dewTemperature_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Temperature T_dew "Temperature at dew point";
-  end dewTemperature_psxi;
-  replaceable partial function wetBulbTemperature_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Temperature T_wetBulb "Wet bulb temperature";
-  end wetBulbTemperature_psxi;
-  replaceable partial function iceBulbTemperature_psxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.SpecificEntropy s "Specific entropy";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Temperature T_iceBulb "Ice bulb temperature";
-  end iceBulbTemperature_psxi;
+  replaceable partial function density_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.density_psxi;
+  replaceable partial function specificEnthalpy_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificEnthalpy_psxi;
+  replaceable partial function temperature_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.temperature_psxi;
+  replaceable partial function specificIsobaricHeatCapacity_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificIsobaricHeatCapacity_psxi;
+  replaceable partial function specificIsochoricHeatCapacity_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificIsochoricHeatCapacity_psxi;
+  replaceable partial function isobaricThermalExpansionCoefficient_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.isobaricThermalExpansionCoefficient_psxi;
+  replaceable partial function isothermalCompressibility_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.isothermalCompressibility_psxi;
+  replaceable partial function speedOfSound_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.speedOfSound_psxi;
+  replaceable partial function densityDerivativeWRTspecificEnthalpy_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.densityDerivativeWRTspecificEnthalpy_psxi;
+  replaceable partial function densityDerivativeWRTpressure_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.densityDerivativeWRTpressure_psxi;
+  replaceable partial function densityDerivativeWRTmassFraction_psxin =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.densityDerivativeWRTmassFraction_psxin;
+  replaceable partial function partialPressure_psxin =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.partialPressure_psxin;
+  replaceable partial function gaseousMassFraction_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.gaseousMassFraction_psxi;
+  replaceable partial function relativeHumidity_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.relativeHumidity_psxi;
+  replaceable partial function saturationMassFraction_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.saturationMassFraction_psxi;
+  replaceable partial function saturationHumidityRatio_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.saturationHumidityRatio_psxi;
+  replaceable partial function specificEnthalpy1px_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificEnthalpy1px_psxi;
+  replaceable partial function prandtlNumber_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.prandtlNumber_psxi;
+  replaceable partial function thermalConductivity_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.thermalConductivity_psxi;
+  replaceable partial function dynamicViscosity_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.dynamicViscosity_psxi;
+  replaceable partial function dewTemperature_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.dewTemperature_psxi;
+  replaceable partial function wetBulbTemperature_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.wetBulbTemperature_psxi;
+  replaceable partial function iceBulbTemperature_psxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.iceBulbTemperature_psxi;
 
-  replaceable partial function density_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Density d "Density";
-  end density_pTxi;
-  replaceable partial function specificEnthalpy_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificEnthalpy h "Specific enthalpy";
-  end specificEnthalpy_pTxi;
-  replaceable partial function specificEntropy_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificEntropy s "Specific entropy";
-  end specificEntropy_pTxi;
-  replaceable partial function specificIsobaricHeatCapacity_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificHeatCapacity cp "Specific isobaric heat capacity cp";
-  end specificIsobaricHeatCapacity_pTxi;
-  replaceable partial function specificIsochoricHeatCapacity_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificHeatCapacity cv "Specific isochoric heat capacity cv";
-  end specificIsochoricHeatCapacity_pTxi;
-  replaceable partial function isobaricThermalExpansionCoefficient_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.LinearExpansionCoefficient beta "Isobaric thermal expansion coefficient";
-  end isobaricThermalExpansionCoefficient_pTxi;
-  replaceable partial function isothermalCompressibility_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Compressibility kappa "Isothermal compressibility";
-  end isothermalCompressibility_pTxi;
-  replaceable partial function speedOfSound_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Velocity w "Speed of sound";
-  end speedOfSound_pTxi;
-  replaceable partial function densityDerivativeWRTspecificEnthalpy_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.DerDensityByEnthalpy drhodh_pxi "Derivative of density wrt specific enthalpy at constant pressure and mass fraction";
-  end densityDerivativeWRTspecificEnthalpy_pTxi;
-  replaceable partial function densityDerivativeWRTpressure_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.DerDensityByPressure drhodp_hxi "Derivative of density wrt pressure at specific enthalpy and mass fraction";
-  end densityDerivativeWRTpressure_pTxi;
-  replaceable partial function densityDerivativeWRTmassFraction_pTxin
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Density drhodxi_ph "Derivative of density wrt mass fraction of water at constant pressure and specific enthalpy";
-  end densityDerivativeWRTmassFraction_pTxin;
-  replaceable partial function partialPressure_pTxin
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input Integer compNo "Component ID";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.PartialPressure p_i "Partial pressure";
-  end partialPressure_pTxin;
-  replaceable partial function gaseousMassFraction_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.MassFraction xi_gas "Mass fraction of gasoues condensing component";
-  end gaseousMassFraction_pTxi;
-  replaceable partial function relativeHumidity_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output .TILMedia.Internals.Units.RelativeHumidity phi "Relative humidity";
-  end relativeHumidity_pTxi;
-  replaceable partial function saturationMassFraction_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.MassFraction xi_s "Saturation mass fraction of condensing component";
-  end saturationMassFraction_pTxi;
-  replaceable partial function saturationHumidityRatio_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output Real humRatio_s "Saturation content of condensing component aka saturation humidity ratio";
-  end saturationHumidityRatio_pTxi;
-  replaceable partial function specificEnthalpy1px_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificEnthalpy h1px "Specific enthalpy h related to the mass of components that cannot condense";
-  end specificEnthalpy1px_pTxi;
-  replaceable partial function prandtlNumber_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.PrandtlNumber Pr "Prandtl number";
-  end prandtlNumber_pTxi;
-  replaceable partial function thermalConductivity_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.ThermalConductivity lambda "Thermal conductivity";
-  end thermalConductivity_pTxi;
-  replaceable partial function dynamicViscosity_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.DynamicViscosity eta "Dynamic viscosity";
-  end dynamicViscosity_pTxi;
-  replaceable partial function dewTemperature_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Temperature T_dew "Temperature at dew point";
-  end dewTemperature_pTxi;
-  replaceable partial function wetBulbTemperature_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Temperature T_wetBulb "Wet bulb temperature";
-  end wetBulbTemperature_pTxi;
-  replaceable partial function iceBulbTemperature_pTxi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.AbsolutePressure p "Pressure";
-    input SI.Temperature T "Temperature";
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Temperature T_iceBulb "Ice bulb temperature";
-  end iceBulbTemperature_pTxi;
+  replaceable partial function density_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.density_pTxi;
+  replaceable partial function specificEnthalpy_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificEnthalpy_pTxi;
+  replaceable partial function specificEntropy_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificEntropy_pTxi;
+  replaceable partial function specificIsobaricHeatCapacity_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificIsobaricHeatCapacity_pTxi;
+  replaceable partial function specificIsochoricHeatCapacity_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificIsochoricHeatCapacity_pTxi;
+  replaceable partial function isobaricThermalExpansionCoefficient_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.isobaricThermalExpansionCoefficient_pTxi;
+  replaceable partial function isothermalCompressibility_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.isothermalCompressibility_pTxi;
+  replaceable partial function speedOfSound_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.speedOfSound_pTxi;
+  replaceable partial function densityDerivativeWRTspecificEnthalpy_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.densityDerivativeWRTspecificEnthalpy_pTxi;
+  replaceable partial function densityDerivativeWRTpressure_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.densityDerivativeWRTpressure_pTxi;
+  replaceable partial function densityDerivativeWRTmassFraction_pTxin =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.densityDerivativeWRTmassFraction_pTxin;
+  replaceable partial function partialPressure_pTxin =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.partialPressure_pTxin;
+  replaceable partial function gaseousMassFraction_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.gaseousMassFraction_pTxi;
+  replaceable partial function relativeHumidity_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.relativeHumidity_pTxi;
+  replaceable partial function saturationMassFraction_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.saturationMassFraction_pTxi;
+  replaceable partial function saturationHumidityRatio_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.saturationHumidityRatio_pTxi;
+  replaceable partial function specificEnthalpy1px_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificEnthalpy1px_pTxi;
+  replaceable partial function prandtlNumber_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.prandtlNumber_pTxi;
+  replaceable partial function thermalConductivity_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.thermalConductivity_pTxi;
+  replaceable partial function dynamicViscosity_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.dynamicViscosity_pTxi;
+  replaceable partial function dewTemperature_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.dewTemperature_pTxi;
+  replaceable partial function wetBulbTemperature_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.wetBulbTemperature_pTxi;
+  replaceable partial function iceBulbTemperature_pTxi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.iceBulbTemperature_pTxi;
 
 
-  replaceable partial function saturationPartialPressure_T
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.Temperature T "Temperature";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.PartialPressure p_s "Saturation partial pressure of condensing component";
-  end saturationPartialPressure_T;
-  replaceable partial function specificEnthalpyOfVaporisation_T
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.Temperature T "Temperature";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificEnthalpy delta_hv "Specific enthalpy of vaporisation of condensing component";
-  end specificEnthalpyOfVaporisation_T;
-  replaceable partial function specificEnthalpyOfDesublimation_T
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.Temperature T "Temperature";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificEnthalpy delta_hd "Specific enthalpy of desublimation of condensing component";
-  end specificEnthalpyOfDesublimation_T;
-  replaceable partial function specificEnthalpyOfPureGas_Tn
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.Temperature T "Temperature";
-    input Integer compNo "Component ID";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificEnthalpy h_i "Specific enthalpy of theoretical pure component";
-  end specificEnthalpyOfPureGas_Tn;
-  replaceable partial function specificIsobaricHeatCapacityOfPureGas_Tn
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.Temperature T "Temperature";
-    input Integer compNo "Component ID";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificHeatCapacity cp_i "Specific isobaric heat capacity of theoretical pure component";
-  end specificIsobaricHeatCapacityOfPureGas_Tn;
+  replaceable partial function saturationPartialPressure_T =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.saturationPartialPressure_T;
+  replaceable partial function specificEnthalpyOfVaporisation_T =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificEnthalpyOfVaporisation_T;
+  replaceable partial function specificEnthalpyOfDesublimation_T =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificEnthalpyOfDesublimation_T;
+  replaceable partial function specificEnthalpyOfPureGas_Tn =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificEnthalpyOfPureGas_Tn;
+  replaceable partial function specificIsobaricHeatCapacityOfPureGas_Tn =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificIsobaricHeatCapacityOfPureGas_Tn;
 
 
-  replaceable partial function averageMolarMass_xi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.MolarMass M "Average molar mass";
-  end averageMolarMass_xi;
-  replaceable partial function humidityRatio_xi
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input SI.MassFraction[:] xi "Mass fractions of the first nc-1 components";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output Real humRatio "Content of condensing component aka humidity ratio";
-  end humidityRatio_xi;
+  replaceable partial function averageMolarMass_xi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.averageMolarMass_xi;
+  replaceable partial function humidityRatio_xi =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.humidityRatio_xi;
 
-  replaceable partial function molarMass_n
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input Integer compNo "Component ID";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.MolarMass M_i "Molar mass of component i";
-  end molarMass_n;
-  replaceable partial function specificEnthalpyOfFormation_n
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input Integer compNo "Component ID";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.SpecificEnthalpy hF_i "Specific enthalpy of formation";
-  end specificEnthalpyOfFormation_n;
-  replaceable partial function freezingPoint
-    extends .TILMedia.BaseClasses.PartialGasObjectFunction;
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
-    output SI.Temperature T_freeze "Freezing point of condensing component";
-  end freezingPoint;
+  replaceable partial function molarMass_n =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.molarMass_n;
+  replaceable partial function specificEnthalpyOfFormation_n =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.specificEnthalpyOfFormation_n;
+  replaceable partial function freezingPoint =
+      TILMedia.BaseClasses.PartialGasObjectFunctionPrototypes.freezingPoint;
 
 
  replaceable partial function saturationMassFraction_pTxidg
-  extends .TILMedia.BaseClasses.PartialGasObjectFunction;
+  extends TILMedia.BaseClasses.PartialGasObjectFunction;
     input SI.AbsolutePressure p "Pressure";
     input SI.Temperature T "Temperature";
     input SI.MassFraction xi_dryGas[:] "Mass fraction of dry gas";
-    input .TILMedia.Internals.TILMediaExternalObject gasPointer;
+    input TILMedia.Internals.TILMediaExternalObject gasPointer;
     output SI.MassFraction xi_s "Saturation vapour mass fraction";
  end saturationMassFraction_pTxidg;
 

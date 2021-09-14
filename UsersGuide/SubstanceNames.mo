@@ -1,6 +1,6 @@
 ﻿within TILMedia.UsersGuide;
-model SubstanceNames "Substance Names"
-    extends .TILMedia.Internals.ClassTypes.Information;
+class SubstanceNames "Substance Names"
+    extends TILMedia.Internals.ClassTypes.Information;
 
 
 
@@ -14,7 +14,7 @@ annotation(DocumentationClass=true,
      Documentation(info="<html>
 
 <h4>Gas Names TILMedia</h4>
-<table border=1>
+<table border=\"1\">
     <tr>
         <th>Substance name</th>
         <th>Comment</th>    
@@ -52,23 +52,23 @@ annotation(DocumentationClass=true,
         <td> </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.AMMONIA </td>
+        <td>TILMediaXTR.Ammonia </td>
         <td>Ammonia, Usable temperature range: T in [-232.61 °C, 2726.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.ARGON </td>
+        <td>TILMediaXTR.Argon </td>
         <td>Argon, Usable temperature range: T in [-258.0813 °C, 2726.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.CARBON_DIOXIDE </td>
+        <td>TILMediaXTR.Carbon_Dioxide </td>
         <td>Carbon dioxide, Usable temperature range: T in [-132.15 °C, 2726.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.CARBON_MONOXIDE </td>
+        <td>TILMediaXTR.Carbon_Monoxide </td>
         <td>Carbon monoxide, Usable temperature range: T in [-259.864 °C, 2726.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.DRYAIR </td>
+        <td>TILMediaXTR.DryAir </td>
         <td>Dry air, Usable temperature range: T in [-259.86049 °C, 2726.85 °C] </td>
     </tr>
     <tr>
@@ -76,31 +76,31 @@ annotation(DocumentationClass=true,
         <td>Default configuration for diesel exhaust gas with lambda=1. For petrol exhaust gas use TILMediaXTR.ExhaustGas(m=15.63,lambda=1.1). </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.HYDROGEN </td>
+        <td>TILMediaXTR.Hydrogen </td>
         <td>Hydrogen, Usable temperature range: T in [-269.8355 °C, 2726.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.METHANE </td>
+        <td>TILMediaXTR.Methane </td>
         <td>Methane, Usable temperature range: T in [-254.0936 °C, 2726.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.NITROGEN </td>
+        <td>TILMediaXTR.Nitrogen </td>
         <td>Nitrogen, Usable temperature range: T in [-260.5308 °C, 2726.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.NITROUS_OXIDE </td>
+        <td>TILMediaXTR.Nitrous_Oxide </td>
         <td>Nitrous oxide, Usable temperature range: T in [-242.198 °C, 2726.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.OXYGEN </td>
+        <td>TILMediaXTR.Oxygen </td>
         <td>Oxygen, Usable temperature range: T in [-257.6919 °C, 2726.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.SULFUR_DIOXIDE </td>
+        <td>TILMediaXTR.Sulfur_Dioxide </td>
         <td>Sulfur dioxide, Usable temperature range: T in [-230.086 °C, 2726.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.WATER </td>
+        <td>TILMediaXTR.Water </td>
         <td>Water, Usable temperature range: T in [-208.4404 °C, 2726.85 °C] </td>
     </tr>
     <tr>
@@ -146,7 +146,7 @@ annotation(DocumentationClass=true,
 </table><br><br>
 
 <h4>Moist Air Names</h4>
-<table border=1>
+<table border=\"1\">
     <tr>
         <th>Substance name</th>
         <th>Comment</th>    
@@ -165,34 +165,154 @@ annotation(DocumentationClass=true,
     </tr>
     <tr>
         <td>VDIWA2006.Water|VDIWA2006.DryAir </td>
-        <td>This &#x27;Simple Moist Air&#x27; is almost like &#x27;Detailed Moist Air&#x27; defined as &quot;VDIWA2006.Water|VDIWA2006.Nitrogen|VDIWA2006.Oxygen&quot; with default mixing ratio = {0.001, 0.7, 0.3} </td>
+        <td>This 'Simple Moist Air' is almost like 'Detailed Moist Air' defined as \"VDIWA2006.Water|VDIWA2006.Nitrogen|VDIWA2006.Oxygen\" with default mixing ratio = {0.001, 0.7, 0.3} </td>
     </tr>
 </table><br><br>
 
 <h4>Liquid Names TILMedia and IIR_SWF</h4>
-<table border=1>
+<table border=\"1\">
     <tr>
         <th>Substance name</th>
         <th>Comment</th>    
     </tr>
     <tr>
-        <td>TILMedia.ADDINOLXW15 </td>
+        <td>TILMedia.AddinolXW15 </td>
         <td>Addinol heat transfer oil XW 15, Temperature range based on data sheet by manufacturer: T in [-20.0 °C, 300.0 °C], Usable temperature range: T in [-33.15 °C, 326.85 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_600 </td>
+        <td>Dynalene 600, high temperature silicone heat transfer fluid. Produced by Dynalene. (R²_cp=0.9999787, R²_rho=0.9999796, R²_eta=0.9999950, R²_lambda=0.9999852), Temperature range based on data sheet by manufacturer: T in [70.0 °C, 287.77778 °C], Usable temperature range: T in [68.0 °C, 297.77778 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_FC-Bio </td>
+        <td>Dynalene FC-Bio, low electrical conductivity, water-based fuel cell coolant with nano particles. Produced by Dynalene. (R²_cp=0.9995178, R²_rho=0.9999993, R²_eta=0.9999999, R²_lambda=0.9969481), Temperature range based on data sheet by manufacturer: T in [-34.44444 °C, 115.55556 °C], Usable temperature range: T in [-36.44444 °C, 125.55556 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_FC-EG </td>
+        <td>Dynalene FC-EG, low electrical conductivity, water-based fuel cell coolant with nano particles. Produced by Dynalene. (R²_cp=0.9987529, R²_rho=0.9999947, R²_eta=0.9999975, R²_lambda=0.9988012), Temperature range based on data sheet by manufacturer: T in [-28.88889 °C, 115.55556 °C], Usable temperature range: T in [-30.88889 °C, 125.55556 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_HC-FG10 </td>
+        <td>Dynalene HC-FG10, low temperature, high-performance heat transfer fluid. Produced by Dynalene. (R²_cp=0.9999619, R²_rho=0.9997986, R²_eta=0.9999310, R²_lambda=0.9999625), Temperature range based on data sheet by manufacturer: T in [-10.0 °C, 218.33333 °C], Usable temperature range: T in [-12.0 °C, 228.33333 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_HC-FG20 </td>
+        <td>Dynalene HC-FG20, low temperature, high-performance heat transfer fluid. Produced by Dynalene. (R²_cp=0.9999556, R²_rho=0.9998634, R²_eta=0.9999424, R²_lambda=0.9999669), Temperature range based on data sheet by manufacturer: T in [-20.0 °C, 218.33333 °C], Usable temperature range: T in [-22.5 °C, 230.83333 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_HC-FG30 </td>
+        <td>Dynalene HC-FG30, low temperature, high-performance heat transfer fluid. Produced by Dynalene. (R²_cp=0.9999551, R²_rho=0.9998802, R²_eta=0.9999487, R²_lambda=0.9999674), Temperature range based on data sheet by manufacturer: T in [-30.0 °C, 218.33333 °C], Usable temperature range: T in [-32.0 °C, 228.33333 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_HC-FG40 </td>
+        <td>Dynalene HC-FG40, low temperature, high-performance heat transfer fluid. Produced by Dynalene. (R²_cp=0.9999875, R²_rho=0.9999031, R²_eta=0.9999736, R²_lambda=0.9999633), Temperature range based on data sheet by manufacturer: T in [-40.0 °C, 218.33333 °C], Usable temperature range: T in [-42.0 °C, 228.33333 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_HC-FG50 </td>
+        <td>Dynalene HC-FG50, low temperature, high-performance heat transfer fluid. Produced by Dynalene. (R²_cp=0.9999417, R²_rho=0.9999068, R²_eta=0.9999625, R²_lambda=0.9997939), Temperature range based on data sheet by manufacturer: T in [-50.0 °C, 218.33333 °C], Usable temperature range: T in [-52.0 °C, 228.33333 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_HF-LO </td>
+        <td>Dynalene HF-LO, high flash, non-toxic, low temperature heat transfer fluid. Produced by Dynalene. (R²_cp=0.9999849, R²_rho=0.9999391, R²_eta=0.9999988, R²_lambda=0.9999959), Temperature range based on data sheet by manufacturer: T in [-73.33333 °C, 176.66667 °C], Usable temperature range: T in [-75.33333 °C, 186.66667 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_HT </td>
+        <td>Dynalene HT, high temperature heat transfer fluid. Produced by Dynalene. (R²_cp=0.9999910, R²_rho=0.9999572, R²_eta=0.9999981, R²_lambda=0.9999861), Temperature range based on data sheet by manufacturer: T in [20.0 °C, 350.0 °C], Usable temperature range: T in [18.0 °C, 360.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_LO-170 </td>
+        <td>Dynalene LO-170, non-toxic, low odor, low temperature heat transfer fluid. Produced by Dynalene. (R²_cp=0.9999796, R²_rho=0.9998397, R²_eta=0.9999872, R²_lambda=0.9999961), Temperature range based on data sheet by manufacturer: T in [-40.0 °C, 193.33333 °C], Usable temperature range: T in [-42.0 °C, 203.33333 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_LO-230 </td>
+        <td>Dynalene LO-230, high flash, non-toxic, low temperature heat transfer fluid. Produced by Dynalene. (R²_cp=0.9999914, R²_rho=0.9998942, R²_eta=0.9998954, R²_lambda=0.9999869), Temperature range based on data sheet by manufacturer: T in [0.0 °C, 204.44444 °C], Usable temperature range: T in [-2.0 °C, 214.44444 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_MT </td>
+        <td>Dynalene MT, high temperature heat transfer fluid. Produced by Dynalene. (R²_cp=0.9999732, R²_rho=0.9999997, R²_eta=0.9997275, R²_lambda=0.9999671), Temperature range based on data sheet by manufacturer: T in [0.0 °C, 325.0 °C], Usable temperature range: T in [-2.0 °C, 335.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_MV </td>
+        <td>Dynalene MV, ultra-low temperature heat transfer fluid. Produced by Dynalene. (R²_cp=0.9999836, R²_rho=0.9999557, R²_eta=1.0000000, R²_lambda=0.9994927), Temperature range based on data sheet by manufacturer: T in [-112.22222 °C, 162.77778 °C], Usable temperature range: T in [-114.72222 °C, 175.27778 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_SF </td>
+        <td>Dynalene SF, high temperature heat transfer fluid. Produced by Dynalene. (R²_cp=0.9999876, R²_rho=0.9999480, R²_eta=0.9999870, R²_lambda=0.9999699), Temperature range based on data sheet by manufacturer: T in [0.0 °C, 315.55556 °C], Usable temperature range: T in [-2.5 °C, 328.05556 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Dynalene_Solar_Glycol-XT </td>
+        <td>Dynalene Solar Glycol-XT, BioGlycol heat transfer fluid. Produced by Dynalene. (R²_cp=0.9971698, R²_rho=0.9999974, R²_eta=0.9999959, R²_lambda=0.9979960), Temperature range based on data sheet by manufacturer: T in [-23.33333 °C, 104.44444 °C], Usable temperature range: T in [-25.33333 °C, 114.44444 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Fragol_Purity_FG-HTF </td>
+        <td>Fragol Purity FG-HTF, heat transfer fluid. Produced by Fragol. (R²_cp=0.9999324, R²_rho=0.9999802, R²_eta=0.9999986, R²_lambda=0.9975104), Temperature range based on data sheet by manufacturer: T in [-10.0 °C, 340.0 °C], Usable temperature range: T in [-12.5 °C, 352.5 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Fragoltherm_FG-35 </td>
+        <td>Fragoltherm FG-35, heat transfer fluid. Produced by Fragol. (R²_cp=0.9999295, R²_rho=0.9999869, R²_eta=0.9999313, R²_lambda=0.9993092), Temperature range based on data sheet by manufacturer: T in [-10.0 °C, 340.0 °C], Usable temperature range: T in [-12.5 °C, 352.5 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Fragoltherm_FG-8 </td>
+        <td>Fragoltherm FG-8, heat transfer fluid. Produced by Fragol. (R²_cp=0.9999993, R²_rho=0.9999697, R²_eta=1.0000000, R²_lambda=0.9994924), Temperature range based on data sheet by manufacturer: T in [-45.0 °C, 280.0 °C], Usable temperature range: T in [-48.33333 °C, 296.66667 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Fragoltherm_Q-7 </td>
+        <td>Fragoltherm Q-7, heat transfer fluid. Produced by Fragol. (R²_cp=0.9999993, R²_rho=0.9999697, R²_eta=1.0000000, R²_lambda=0.9994924), Temperature range based on data sheet by manufacturer: T in [-45.0 °C, 280.0 °C], Usable temperature range: T in [-48.33333 °C, 296.66667 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Fragoltherm_S-250 </td>
+        <td>Fragoltherm S-250, heat transfer fluid. Produced by Fragol. (R²_cp=0.9999888, R²_rho=0.9999800, R²_eta=1.0000000, R²_lambda=0.9943906), Temperature range based on data sheet by manufacturer: T in [5.0 °C, 270.0 °C], Usable temperature range: T in [3.0 °C, 280.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Fragoltherm_X-TT </td>
+        <td>Fragoltherm X-TT, heat transfer fluid. Produced by Fragol. (R²_cp=1.0000000, R²_rho=0.9999999, R²_eta=0.9999961, R²_lambda=0.9999037), Temperature range based on data sheet by manufacturer: T in [-110.0 °C, 230.0 °C], Usable temperature range: T in [-112.0 °C, 240.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Freezium_-60C </td>
+        <td>Freezium -60C, heat transfer fluid. Produced by Eastman. (R²_cp=0.9963447, R²_rho=1.0000000, R²_eta=0.9999909, R²_lambda=0.9696930), Temperature range based on data sheet by manufacturer: T in [-55.0 °C, -10.0 °C], Usable temperature range: T in [-57.0 °C, 0.0 °C] </td>
     </tr>
     <tr>
         <td>TILMedia.GLYSANTIN_xx.x </td>
         <td>xx corresponds to % mass fraction of glycol whereupon for xx = 30 to 60 is possible. E.g. _33 for 33 % mass fraction glycol. </td>
     </tr>
     <tr>
-        <td>TILMedia.NOVEC7500 </td>
+        <td>TILMedia.Marlotherm_LH </td>
+        <td>Marlotherm LH, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999376, R²_rho=0.9999826, R²_eta=0.9999879, R²_lambda=0.9995025), Temperature range based on data sheet by manufacturer: T in [-30.0 °C, 360.0 °C], Usable temperature range: T in [-32.0 °C, 370.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Marlotherm_SH </td>
+        <td>Marlotherm SH, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999482, R²_rho=0.9999860, R²_eta=0.9999998, R²_lambda=0.9999965), Temperature range based on data sheet by manufacturer: T in [0.0 °C, 360.0 °C], Usable temperature range: T in [-2.0 °C, 370.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Marlotherm_XC </td>
+        <td>Marlotherm XC, heat transfer fluid. Produced by Eastman. (R²_cp=0.9998873, R²_rho=0.9999962, R²_eta=0.9999982, R²_lambda=0.9997738), Temperature range based on data sheet by manufacturer: T in [-90.0 °C, 300.0 °C], Usable temperature range: T in [-92.5 °C, 312.5 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Novec7500 </td>
         <td>The 3M Novec 7500 High-Tech Engineered Fluid, Temperature range based on data sheet by manufacturer: T in [-70.0 °C, 130.0 °C], Usable temperature range: T in [-70.0 °C, 130.0 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.OIL_15W40 </td>
+        <td>TILMedia.Obsolete_Therminol59 </td>
+        <td>Therminol 59 by Fragol, Temperature range based on data sheet by manufacturer: T in [-50.0 °C, 320.0 °C], Usable temperature range: T in [-73.15 °C, 476.85 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Obsolete_Therminol66 </td>
+        <td>Therminol 66 by Fragol, Temperature range based on data sheet by manufacturer: T in [0.0 °C, 380.0 °C], Usable temperature range: T in [-13.15 °C, 476.85 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Obsolete_Therminol72 </td>
+        <td>Therminol 72 by Fragol, Temperature range based on data sheet by manufacturer: T in [-10.0 °C, 380.0 °C], Usable temperature range: T in [-73.15 °C, 476.85 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Obsolete_TherminolD12 </td>
+        <td>Therminol D12 by Fragol, Temperature range based on data sheet by manufacturer: T in [-85.0 °C, 260.0 °C], Usable temperature range: T in [-123.15 °C, 476.85 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Oil_15W40 </td>
         <td>Oil 15W40, Temperature range based on data sheet by manufacturer: T in [-20.0 °C, 160.0 °C], Usable temperature range: T in [-123.15 °C, 326.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.OIL_ARAL0W30 </td>
+        <td>TILMedia.Oil_Aral0W30 </td>
         <td>Oil Aral 0W30, Temperature range based on data sheet by manufacturer: T in [-20.0 °C, 160.0 °C], Usable temperature range: T in [-73.15 °C, 276.85 °C] </td>
     </tr>
     <tr>
@@ -208,43 +328,87 @@ annotation(DocumentationClass=true,
         <td>Mobilgear SHC XMP 320, Temperature range based on data sheet by manufacturer: T in [0.0 °C, 150.0 °C], Usable temperature range: T in [-73.15 °C, 476.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.THERMINOL59 </td>
-        <td>Therminol 59 by Fragol, Temperature range based on data sheet by manufacturer: T in [-50.0 °C, 320.0 °C], Usable temperature range: T in [-73.15 °C, 476.85 °C] </td>
+        <td>TILMedia.Therminol_54 </td>
+        <td>Therminol 54, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999415, R²_rho=0.9999808, R²_eta=0.9999435, R²_lambda=0.9994501), Temperature range based on data sheet by manufacturer: T in [-28.0 °C, 310.0 °C], Usable temperature range: T in [-30.5 °C, 322.5 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.THERMINOL66 </td>
-        <td>Therminol 66 by Fragol, Temperature range based on data sheet by manufacturer: T in [0.0 °C, 380.0 °C], Usable temperature range: T in [-13.15 °C, 476.85 °C] </td>
+        <td>TILMedia.Therminol_55 </td>
+        <td>Therminol 55, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999461, R²_rho=0.9999823, R²_eta=0.9999435, R²_lambda=0.9999904), Temperature range based on data sheet by manufacturer: T in [-28.0 °C, 320.0 °C], Usable temperature range: T in [-30.5 °C, 332.5 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.THERMINOL72 </td>
-        <td>Therminol 72 by Fragol, Temperature range based on data sheet by manufacturer: T in [-10.0 °C, 380.0 °C], Usable temperature range: T in [-73.15 °C, 476.85 °C] </td>
+        <td>TILMedia.Therminol_59 </td>
+        <td>Therminol 59, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999349, R²_rho=0.9999811, R²_eta=0.9999949, R²_lambda=0.9999942), Temperature range based on data sheet by manufacturer: T in [-49.0 °C, 330.0 °C], Usable temperature range: T in [-51.0 °C, 340.0 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.THERMINOLD12 </td>
-        <td>Therminol D12 by Fragol, Temperature range based on data sheet by manufacturer: T in [-85.0 °C, 260.0 °C], Usable temperature range: T in [-123.15 °C, 476.85 °C] </td>
+        <td>TILMedia.Therminol_62 </td>
+        <td>Therminol 62, heat transfer fluid. Produced by Eastman. (R²_cp=0.9998650, R²_rho=0.9999882, R²_eta=0.9999962, R²_lambda=0.9999857), Temperature range based on data sheet by manufacturer: T in [-23.0 °C, 340.0 °C], Usable temperature range: T in [-25.0 °C, 350.0 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.TYFOCOR30 </td>
+        <td>TILMedia.Therminol_66 </td>
+        <td>Therminol 66, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999431, R²_rho=0.9999808, R²_eta=0.9999967, R²_lambda=0.9999621), Temperature range based on data sheet by manufacturer: T in [-3.0 °C, 370.0 °C], Usable temperature range: T in [-5.0 °C, 380.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Therminol_68 </td>
+        <td>Therminol 68, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999994, R²_rho=0.9999738, R²_eta=0.9999999, R²_lambda=0.9990540), Temperature range based on data sheet by manufacturer: T in [-20.0 °C, 360.0 °C], Usable temperature range: T in [-22.0 °C, 370.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Therminol_72 </td>
+        <td>Therminol 72, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999992, R²_rho=0.9999920, R²_eta=0.9999801, R²_lambda=0.9996138), Temperature range based on data sheet by manufacturer: T in [-14.0 °C, 380.0 °C], Usable temperature range: T in [-2.5 °C, 392.5 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Therminol_75 </td>
+        <td>Therminol 75, heat transfer fluid. Produced by Eastman. (R²_cp=0.9998922, R²_rho=0.9995534, R²_eta=0.9999983, R²_lambda=0.9999842), Temperature range based on data sheet by manufacturer: T in [71.0 °C, 385.0 °C], Usable temperature range: T in [69.0 °C, 395.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Therminol_ADX-10 </td>
+        <td>Therminol ADX-10, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999351, R²_rho=0.9999864, R²_eta=0.9999915, R²_lambda=0.9999962), Temperature range based on data sheet by manufacturer: T in [-56.0 °C, 290.0 °C], Usable temperature range: T in [-58.5 °C, 302.5 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Therminol_D-12 </td>
+        <td>Therminol D-12, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999339, R²_rho=0.9999656, R²_eta=1.0000000, R²_lambda=0.9999975), Temperature range based on data sheet by manufacturer: T in [-94.0 °C, 250.0 °C], Usable temperature range: T in [-96.5 °C, 262.5 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Therminol_LT </td>
+        <td>Therminol LT, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999110, R²_rho=0.9999860, R²_eta=0.9999525, R²_lambda=0.9999979), Temperature range based on data sheet by manufacturer: T in [-73.0 °C, 315.0 °C], Usable temperature range: T in [-75.0 °C, 325.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Therminol_SP </td>
+        <td>Therminol SP, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999461, R²_rho=0.9999823, R²_eta=0.9999435, R²_lambda=0.9999904), Temperature range based on data sheet by manufacturer: T in [-28.0 °C, 320.0 °C], Usable temperature range: T in [-30.5 °C, 332.5 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Therminol_VLT </td>
+        <td>Therminol VLT, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999335, R²_rho=0.9999817, R²_eta=0.9999999, R²_lambda=0.9999968), Temperature range based on data sheet by manufacturer: T in [-135.0 °C, 180.0 °C], Usable temperature range: T in [-137.0 °C, 190.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Therminol_VP-1 </td>
+        <td>Therminol VP-1, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999153, R²_rho=0.9999877, R²_eta=0.9999991, R²_lambda=0.9999980), Temperature range based on data sheet by manufacturer: T in [12.0 °C, 420.0 °C], Usable temperature range: T in [10.0 °C, 430.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Therminol_XP </td>
+        <td>Therminol XP, heat transfer fluid. Produced by Eastman. (R²_cp=0.9999581, R²_rho=0.9999822, R²_eta=1.0000000, R²_lambda=0.9999918), Temperature range based on data sheet by manufacturer: T in [-20.0 °C, 330.0 °C], Usable temperature range: T in [-22.0 °C, 340.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Tyfocor30 </td>
         <td>Tyfocor 30 %vol by Tyforop Chemie, Temperature range based on data sheet by manufacturer: T in [-15.0 °C, 100.0 °C], Usable temperature range: T in [-43.15 °C, 156.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.TYFOCOR45 </td>
+        <td>TILMedia.Tyfocor45 </td>
         <td>Tyfocor 45 %vol by Tyforop Chemie, Temperature range based on data sheet by manufacturer: T in [-30.0 °C, 100.0 °C], Usable temperature range: T in [-43.15 °C, 156.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.TYFOCORL33 </td>
+        <td>TILMedia.TyfocorL33 </td>
         <td>Tyfocor 33 %vol by Tyforop Chemie, Temperature range based on data sheet by manufacturer: T in [-15.0 °C, 100.0 °C], Usable temperature range: T in [-43.15 °C, 156.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.WATER </td>
+        <td>TILMedia.Water </td>
         <td>Water, Temperature range based on data sheet by manufacturer: T in [0.0 °C, 185.0 °C], Usable temperature range: T in [-23.15 °C, 276.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.ZITRECM10 </td>
+        <td>TILMedia.ZitrecM10 </td>
         <td>Zitrec M-10 by Fragol, Temperature range based on data sheet by manufacturer: T in [-10.0 °C, 100.0 °C], Usable temperature range: T in [-23.15 °C, 126.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.ZITRECM20 </td>
+        <td>TILMedia.ZitrecM20 </td>
         <td>Zitrec M-20 by Fragol, Temperature range based on data sheet by manufacturer: T in [-20.0 °C, 100.0 °C], Usable temperature range: T in [-33.15 °C, 126.85 °C] </td>
     </tr>
     <tr>
@@ -252,23 +416,23 @@ annotation(DocumentationClass=true,
         <td> </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.AMMONIA </td>
+        <td>TILMediaXTR.Ammonia </td>
         <td>Ammonia, Temperature range based on data sheet by manufacturer: T in [-77.65 °C, 91.30214 °C], Usable temperature range: T in [-232.61 °C, 131.65 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.ARGON </td>
+        <td>TILMediaXTR.Argon </td>
         <td>Argon, Temperature range based on data sheet by manufacturer: T in [-189.344 °C, -139.20597 °C], Usable temperature range: T in [-258.0813 °C, -122.35 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.CARBON_DIOXIDE </td>
+        <td>TILMediaXTR.Carbon_Dioxide </td>
         <td>Carbon dioxide, Temperature range based on data sheet by manufacturer: T in [-56.55 °C, -0.63297 °C], Usable temperature range: T in [-242.73718 °C, 30.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.CARBON_MONOXIDE </td>
+        <td>TILMediaXTR.Carbon_Monoxide </td>
         <td>Carbon monoxide, Temperature range based on data sheet by manufacturer: T in [-204.51071 °C, -153.64734 °C], Usable temperature range: T in [-259.864 °C, -140.35 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.DRYAIR </td>
+        <td>TILMediaXTR.DryAir </td>
         <td>Dry air, Temperature range based on data sheet by manufacturer: T in [-213.4 °C, -154.70317 °C], Usable temperature range: T in [-259.86049 °C, -140.45 °C] </td>
     </tr>
     <tr>
@@ -276,31 +440,31 @@ annotation(DocumentationClass=true,
         <td> </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.HYDROGEN </td>
+        <td>TILMediaXTR.Hydrogen </td>
         <td>Hydrogen, Temperature range based on data sheet by manufacturer: T in [-259.193 °C, -243.4246 °C], Usable temperature range: T in [-269.8355 °C, -240.15 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.METHANE </td>
+        <td>TILMediaXTR.Methane </td>
         <td>Methane, Temperature range based on data sheet by manufacturer: T in [-182.4559 °C, -91.17601 °C], Usable temperature range: T in [-254.0936 °C, -88.15 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.NITROGEN </td>
+        <td>TILMediaXTR.Nitrogen </td>
         <td>Nitrogen, Temperature range based on data sheet by manufacturer: T in [-209.73791 °C, -160.53998 °C], Usable temperature range: T in [-260.5308 °C, -146.958 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.NITROUS_OXIDE </td>
+        <td>TILMediaXTR.Nitrous_Oxide </td>
         <td>Nitrous oxide, Temperature range based on data sheet by manufacturer: T in [-90.82 °C, 4.68397 °C], Usable temperature range: T in [-242.198 °C, 36.36 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.OXYGEN </td>
+        <td>TILMediaXTR.Oxygen </td>
         <td>Oxygen, Temperature range based on data sheet by manufacturer: T in [-218.15 °C, -136.19921 °C], Usable temperature range: T in [-257.6919 °C, -118.569 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.SULFUR_DIOXIDE </td>
+        <td>TILMediaXTR.Sulfur_Dioxide </td>
         <td>Sulfur dioxide, Temperature range based on data sheet by manufacturer: T in [-75.45 °C, 114.29466 °C], Usable temperature range: T in [-230.086 °C, 157.25 °C] </td>
     </tr>
     <tr>
-        <td>TILMediaXTR.WATER </td>
+        <td>TILMediaXTR.Water </td>
         <td>Water, Temperature range based on data sheet by manufacturer: T in [0.96606 °C, 304.30849 °C], Usable temperature range: T in [-208.4404 °C, 373.946 °C] </td>
     </tr>
     <tr>
@@ -308,93 +472,93 @@ annotation(DocumentationClass=true,
         <td> </td>
     </tr>
     <tr>
-        <td>IIR_SWF.3M_NOVEC_HFE7100 </td>
+        <td>IIR_SWF.3M_Novec_HFE7100 </td>
         <td>Hydrofluoroether - HFE-7100 3M Novec, Usable temperature range: T in [-80.0 °C, 100.0 °C] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.AMMONIA-WATER_20 </td>
+        <td>IIR_SWF.Ammonia-Water_20 </td>
         <td>Ammonia (NH3) - aq, Usable temperature range: T in [-100.0 °C, 30.0 °C], Concentration data range: xi in [0.0, 0.3] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.BAYSILONE_KT3 </td>
+        <td>IIR_SWF.Baysilone_KT3 </td>
         <td>Polydimethylsiloxan 1 - Baysilone KT3, Usable temperature range: T in [-80.0 °C, 100.0 °C] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.CALCIUMCHLORIDE-WATER_20 </td>
+        <td>IIR_SWF.CalciumChloride-Water_20 </td>
         <td>Calcium Chloride (CaCl2) - aq, Usable temperature range: T in [-100.0 °C, 40.0 °C], Concentration data range: xi in [0.0, 0.3] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.DOWTHERM_J </td>
+        <td>IIR_SWF.Dowtherm_J </td>
         <td>Diethylbenzene mixture - Dowtherm J, Usable temperature range: T in [-80.0 °C, 100.0 °C] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.DYNALENE_MV </td>
+        <td>IIR_SWF.Dynalene_MV </td>
         <td>Hydrocarbon blend - Dynalene MV, Usable temperature range: T in [-80.0 °C, 100.0 °C] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.D_LIMONENE </td>
-        <td>Citrus oil terpene - d-Limonene, Usable temperature range: T in [-80.0 °C, 100.0 °C] </td>
-    </tr>
-    <tr>
-        <td>IIR_SWF.ETHYLALCOHOL-WATER_20 </td>
+        <td>IIR_SWF.EthylAlcohol-Water_20 </td>
         <td>Ethyl Alcohol (Ethanol) - aq, Usable temperature range: T in [-100.0 °C, 40.0 °C], Concentration data range: xi in [0.0, 0.6] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.ETHYLENEGLYCOL-WATER_20 </td>
+        <td>IIR_SWF.EthyleneGlycol-Water_20 </td>
         <td>Ethylene Glycol - aq, Usable temperature range: T in [-100.0 °C, 100.0 °C], Concentration data range: xi in [0.0, 0.6] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.GILOTHERM_D12 </td>
+        <td>IIR_SWF.Gilotherm_D12 </td>
         <td>Hydrocarbon mixture - Gilotherm D12, Usable temperature range: T in [-80.0 °C, 100.0 °C] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.GLYCEROL-WATER_20 </td>
+        <td>IIR_SWF.Glycerol-Water_20 </td>
         <td>Glycerol - aq, Usable temperature range: T in [-100.0 °C, 40.0 °C], Concentration data range: xi in [0.0, 0.6] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.LITHIUMCHLORIDE-WATER_20 </td>
+        <td>IIR_SWF.LithiumChloride-Water_20 </td>
         <td>Lithium Chloride (LiCl) - aq, Usable temperature range: T in [-100.0 °C, 40.0 °C], Concentration data range: xi in [0.0, 0.24] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.MAGNESIUMCHLORIDE-WATER_20 </td>
+        <td>IIR_SWF.MagnesiumChloride-Water_20 </td>
         <td>Magnesium Chloride (MgCl2) - aq, Usable temperature range: T in [-100.0 °C, 40.0 °C], Concentration data range: xi in [0.0, 0.3] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.MARLOTHERM_X </td>
+        <td>IIR_SWF.Marlotherm_X </td>
         <td>Synthetic alkyl benzene - Marlotherm X, Usable temperature range: T in [-80.0 °C, 100.0 °C] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.METHYLALCOHOL-WATER_20 </td>
+        <td>IIR_SWF.MethylAlcohol-Water_20 </td>
         <td>Methyl Alcohol (Methanol) - aq, Usable temperature range: T in [-100.0 °C, 40.0 °C], Concentration data range: xi in [0.0, 0.6] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.POTASSIUMACETATE-WATER_20 </td>
+        <td>IIR_SWF.PotassiumAcetate-Water_20 </td>
         <td>Potassium Acetate (CH3CO2K) - aq, Usable temperature range: T in [-100.0 °C, 40.0 °C], Concentration data range: xi in [0.0, 0.45] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.POTASSIUMCARBONATE-WATER_20 </td>
+        <td>IIR_SWF.PotassiumCarbonate-Water_20 </td>
         <td>Potassium Carbonate (K2CO3) - aq, Usable temperature range: T in [-100.0 °C, 40.0 °C], Concentration data range: xi in [0.0, 0.4] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.POTASSIUMFORMATE-WATER_20 </td>
+        <td>IIR_SWF.PotassiumFormate-Water_20 </td>
         <td>Potassium Formate (CHKO2) - aq, Usable temperature range: T in [-100.0 °C, 40.0 °C], Concentration data range: xi in [0.0, 0.48] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.PROPYLENEGLYCOL-WATER_20 </td>
+        <td>IIR_SWF.PropyleneGlycol-Water_20 </td>
         <td>Propylene Glycol - aq, Usable temperature range: T in [-100.0 °C, 100.0 °C], Concentration data range: xi in [0.0, 0.6] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.SODIUMCHLORIDE-WATER_20 </td>
+        <td>IIR_SWF.SodiumChloride-Water_20 </td>
         <td>Sodium Chloride (NaCl) - aq, Usable temperature range: T in [-100.0 °C, 40.0 °C], Concentration data range: xi in [0.0, 0.23] </td>
     </tr>
     <tr>
-        <td>IIR_SWF.SYLTHERM_XLT </td>
+        <td>IIR_SWF.Syltherm_XLT </td>
         <td>Polydimethylsiloxan 2 - Syltherm XLT, Usable temperature range: T in [-80.0 °C, 100.0 °C] </td>
+    </tr>
+    <tr>
+        <td>IIR_SWF.d_Limonene </td>
+        <td>Citrus oil terpene - d-Limonene, Usable temperature range: T in [-80.0 °C, 100.0 °C] </td>
     </tr>
 </table><br><br>
 
 <h4>VLEFluid Names TILMedia</h4>
-<table border=1>
+<table border=\"1\">
     <tr>
         <th>Substance name</th>
         <th>Comment</th>    
@@ -421,7 +585,7 @@ annotation(DocumentationClass=true,
     </tr>
     <tr>
         <td>TILMedia.CO2 </td>
-        <td>The calculation isn&#x27;t valid below the triplepoint: p=5.18 bar, T=216.59 K </td>
+        <td>The calculation isn't valid below the triplepoint: p=5.18 bar, T=216.59 K </td>
     </tr>
     <tr>
         <td>TILMedia.CO2(EOS=AClibReferenceProperties) </td>
@@ -461,7 +625,7 @@ annotation(DocumentationClass=true,
     </tr>
     <tr>
         <td>TILMedia.ETHANOL </td>
-        <td>The calculation isn&#x27;t valid below the triplepoint: p=~0.001 Pa, T=159.0 K </td>
+        <td>The calculation isn't valid below the triplepoint: p=~0.001 Pa, T=159.0 K </td>
     </tr>
     <tr>
         <td>TILMedia.ETHYLBENZENE </td>
@@ -629,7 +793,7 @@ annotation(DocumentationClass=true,
     </tr>
     <tr>
         <td>TILMedia.R134A </td>
-        <td>The calculation isn&#x27;t valid below the triplepoint: p=389.6 Pa, T=169.85 K </td>
+        <td>The calculation isn't valid below the triplepoint: p=389.6 Pa, T=169.85 K </td>
     </tr>
     <tr>
         <td>TILMedia.R141B </td>
@@ -661,7 +825,7 @@ annotation(DocumentationClass=true,
     </tr>
     <tr>
         <td>TILMedia.R245FA </td>
-        <td>The calculation isn&#x27;t valid below the triplepoint: p=12.5 Pa, T=171.05 K </td>
+        <td>The calculation isn't valid below the triplepoint: p=12.5 Pa, T=171.05 K </td>
     </tr>
     <tr>
         <td>TILMedia.R32 </td>
@@ -673,15 +837,15 @@ annotation(DocumentationClass=true,
     </tr>
     <tr>
         <td>TILMedia.R404APPF </td>
-        <td>The calculation isn&#x27;t valid below the triplepoint: p=0.227 bar, T=200.0 K </td>
+        <td>The calculation isn't valid below the triplepoint: p=0.227 bar, T=200.0 K </td>
     </tr>
     <tr>
         <td>TILMedia.R407CPPF </td>
-        <td>The calculation isn&#x27;t valid below the triplepoint: p=0.192 bar, T=200.0 K </td>
+        <td>The calculation isn't valid below the triplepoint: p=0.192 bar, T=200.0 K </td>
     </tr>
     <tr>
         <td>TILMedia.R410APPF </td>
-        <td>The calculation isn&#x27;t valid below the triplepoint: p=0.292 bar, T=200.0 K </td>
+        <td>The calculation isn't valid below the triplepoint: p=0.292 bar, T=200.0 K </td>
     </tr>
     <tr>
         <td>TILMedia.R507APPF </td>
@@ -705,7 +869,7 @@ annotation(DocumentationClass=true,
     </tr>
     <tr>
         <td>TILMedia.WATER </td>
-        <td>The calculation isn&#x27;t valid below the triplepoint: p=612.5 Pa, T=273.16 K </td>
+        <td>The calculation isn't valid below the triplepoint: p=612.5 Pa, T=273.16 K </td>
     </tr>
     <tr>
         <td>TILMedia.XENON </td>
@@ -742,7 +906,7 @@ annotation(DocumentationClass=true,
 </table><br><br>
 
 <h4>VLEFluid Names REFPROP</h4>
-<table border=1>
+<table border=\"1\">
     <tr>
         <th>Substance name</th>
         <th>Substance name</th>
@@ -1216,7 +1380,7 @@ annotation(DocumentationClass=true,
 </table><br><br>
 
 <h4>Gas, Liquid and VLEFluid Names (VDIWA2006)</h4>
-<table border=1>
+<table border=\"1\">
     <tr>
         <th>Substance name</th>
         <th>Substance name</th>
@@ -1774,9 +1938,8 @@ annotation(DocumentationClass=true,
     </tr>
 </table><br><br>
 
-<h4>VLEFluid and Gas Names (CoolProp)</h4>
-<!-- 114 supported substance names inside TILMedia from CoolProp can be receifed by request. -->
-<table border=1>
+<h4>VLEFluid (CoolProp)</h4>
+<table border=\"1\">
     <tr>
         <th>Substance name</th>
         <th>Substance name</th>
@@ -1904,92 +2067,93 @@ annotation(DocumentationClass=true,
     </tr>
     <tr>
         <td>CoolProp.R124 </td>
+        <td>CoolProp.R1243zf </td>
         <td>CoolProp.R125 </td>
-        <td>CoolProp.R13 </td>
     </tr>
     <tr>
+        <td>CoolProp.R13 </td>
         <td>CoolProp.R134a </td>
         <td>CoolProp.R13I1 </td>
-        <td>CoolProp.R14 </td>
     </tr>
     <tr>
+        <td>CoolProp.R14 </td>
         <td>CoolProp.R141b </td>
         <td>CoolProp.R142b </td>
-        <td>CoolProp.R143a </td>
     </tr>
     <tr>
+        <td>CoolProp.R143a </td>
         <td>CoolProp.R152A </td>
         <td>CoolProp.R161 </td>
-        <td>CoolProp.R21 </td>
     </tr>
     <tr>
+        <td>CoolProp.R21 </td>
         <td>CoolProp.R218 </td>
         <td>CoolProp.R22 </td>
-        <td>CoolProp.R227EA </td>
     </tr>
     <tr>
+        <td>CoolProp.R227EA </td>
         <td>CoolProp.R23 </td>
         <td>CoolProp.R236EA </td>
-        <td>CoolProp.R236FA </td>
     </tr>
     <tr>
+        <td>CoolProp.R236FA </td>
         <td>CoolProp.R245ca </td>
         <td>CoolProp.R245fa </td>
-        <td>CoolProp.R32 </td>
     </tr>
     <tr>
+        <td>CoolProp.R32 </td>
         <td>CoolProp.R365MFC </td>
         <td>CoolProp.R40 </td>
-        <td>CoolProp.R404A </td>
     </tr>
     <tr>
+        <td>CoolProp.R404A </td>
         <td>CoolProp.R407C </td>
         <td>CoolProp.R41 </td>
-        <td>CoolProp.R410A </td>
     </tr>
     <tr>
+        <td>CoolProp.R410A </td>
         <td>CoolProp.R507A </td>
         <td>CoolProp.RC318 </td>
-        <td>CoolProp.SES36 </td>
     </tr>
     <tr>
+        <td>CoolProp.SES36 </td>
         <td>CoolProp.SulfurDioxide </td>
         <td>CoolProp.SulfurHexafluoride </td>
-        <td>CoolProp.Toluene </td>
     </tr>
     <tr>
+        <td>CoolProp.Toluene </td>
         <td>CoolProp.Water </td>
         <td>CoolProp.Xenon </td>
-        <td>CoolProp.cis-2-Butene </td>
     </tr>
     <tr>
+        <td>CoolProp.cis-2-Butene </td>
         <td>CoolProp.m-Xylene </td>
         <td>CoolProp.n-Butane </td>
-        <td>CoolProp.n-Decane </td>
     </tr>
     <tr>
+        <td>CoolProp.n-Decane </td>
         <td>CoolProp.n-Dodecane </td>
         <td>CoolProp.n-Heptane </td>
-        <td>CoolProp.n-Hexane </td>
     </tr>
     <tr>
+        <td>CoolProp.n-Hexane </td>
         <td>CoolProp.n-Nonane </td>
         <td>CoolProp.n-Octane </td>
-        <td>CoolProp.n-Pentane </td>
     </tr>
     <tr>
+        <td>CoolProp.n-Pentane </td>
         <td>CoolProp.n-Propane </td>
         <td>CoolProp.n-Undecane </td>
-        <td>CoolProp.o-Xylene </td>
     </tr>
     <tr>
+        <td>CoolProp.o-Xylene </td>
         <td>CoolProp.p-Xylene </td>
         <td>CoolProp.trans-2-Butene </td>
     </tr>
 </table><br><br>
 
 <h4>Gas Names NASA</h4>
-All 2024 substance names by NASA Glenn Coefficients can be received by request.
+The 2024 substances from the NASA Glenn Coefficients are available but not listed here.
 <br>
 
 </html>"));

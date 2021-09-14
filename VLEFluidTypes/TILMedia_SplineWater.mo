@@ -6,6 +6,6 @@ record TILMedia_SplineWater
     final nc_propertyCalculation=1,
     final vleFluidNames={"Interpolation.LoadSpline(filename=\"" +
         Modelica.Utilities.Files.loadResource(
-        "Modelica://TILMedia/Resources/WATER_SPLINE.DAT") + "\")"},
+        "modelica://TILMedia/Resources/TILMediaDataPath/WATER_SPLINE.DAT") + "\")"},
     final mixingRatio_propertyCalculation={1});
 end TILMedia_SplineWater;

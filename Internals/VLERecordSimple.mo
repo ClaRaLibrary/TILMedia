@@ -1,6 +1,6 @@
 ﻿within TILMedia.Internals;
 record VLERecordSimple "VLE property record"
-  extends .TILMedia.Internals.ClassTypes.Record;
+  extends TILMedia.Internals.ClassTypes.Record;
   SI.Density d_l "Density of liquid phase";
   SI.Density d_v "Density of vapour phase";
   SI.SpecificEnthalpy h_l "Specific enthalpy of liquid phase";

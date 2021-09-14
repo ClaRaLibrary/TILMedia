@@ -1,6 +1,6 @@
 ﻿within TILMedia.Internals.SLEMediumFunctions;
 function temperature_h
-  extends .TILMedia.BaseClasses.PartialSLEMediumFunction;
+  extends TILMedia.BaseClasses.PartialSLEMediumFunction;
   input Real h;
   input Real iota;
   input Real cp_s;

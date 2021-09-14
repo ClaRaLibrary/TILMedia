@@ -1,8 +1,8 @@
 ﻿within TILMedia;
 model Liquid_ph
   "Incompressible liquid model with p and h as independent variables"
-  extends .TILMedia.BaseClasses.PartialLiquid_ph(liquidPointer=
-        .TILMedia.Internals.TILMediaExternalObject(
+  extends TILMedia.BaseClasses.PartialLiquid_ph(liquidPointer=
+        TILMedia.Internals.TILMediaExternalObject(
         "Liquid",
         liquidType.concatLiquidName,
         computeFlags,
@@ -12,7 +12,7 @@ model Liquid_ph
         getInstanceName()));
 protected
   constant Real invalidValue=-1;
-  final parameter Integer computeFlags=.TILMedia.Internals.calcComputeFlags(
+  final parameter Integer computeFlags=TILMedia.Internals.calcComputeFlags(
       computeTransportProperties,
       false,
       true,
@@ -20,15 +20,15 @@ protected
       false);
 
 equation
-  (d,cp,beta) = .TILMedia.Internals.LiquidObjectFunctions.properties_hxi(
+  (d,cp,beta) = TILMedia.Internals.LiquidObjectFunctions.properties_hxi(
     h,
     xi,
     liquidPointer);
-  T = .TILMedia.Internals.LiquidObjectFunctions.temperature_hxi(
+  T = TILMedia.Internals.LiquidObjectFunctions.temperature_hxi(
     h,
     xi,
     liquidPointer);
-  s = .TILMedia.Internals.LiquidObjectFunctions.specificEntropy_pTxi(
+  s = TILMedia.Internals.LiquidObjectFunctions.specificEntropy_pTxi(
     p,
     T,
     xi,
@@ -38,12 +38,12 @@ equation
      transp.lambda,
      transp.eta,
      transp.sigma) =
-      .TILMedia.Internals.LiquidObjectFunctions.transportPropertyRecord_Txi(
+      TILMedia.Internals.LiquidObjectFunctions.transportPropertyRecord_Txi(
       T,
       xi,
       liquidPointer);
   else
-    transp = .TILMedia.Internals.TransportPropertyRecord(
+    transp = TILMedia.Internals.TransportPropertyRecord(
       invalidValue,
       invalidValue,
       invalidValue,
@@ -59,8 +59,8 @@ equation
           All thermophysical properties are calculated dependent on the specific enthalpy (h). 
           Only the specific entropy (s) is dependent on the specific enthalpy (h) <b>and</b> the given pressure (p). 
           The parameter liquidType defines the medium. 
-          All available liquids are listed in the User's Guide -> <a href=\"modelica://TILMedia.UsersGuide.SubstanceNames\">Substance Names</a>.
-          The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestLiquid\">TestLiquid</a>.
+          All available liquids are listed in the User's Guide -&gt; <a href=\"modelica://TILMedia.UsersGuide.SubstanceNames\">Substance Names</a>.
+          The interface and the way of using, is demonstrated in the Testers -&gt; <a href=\"modelica://TILMedia.Testers.TestLiquid\">TestLiquid</a>.
           </p>
           <hr>
           </html>"));

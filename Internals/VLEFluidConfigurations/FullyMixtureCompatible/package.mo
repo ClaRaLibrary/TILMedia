@@ -1,6 +1,6 @@
 ﻿within TILMedia.Internals.VLEFluidConfigurations;
 package FullyMixtureCompatible
-  extends .TILMedia.Internals.ClassTypes.ModelPackage;
+  extends TILMedia.Internals.ClassTypes.ModelPackage;
 
 
 

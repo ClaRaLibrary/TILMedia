@@ -1,6 +1,6 @@
 ﻿within TILMedia.SLEMediumTypes;
 model TILMedia_CopperSLE "TILMedia.CopperSLE"
-  extends .TILMedia.SLEMediumTypes.BaseSLEMedium(
+  extends TILMedia.SLEMediumTypes.BaseSLEMedium(
     cp_l = 490,
     cp_s = 390,
     T_s = 1356.15,

@@ -1,13 +1,13 @@
 ﻿within TILMedia.UsersGuide;
 class PropertyCalculation "Property Calculation"
-  extends .TILMedia.Internals.ClassTypes.Information;
+  extends TILMedia.Internals.ClassTypes.Information;
     annotation(DocumentationClass=true,
-     Documentation(info="<html>
+     Documentation(info="<html><p>
      
      
 The calculation of thermo-physical properties with the TILMedia Modelica interface is divided in five groups:
 <br>
-<ul>
+</p><ul>
   <li> <b>Gas</b> - Ideal gases and mixtures with one component that can condense - gas vapor</li>
   <li> <b>Liquid</b> - Incompressible single phase fluids and mixtures</li>
   <li> <b>VLEFluid</b> - Real fluid or fluid mixture, which can be liquid, vaporous, super-critical or may have a vapor-liquid equilibrium (VLE)</li>

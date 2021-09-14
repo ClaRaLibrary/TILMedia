@@ -1,6 +1,6 @@
 ﻿within TILMedia.SLEMediumTypes;
 model TILMedia_SimpleWater "TILMedia.SimpleWater"
-  extends .TILMedia.SLEMediumTypes.BaseSLEMedium(
+  extends TILMedia.SLEMediumTypes.BaseSLEMedium(
     cp_l = 4.218e3,
     cp_s = 2.1e3,
     T_s = 273.15,

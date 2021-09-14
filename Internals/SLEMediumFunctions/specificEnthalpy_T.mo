@@ -1,6 +1,6 @@
 ﻿within TILMedia.Internals.SLEMediumFunctions;
 function specificEnthalpy_T
-  extends .TILMedia.BaseClasses.PartialSLEMediumFunction;
+  extends TILMedia.BaseClasses.PartialSLEMediumFunction;
   input Real T;
   input Real iota;
   input Real TSupercoolingLimit;

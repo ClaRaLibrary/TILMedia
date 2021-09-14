@@ -6,6 +6,6 @@ record TILMedia_InterpolatedWater
     final nc_propertyCalculation=1,
     final vleFluidNames={"Interpolation.LoadLinear(filename=\"" +
         Modelica.Utilities.Files.loadResource(
-        "Modelica://TILMedia/Resources/WATER.DAT") + "\")"},
+        "modelica://TILMedia/Resources/TILMediaDataPath/WATER.DAT") + "\")"},
     final mixingRatio_propertyCalculation={1});
 end TILMedia_InterpolatedWater;

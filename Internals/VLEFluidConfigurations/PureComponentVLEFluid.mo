@@ -1,13 +1,13 @@
 ﻿within TILMedia.Internals.VLEFluidConfigurations;
 package PureComponentVLEFluid
-extends .TILMedia.Internals.ClassTypes.ModelPackage;
+extends TILMedia.Internals.ClassTypes.ModelPackage;
 
   package InternalLibrary "\"TILMedia.\" pure Mediums"
-    extends .TILMedia.Internals.ClassTypes.ModelPackage;
+    extends TILMedia.Internals.ClassTypes.ModelPackage;
     model VLEFluid_dT
       "Compressible fluid model with d, T and xi as independent variables"
-      extends .TILMedia.BaseClasses.PartialVLEFluid_dT(
-            vleFluidPointer=.TILMedia.Internals.TILMediaExternalObject(
+      extends TILMedia.BaseClasses.PartialVLEFluid_dT(
+            vleFluidPointer=TILMedia.Internals.TILMediaExternalObject(
           "VLEFluid",
               vleFluidType.concatVLEFluidName,
               computeFlags,
@@ -15,10 +15,10 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
               vleFluidType.nc,
               0,
               getInstanceName()),
-            M_i = {.TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
+            M_i = {TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
     protected
       constant Real invalidValue=-1;
-      final parameter Integer computeFlags=.TILMedia.Internals.calcComputeFlags(
+      final parameter Integer computeFlags=TILMedia.Internals.calcComputeFlags(
           computeTransportProperties,
           interpolateTransportProperties,
           computeSurfaceTension,
@@ -27,23 +27,23 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
     equation
       assert(vleFluidType.nc==1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
-      (crit.d, crit.h, crit.p, crit.s, crit.T) = .TILMedia.Internals.VLEFluidObjectFunctions.cricondentherm_xi(xi,
+      (crit.d, crit.h, crit.p, crit.s, crit.T) = TILMedia.Internals.VLEFluidObjectFunctions.cricondentherm_xi(xi,
         vleFluidPointer);
       //calculate molar mass
       M = M_i[1];
 
       //Calculate Main Properties of state
-      h =.TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEnthalpy_dTxi(
+      h =TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEnthalpy_dTxi(
         d,
         T,
         xi,
         vleFluidPointer);
-      p =.TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.pressure_dTxi(
+      p =TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.pressure_dTxi(
         d,
         T,
         xi,
         vleFluidPointer);
-      s =.TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEntropy_dTxi(
+      s =TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEntropy_dTxi(
         d,
         T,
         xi,
@@ -51,7 +51,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
       //Calculate Additional Properties of state
       (q,cp,cv,beta,kappa,drhodp_hxi,drhodh_pxi,drhodxi_ph,w,gamma) =
-        .TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_dTxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_dTxi(
         d,
         T,
         xi,
@@ -61,7 +61,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         //VLE only depends on p or T
         (VLE.d_l,VLE.h_l,VLE.p_l,VLE.s_l,VLE.T_l,VLE.xi_l,VLE.d_v,VLE.h_v,VLE.p_v,
           VLE.s_v,VLE.T_v,VLE.xi_v) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_dTxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_dTxi(
           -1,
           T,
           xi,
@@ -73,13 +73,13 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
      transp.lambda,
      transp.eta,
      transp.sigma) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_dTxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_dTxi(
           d,
           T,
           xi,
           vleFluidPointer);
       else
-        transp = .TILMedia.Internals.TransportPropertyRecord(
+        transp = TILMedia.Internals.TransportPropertyRecord(
           invalidValue,
           invalidValue,
           invalidValue,
@@ -91,7 +91,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
           //VLE only depends on p or T
           (VLEAdditional.cp_l,VLEAdditional.beta_l,VLEAdditional.kappa_l,
             VLEAdditional.cp_v,VLEAdditional.beta_v,VLEAdditional.kappa_v) =
-            .TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_dTxi(
+            TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_dTxi(
             -1,
             T,
             xi,
@@ -110,7 +110,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
           //VLE only depends on p or T
           (VLETransp.Pr_l,VLETransp.Pr_v,VLETransp.lambda_l,VLETransp.lambda_v,
             VLETransp.eta_l,VLETransp.eta_v) =
-            .TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_dTxi(
+            TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_dTxi(
             -1,
             T,
             xi,
@@ -130,7 +130,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         Documentation(info="<html>
                    <p>
                    The VLE-fluid model VLEFluid_dT calculates the thermopyhsical property data with given inputs: density (d), temperature (T), mass fraction (xi) and the parameter vleFluidType.<br>
-                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
+                   The interface and the way of using, is demonstrated in the Testers -&gt; <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
                    </p>
                    <hr>
                    </html>"));
@@ -138,8 +138,8 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
     model VLEFluid_ph
       "Compressible fluid model with p, h and xi as independent variables"
-      extends .TILMedia.BaseClasses.PartialVLEFluid_ph(
-            vleFluidPointer=.TILMedia.Internals.TILMediaExternalObject(
+      extends TILMedia.BaseClasses.PartialVLEFluid_ph(
+            vleFluidPointer=TILMedia.Internals.TILMediaExternalObject(
           "VLEFluid",
               vleFluidType.concatVLEFluidName,
               computeFlags,
@@ -147,10 +147,10 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
               vleFluidType.nc,
               0,
               getInstanceName()),
-            M_i = {.TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
+            M_i = {TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
     protected
       constant Real invalidValue=-1;
-      final parameter Integer computeFlags=.TILMedia.Internals.calcComputeFlags(
+      final parameter Integer computeFlags=TILMedia.Internals.calcComputeFlags(
           computeTransportProperties,
           interpolateTransportProperties,
           computeSurfaceTension,
@@ -159,23 +159,23 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
     equation
       assert(vleFluidType.nc==1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
-      (crit.d, crit.h, crit.p, crit.s, crit.T) = .TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
+      (crit.d, crit.h, crit.p, crit.s, crit.T) = TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
         vleFluidPointer);
       //calculate molar mass
       M = M_i[1];
 
       //Calculate Main Properties of state
-      d =.TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_phxi(
+      d =TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_phxi(
         p,
         h,
         xi,
         vleFluidPointer);
-      s =.TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEntropy_phxi(
+      s =TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEntropy_phxi(
         p,
         h,
         xi,
         vleFluidPointer);
-      T =.TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.temperature_phxi(
+      T =TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.temperature_phxi(
         p,
         h,
         xi,
@@ -183,7 +183,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
       //Calculate Additional Properties of state
       (q,cp,cv,beta,kappa,drhodp_hxi,drhodh_pxi,drhodxi_ph,w,gamma) =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.additionalProperties_phxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.additionalProperties_phxi(
         p,
         h,
         xi,
@@ -193,7 +193,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         //VLE only depends on p or T
         (VLE.d_l,VLE.h_l,VLE.p_l,VLE.s_l,VLE.T_l,VLE.xi_l,VLE.d_v,VLE.h_v,VLE.p_v,
           VLE.s_v,VLE.T_v,VLE.xi_v) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.VLEProperties_phxi(
           p,
           -1,
           xi,
@@ -205,13 +205,13 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
      transp.lambda,
      transp.eta,
      transp.sigma) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_phxi(
           p,
           h,
           xi,
           vleFluidPointer);
       else
-        transp = .TILMedia.Internals.TransportPropertyRecord(
+        transp = TILMedia.Internals.TransportPropertyRecord(
           invalidValue,
           invalidValue,
           invalidValue,
@@ -223,7 +223,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
           //VLE only depends on p or T
           (VLEAdditional.cp_l,VLEAdditional.beta_l,VLEAdditional.kappa_l,
             VLEAdditional.cp_v,VLEAdditional.beta_v,VLEAdditional.kappa_v) =
-            .TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi(
+            TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi(
             p,
             -1,
             xi,
@@ -242,7 +242,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
           //VLE only depends on p or T
           (VLETransp.Pr_l,VLETransp.Pr_v,VLETransp.lambda_l,VLETransp.lambda_v,
             VLETransp.eta_l,VLETransp.eta_v) =
-            .TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi(
+            TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi(
             p,
             -1,
             xi,
@@ -262,7 +262,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         Documentation(info="<html>
                    <p>
                    The VLE-fluid model VLEFluid_ph calculates the thermopyhsical property data with given inputs: pressure (p), enthalpy (h), mass fraction (xi) and the parameter vleFluidType.<br>
-                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
+                   The interface and the way of using, is demonstrated in the Testers -&gt; <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
                    </p>
                    <hr>
                    </html>"));
@@ -270,8 +270,8 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
     model VLEFluid_ps
       "Compressible fluid model with p, s and xi as independent variables"
-      extends .TILMedia.BaseClasses.PartialVLEFluid_ps(
-            vleFluidPointer=.TILMedia.Internals.TILMediaExternalObject(
+      extends TILMedia.BaseClasses.PartialVLEFluid_ps(
+            vleFluidPointer=TILMedia.Internals.TILMediaExternalObject(
           "VLEFluid",
               vleFluidType.concatVLEFluidName,
               computeFlags,
@@ -279,10 +279,10 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
               vleFluidType.nc,
               0,
               getInstanceName()),
-            M_i = {.TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
+            M_i = {TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
     protected
       constant Real invalidValue=-1;
-      final parameter Integer computeFlags=.TILMedia.Internals.calcComputeFlags(
+      final parameter Integer computeFlags=TILMedia.Internals.calcComputeFlags(
           computeTransportProperties,
           interpolateTransportProperties,
           computeSurfaceTension,
@@ -291,23 +291,23 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
     equation
       assert(vleFluidType.nc==1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
-      (crit.d, crit.h, crit.p, crit.s, crit.T) = .TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
+      (crit.d, crit.h, crit.p, crit.s, crit.T) = TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
         vleFluidPointer);
       //calculate molar mass
       M = M_i[1];
 
       //Calculate Main Properties of state
-      d =.TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_psxi(
+      d =TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_psxi(
         p,
         s,
         xi,
         vleFluidPointer);
-      h =.TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEnthalpy_psxi(
+      h =TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEnthalpy_psxi(
         p,
         s,
         xi,
         vleFluidPointer);
-      T =.TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.temperature_psxi(
+      T =TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.temperature_psxi(
         p,
         s,
         xi,
@@ -315,7 +315,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
       //Calculate Additional Properties of state
       (q,cp,cv,beta,kappa,drhodp_hxi,drhodh_pxi,drhodxi_ph,w,gamma) =
-        .TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_phxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_phxi(
         p,
         h,
         xi,
@@ -325,7 +325,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         //VLE only depends on p or T
         (VLE.d_l,VLE.h_l,VLE.p_l,VLE.s_l,VLE.T_l,VLE.xi_l,VLE.d_v,VLE.h_v,VLE.p_v,
           VLE.s_v,VLE.T_v,VLE.xi_v) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.VLEProperties_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.VLEProperties_phxi(
           p,
           -1,
           xi,
@@ -337,13 +337,13 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
      transp.lambda,
      transp.eta,
      transp.sigma) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_phxi(
           p,
           h,
           xi,
           vleFluidPointer);
       else
-        transp = .TILMedia.Internals.TransportPropertyRecord(
+        transp = TILMedia.Internals.TransportPropertyRecord(
           invalidValue,
           invalidValue,
           invalidValue,
@@ -355,7 +355,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
           //VLE only depends on p or T
           (VLEAdditional.cp_l,VLEAdditional.beta_l,VLEAdditional.kappa_l,
             VLEAdditional.cp_v,VLEAdditional.beta_v,VLEAdditional.kappa_v) =
-            .TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi(
+            TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi(
             p,
             -1,
             xi,
@@ -374,7 +374,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
           //VLE only depends on p or T
           (VLETransp.Pr_l,VLETransp.Pr_v,VLETransp.lambda_l,VLETransp.lambda_v,
             VLETransp.eta_l,VLETransp.eta_v) =
-            .TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi(
+            TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi(
             p,
             -1,
             xi,
@@ -394,7 +394,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         Documentation(info="<html>
                    <p>
                    The VLE-fluid model VLEFluid_ps calculates the thermopyhsical property data with given inputs: pressure (p), entropy (s), mass fraction (xi) and the parameter vleFluidType.<br>
-                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
+                   The interface and the way of using, is demonstrated in the Testers -&gt; <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
                    </p>
                    <hr>
                    </html>"));
@@ -402,8 +402,8 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
     model VLEFluid_pT
       "Compressible fluid model with p, T and xi as independent variables"
-      extends .TILMedia.BaseClasses.PartialVLEFluid_pT(
-            vleFluidPointer=.TILMedia.Internals.TILMediaExternalObject(
+      extends TILMedia.BaseClasses.PartialVLEFluid_pT(
+            vleFluidPointer=TILMedia.Internals.TILMediaExternalObject(
           "VLEFluid",
               vleFluidType.concatVLEFluidName,
               computeFlags,
@@ -411,10 +411,10 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
               vleFluidType.nc,
               0,
               getInstanceName()),
-            M_i = {.TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
+            M_i = {TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
     protected
       constant Real invalidValue=-1;
-      final parameter Integer computeFlags=.TILMedia.Internals.calcComputeFlags(
+      final parameter Integer computeFlags=TILMedia.Internals.calcComputeFlags(
           computeTransportProperties,
           interpolateTransportProperties,
           computeSurfaceTension,
@@ -423,23 +423,23 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
     equation
       assert(vleFluidType.nc==1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
-      (crit.d, crit.h, crit.p, crit.s, crit.T) = .TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
+      (crit.d, crit.h, crit.p, crit.s, crit.T) = TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
         vleFluidPointer);
       //calculate molar mass
       M = M_i[1];
 
       //Calculate Main Properties of state
-      d =.TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_pTxi(
+      d =TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_pTxi(
         p,
         T,
         xi,
         vleFluidPointer);
-      h =.TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEnthalpy_pTxi(
+      h =TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEnthalpy_pTxi(
         p,
         T,
         xi,
         vleFluidPointer);
-      s =.TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEntropy_pTxi(
+      s =TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEntropy_pTxi(
         p,
         T,
         xi,
@@ -447,7 +447,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
       //Calculate Additional Properties of state
       (q,cp,cv,beta,kappa,drhodp_hxi,drhodh_pxi,drhodxi_ph,w,gamma) =
-        .TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_phxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.additionalProperties_phxi(
         p,
         h,
         xi,
@@ -457,7 +457,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         //VLE only depends on p or T
         (VLE.d_l,VLE.h_l,VLE.p_l,VLE.s_l,VLE.T_l,VLE.xi_l,VLE.d_v,VLE.h_v,VLE.p_v,
           VLE.s_v,VLE.T_v,VLE.xi_v) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.VLEProperties_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.VLEProperties_phxi(
           p,
           -1,
           xi,
@@ -469,13 +469,13 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
      transp.lambda,
      transp.eta,
      transp.sigma) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.transportPropertyRecord_phxi(
           p,
           h,
           xi,
           vleFluidPointer);
       else
-        transp = .TILMedia.Internals.TransportPropertyRecord(
+        transp = TILMedia.Internals.TransportPropertyRecord(
           invalidValue,
           invalidValue,
           invalidValue,
@@ -487,7 +487,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
           //VLE only depends on p or T
           (VLEAdditional.cp_l,VLEAdditional.beta_l,VLEAdditional.kappa_l,
             VLEAdditional.cp_v,VLEAdditional.beta_v,VLEAdditional.kappa_v) =
-            .TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi(
+            TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi(
             p,
             -1,
             xi,
@@ -506,7 +506,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
           //VLE only depends on p or T
           (VLETransp.Pr_l,VLETransp.Pr_v,VLETransp.lambda_l,VLETransp.lambda_v,
             VLETransp.eta_l,VLETransp.eta_v) =
-            .TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi(
+            TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi(
             p,
             -1,
             xi,
@@ -526,7 +526,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         Documentation(info="<html>
                    <p>
                    The VLE-fluid model VLEFluid_pT calculates the thermopyhsical property data with given inputs: pressure (p), temperature (T), mass fraction (xi) and the parameter vleFluidType.<br>
-                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
+                   The interface and the way of using, is demonstrated in the Testers -&gt; <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
                    </p>
                    <hr>
                    </html>"));
@@ -534,12 +534,12 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
   end InternalLibrary;
 
   package SplineInterpolation "Bicubic Spline Interpolation"
-    extends .TILMedia.Internals.ClassTypes.ModelPackage;
+    extends TILMedia.Internals.ClassTypes.ModelPackage;
     model VLEFluid_ph
       "Compressible fluid model with p, h and xi as independent variables"
-      extends .TILMedia.BaseClasses.PartialVLEFluid_ph(
+      extends TILMedia.BaseClasses.PartialVLEFluid_ph(
           vleFluidPointer=
-            .TILMedia.Internals.TILMediaExternalObject(
+            TILMedia.Internals.TILMediaExternalObject(
             "VLEFluid",
             vleFluidType.concatVLEFluidName,
             computeFlags,
@@ -548,10 +548,10 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
             vleFluidType.nc,
             0,
             getInstanceName()),
-            M_i = {.TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
+            M_i = {TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
     protected
       constant Real invalidValue=-1;
-      final parameter Integer computeFlags=.TILMedia.Internals.calcComputeFlags(
+      final parameter Integer computeFlags=TILMedia.Internals.calcComputeFlags(
           computeTransportProperties,
           interpolateTransportProperties,
           computeSurfaceTension,
@@ -561,26 +561,26 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
     equation
       assert(vleFluidType.nc == 1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
       (crit.d,crit.h,crit.p,crit.s,crit.T) =
-        .TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
+        TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
         vleFluidPointer);
       //calculate molar mass
       M = M_i[1];
 
       //Calculate Main Properties of state
       d =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_phxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_phxi(
         p,
         h,
         xi,
         vleFluidPointer);
       s =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEntropy_phxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEntropy_phxi(
         p,
         h,
         xi,
         vleFluidPointer);
       T =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.temperature_phxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.temperature_phxi(
         p,
         h,
         xi,
@@ -588,7 +588,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
       //Calculate Additional Properties of state
       (q,cp,cv,beta,kappa,drhodp_hxi,drhodh_pxi,drhodxi_ph,w,gamma) =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.additionalProperties_phxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.additionalProperties_phxi(
         p,
         h,
         xi,
@@ -598,7 +598,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
       //VLE only depends on p or T
       (VLE.d_l,VLE.h_l,VLE.p_l,VLE.s_l,VLE.T_l,VLE.xi_l,VLE.d_v,VLE.h_v,VLE.p_v,VLE.s_v,
         VLE.T_v,VLE.xi_v) =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.VLEProperties_phxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.VLEProperties_phxi(
         p,
         -1,
         xi,
@@ -610,13 +610,13 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
      transp.lambda,
      transp.eta,
      transp.sigma) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.transportPropertyRecord_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.transportPropertyRecord_phxi(
           p,
           h,
           xi,
           vleFluidPointer);
       else
-        transp = .TILMedia.Internals.TransportPropertyRecord(
+        transp = TILMedia.Internals.TransportPropertyRecord(
           invalidValue,
           invalidValue,
           invalidValue,
@@ -628,7 +628,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         //VLE only depends on p or T
         (VLEAdditional.cp_l,VLEAdditional.beta_l,VLEAdditional.kappa_l,
           VLEAdditional.cp_v,VLEAdditional.beta_v,VLEAdditional.kappa_v) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi(
           p,
           -1,
           xi,
@@ -647,7 +647,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         //VLE only depends on p or T
         (VLETransp.Pr_l,VLETransp.Pr_v,VLETransp.lambda_l,VLETransp.lambda_v,
           VLETransp.eta_l,VLETransp.eta_v) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi(
           p,
           -1,
           xi,
@@ -667,7 +667,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         Documentation(info="<html>
                    <p>
                    The VLE-fluid model VLEFluid_ph calculates the thermopyhsical property data with given inputs: pressure (p), enthalpy (h), mass fraction (xi) and the parameter vleFluidType.<br>
-                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
+                   The interface and the way of using, is demonstrated in the Testers -&gt; <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
                    </p>
                    <hr>
                    </html>"));
@@ -675,9 +675,9 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
     model VLEFluid_ps
       "Compressible fluid model with p, s and xi as independent variables"
-      extends .TILMedia.BaseClasses.PartialVLEFluid_ps(
+      extends TILMedia.BaseClasses.PartialVLEFluid_ps(
           vleFluidPointer=
-            .TILMedia.Internals.TILMediaExternalObject(
+            TILMedia.Internals.TILMediaExternalObject(
             "VLEFluid",
             vleFluidType.concatVLEFluidName,
             computeFlags,
@@ -686,10 +686,10 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
             vleFluidType.nc,
             0,
             getInstanceName()),
-            M_i = {.TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
+            M_i = {TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
     protected
       constant Real invalidValue=-1;
-      final parameter Integer computeFlags=.TILMedia.Internals.calcComputeFlags(
+      final parameter Integer computeFlags=TILMedia.Internals.calcComputeFlags(
           computeTransportProperties,
           interpolateTransportProperties,
           computeSurfaceTension,
@@ -699,26 +699,26 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
     equation
       assert(vleFluidType.nc == 1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
       (crit.d,crit.h,crit.p,crit.s,crit.T) =
-        .TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
+        TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
         vleFluidPointer);
       //calculate molar mass
       M = M_i[1];
 
       //Calculate Main Properties of state
       d =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_psxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_psxi(
         p,
         s,
         xi,
         vleFluidPointer);
       h =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEnthalpy_psxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEnthalpy_psxi(
         p,
         s,
         xi,
         vleFluidPointer);
       T =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.temperature_psxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.temperature_psxi(
         p,
         s,
         xi,
@@ -726,7 +726,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
       //Calculate Additional Properties of state
       (q,cp,cv,beta,kappa,drhodp_hxi,drhodh_pxi,drhodxi_ph,w,gamma) =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.additionalProperties_phxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.additionalProperties_phxi(
         p,
         h,
         xi,
@@ -736,7 +736,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
       //VLE only depends on p or T
       (VLE.d_l,VLE.h_l,VLE.p_l,VLE.s_l,VLE.T_l,VLE.xi_l,VLE.d_v,VLE.h_v,VLE.p_v,VLE.s_v,
         VLE.T_v,VLE.xi_v) =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.VLEProperties_phxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.VLEProperties_phxi(
         p,
         -1,
         xi,
@@ -748,13 +748,13 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
      transp.lambda,
      transp.eta,
      transp.sigma) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.transportPropertyRecord_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.transportPropertyRecord_phxi(
           p,
           h,
           xi,
           vleFluidPointer);
       else
-        transp = .TILMedia.Internals.TransportPropertyRecord(
+        transp = TILMedia.Internals.TransportPropertyRecord(
           invalidValue,
           invalidValue,
           invalidValue,
@@ -766,7 +766,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         //VLE only depends on p or T
         (VLEAdditional.cp_l,VLEAdditional.beta_l,VLEAdditional.kappa_l,
           VLEAdditional.cp_v,VLEAdditional.beta_v,VLEAdditional.kappa_v) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi(
           p,
           -1,
           xi,
@@ -785,7 +785,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         //VLE only depends on p or T
         (VLETransp.Pr_l,VLETransp.Pr_v,VLETransp.lambda_l,VLETransp.lambda_v,
           VLETransp.eta_l,VLETransp.eta_v) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi(
           p,
           -1,
           xi,
@@ -805,7 +805,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         Documentation(info="<html>
                    <p>
                    The VLE-fluid model VLEFluid_ps calculates the thermopyhsical property data with given inputs: pressure (p), entropy (s), mass fraction (xi) and the parameter vleFluidType.<br>
-                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
+                   The interface and the way of using, is demonstrated in the Testers -&gt; <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
                    </p>
                    <hr>
                    </html>"));
@@ -813,9 +813,9 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
     model VLEFluid_pT
       "Compressible fluid model with p, T and xi as independent variables"
-      extends .TILMedia.BaseClasses.PartialVLEFluid_pT(
+      extends TILMedia.BaseClasses.PartialVLEFluid_pT(
           vleFluidPointer=
-            .TILMedia.Internals.TILMediaExternalObject(
+            TILMedia.Internals.TILMediaExternalObject(
             "VLEFluid",
             vleFluidType.concatVLEFluidName,
             computeFlags,
@@ -824,10 +824,10 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
             vleFluidType.nc,
             0,
             getInstanceName()),
-            M_i = {.TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
+            M_i = {TILMedia.VLEFluidObjectFunctions.molarMass_n(i-1,vleFluidPointer) for i in 1:vleFluidType.nc});
     protected
       constant Real invalidValue=-1;
-      final parameter Integer computeFlags=.TILMedia.Internals.calcComputeFlags(
+      final parameter Integer computeFlags=TILMedia.Internals.calcComputeFlags(
           computeTransportProperties,
           interpolateTransportProperties,
           computeSurfaceTension,
@@ -837,26 +837,26 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
     equation
       assert(vleFluidType.nc == 1, "This TILMedia VLEFluid interface cannot handle variable concentrations");
       (crit.d,crit.h,crit.p,crit.s,crit.T) =
-        .TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
+        TILMedia.Internals.VLEFluidObjectFunctions.cricondenbar_xi(xi,
         vleFluidPointer);
       //calculate molar mass
       M = M_i[1];
 
       //Calculate Main Properties of state
       d =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_pTxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.density_pTxi(
         p,
         T,
         xi,
         vleFluidPointer);
       h =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEnthalpy_pTxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEnthalpy_pTxi(
         p,
         T,
         xi,
         vleFluidPointer);
       s =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEntropy_pTxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.specificEntropy_pTxi(
         p,
         T,
         xi,
@@ -864,7 +864,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
       //Calculate Additional Properties of state
       (q,cp,cv,beta,kappa,drhodp_hxi,drhodh_pxi,drhodxi_ph,w,gamma) =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.additionalProperties_phxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.additionalProperties_phxi(
         p,
         h,
         xi,
@@ -874,7 +874,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
       //VLE only depends on p or T
       (VLE.d_l,VLE.h_l,VLE.p_l,VLE.s_l,VLE.T_l,VLE.xi_l,VLE.d_v,VLE.h_v,VLE.p_v,VLE.s_v,
         VLE.T_v,VLE.xi_v) =
-        .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.VLEProperties_phxi(
+        TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.VLEProperties_phxi(
         p,
         -1,
         xi,
@@ -886,13 +886,13 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
      transp.lambda,
      transp.eta,
      transp.sigma) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.transportPropertyRecord_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.PureComponentDerivatives.transportPropertyRecord_phxi(
           p,
           h,
           xi,
           vleFluidPointer);
       else
-        transp = .TILMedia.Internals.TransportPropertyRecord(
+        transp = TILMedia.Internals.TransportPropertyRecord(
           invalidValue,
           invalidValue,
           invalidValue,
@@ -904,7 +904,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         //VLE only depends on p or T
         (VLEAdditional.cp_l,VLEAdditional.beta_l,VLEAdditional.kappa_l,
           VLEAdditional.cp_v,VLEAdditional.beta_v,VLEAdditional.kappa_v) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.VLEAdditionalProperties_phxi(
           p,
           -1,
           xi,
@@ -923,7 +923,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         //VLE only depends on p or T
         (VLETransp.Pr_l,VLETransp.Pr_v,VLETransp.lambda_l,VLETransp.lambda_v,
           VLETransp.eta_l,VLETransp.eta_v) =
-          .TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi(
+          TILMedia.Internals.VLEFluidObjectFunctions.VLETransportPropertyRecord_phxi(
           p,
           -1,
           xi,
@@ -943,7 +943,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         Documentation(info="<html>
                    <p>
                    The VLE-fluid model VLEFluid_pT calculates the thermopyhsical property data with given inputs: pressure (p), temperature (T), mass fraction (xi) and the parameter vleFluidType.<br>
-                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
+                   The interface and the way of using, is demonstrated in the Testers -&gt; <a href=\"modelica://TILMedia.Testers.TestVLEFluid\">TestVLEFluid</a>.
                    </p>
                    <hr>
                    </html>"));

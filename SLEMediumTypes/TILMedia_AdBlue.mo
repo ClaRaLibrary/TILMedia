@@ -1,6 +1,6 @@
 ﻿within TILMedia.SLEMediumTypes;
 model TILMedia_AdBlue "TILMedia.AdBlue"
-  extends .TILMedia.SLEMediumTypes.BaseSLEMedium(
+  extends TILMedia.SLEMediumTypes.BaseSLEMedium(
     cp_l = 3434.5,
     cp_s = 1600,
     T_s = 262.15,

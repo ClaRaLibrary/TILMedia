@@ -1,10 +1,10 @@
 ﻿within TILMedia.Internals.GasConfigurations;
 package PureComponentGas
-extends .TILMedia.Internals.ClassTypes.ModelPackage;
+extends TILMedia.Internals.ClassTypes.ModelPackage;
   model Gas_ph
     "Gas vapor model with p, h and xi as independent variables"
-    extends .TILMedia.BaseClasses.PartialGas_ph(gasPointer=
-          .TILMedia.Internals.TILMediaExternalObject(
+    extends TILMedia.BaseClasses.PartialGas_ph(gasPointer=
+          TILMedia.Internals.TILMediaExternalObject(
           "Gas",
           gasType.concatGasName,
           computeFlags,
@@ -12,14 +12,14 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
           gasType.nc,
           gasType.condensingIndex,
           getInstanceName()),
-          M_i = {.TILMedia.GasObjectFunctions.molarMass_n(i-1,gasPointer) for i in 1:gasType.nc});
+          M_i = {TILMedia.GasObjectFunctions.molarMass_n(i-1,gasPointer) for i in 1:gasType.nc});
   protected
     Real dummy_d;
     Real dummy_cp;
     Real dummy_drhodh_pxi;
     Real dummy_drhodp_hxi;
     constant Real invalidValue=-1;
-    final parameter Integer computeFlags=.TILMedia.Internals.calcComputeFlags(
+    final parameter Integer computeFlags=TILMedia.Internals.calcComputeFlags(
         computeTransportProperties,
         false,
         true,
@@ -54,18 +54,18 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         end for;
       end if;
       h1px = h*(1 + humRatio);
-      phi = .TILMedia.Internals.GasObjectFunctions.phi_pThumRatioxidg(
+      phi = TILMedia.Internals.GasObjectFunctions.phi_pThumRatioxidg(
         p,
         T,
         humRatio,
         xi_dryGas,
         gasPointer);
-      humRatio_s = .TILMedia.Internals.GasObjectFunctions.humRatio_s_pTxidg(
+      humRatio_s = TILMedia.Internals.GasObjectFunctions.humRatio_s_pTxidg(
         p,
         T,
         xi_dryGas,
         gasPointer);
-      xi_s = .TILMedia.Internals.GasObjectFunctions.xi_s_pTxidg(
+      xi_s = TILMedia.Internals.GasObjectFunctions.xi_s_pTxidg(
         p,
         T,
         xi_dryGas,
@@ -83,13 +83,13 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
       p_s = invalidValue;
       delta_hv = invalidValue;
       delta_hd = invalidValue;
-      h_i = {.TILMedia.GasObjectFunctions.specificEnthalpyOfPureGas_Tn(
+      h_i = {TILMedia.GasObjectFunctions.specificEnthalpyOfPureGas_Tn(
         T,
         i,
         gasPointer) for i in 0:gasType.nc - 1};
     else
       (p_s,delta_hv,delta_hd,h_i) =
-        .TILMedia.Internals.GasObjectFunctions.pureComponentProperties_Tnc(
+        TILMedia.Internals.GasObjectFunctions.pureComponentProperties_Tnc(
         T,
         gasType.nc,
         gasPointer);
@@ -97,60 +97,60 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
     if (gasType.condensingIndex <= 0) then
       // some properties are only pressure dependent if there is vapour in the mixture
-      T = .TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.temperature_phxi(
+      T = TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.temperature_phxi(
         1,
         h,
         xi,
         gasPointer);
       (dummy_cp,cv,beta,w) =
-        .TILMedia.Internals.GasObjectFunctions.simpleCondensingProperties_phxi(
+        TILMedia.Internals.GasObjectFunctions.simpleCondensingProperties_phxi(
         -1,
         h,
         xi,
         gasPointer);
     else
-      T = .TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.temperature_phxi(
+      T = TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.temperature_phxi(
         p,
         h,
         xi,
         gasPointer);
       (dummy_cp,cv,beta,w) =
-        .TILMedia.Internals.GasObjectFunctions.simpleCondensingProperties_phxi(
+        TILMedia.Internals.GasObjectFunctions.simpleCondensingProperties_phxi(
         p,
         h,
         xi,
         gasPointer);
     end if;
-    s = .TILMedia.Internals.GasObjectFunctions.specificEntropy_phxi(
+    s = TILMedia.Internals.GasObjectFunctions.specificEntropy_phxi(
       p,
       h,
       xi,
       gasPointer);
-    d = .TILMedia.Internals.GasObjectFunctions.density_phxi(
+    d = TILMedia.Internals.GasObjectFunctions.density_phxi(
       p,
       h,
       xi,
       gasPointer);
     cp =
-      .TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.specificIsobaricHeatCapacity_phxi(
+      TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.specificIsobaricHeatCapacity_phxi(
       p,
       h,
       xi,
       gasPointer);
     drhodh_pxi =
-      .TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.densityDerivativeWRTspecificEnthalpy_phxi(
+      TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.densityDerivativeWRTspecificEnthalpy_phxi(
       p,
       h,
       xi,
       gasPointer);
     drhodp_hxi =
-      .TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.densityDerivativeWRTpressure_phxi(
+      TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.densityDerivativeWRTpressure_phxi(
       p,
       h,
       xi,
       gasPointer);
     (dummy_d,kappa,dummy_drhodp_hxi,dummy_drhodh_pxi,drhodxi_ph,p_i,xi_gas) =
-      .TILMedia.Internals.GasObjectFunctions.additionalProperties_pTxi(
+      TILMedia.Internals.GasObjectFunctions.additionalProperties_pTxi(
       p,
       T,
       xi,
@@ -159,13 +159,13 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
       (transp.Pr,
     transp.lambda,
     transp.eta,
-    transp.sigma) = .TILMedia.Internals.GasObjectFunctions.transportProperties_pTxi(
+    transp.sigma) = TILMedia.Internals.GasObjectFunctions.transportProperties_pTxi(
         p,
         T,
         xi,
         gasPointer);
     else
-      transp = .TILMedia.Internals.TransportPropertyRecord(
+      transp = TILMedia.Internals.TransportPropertyRecord(
         invalidValue,
         invalidValue,
         invalidValue,
@@ -178,7 +178,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
       Documentation(info="<html>
                    <p>
                    The gas model Gas_ph calculates the thermopyhsical property data with given inputs: pressure (p), enthalpy (h), mass fraction (xi) and the parameter gasType.<br>
-                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestGas\">TestGas</a>.
+                   The interface and the way of using, is demonstrated in the Testers -&gt; <a href=\"modelica://TILMedia.Testers.TestGas\">TestGas</a>.
                    </p>
                    <hr>
                    </html>"));
@@ -186,8 +186,8 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
 
   model Gas_pT
     "Gas vapor model with p, T and xi as independent variables"
-    extends .TILMedia.BaseClasses.PartialGas_pT(gasPointer=
-          .TILMedia.Internals.TILMediaExternalObject(
+    extends TILMedia.BaseClasses.PartialGas_pT(gasPointer=
+          TILMedia.Internals.TILMediaExternalObject(
           "Gas",
           gasType.concatGasName,
           computeFlags,
@@ -195,14 +195,14 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
           gasType.nc,
           gasType.condensingIndex,
           getInstanceName()),
-          M_i = {.TILMedia.GasObjectFunctions.molarMass_n(i-1,gasPointer) for i in 1:gasType.nc});
+          M_i = {TILMedia.GasObjectFunctions.molarMass_n(i-1,gasPointer) for i in 1:gasType.nc});
   protected
     Real dummy_d;
     Real dummy_cp;
     Real dummy_drhodh_pxi;
     Real dummy_drhodp_hxi;
     constant Real invalidValue=-1;
-    final parameter Integer computeFlags=.TILMedia.Internals.calcComputeFlags(
+    final parameter Integer computeFlags=TILMedia.Internals.calcComputeFlags(
         computeTransportProperties,
         false,
         true,
@@ -237,18 +237,18 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
         end for;
       end if;
       h1px = h*(1 + humRatio);
-      phi = .TILMedia.Internals.GasObjectFunctions.phi_pThumRatioxidg(
+      phi = TILMedia.Internals.GasObjectFunctions.phi_pThumRatioxidg(
         p,
         T,
         humRatio,
         xi_dryGas,
         gasPointer);
-      humRatio_s = .TILMedia.Internals.GasObjectFunctions.humRatio_s_pTxidg(
+      humRatio_s = TILMedia.Internals.GasObjectFunctions.humRatio_s_pTxidg(
         p,
         T,
         xi_dryGas,
         gasPointer);
-      xi_s = .TILMedia.Internals.GasObjectFunctions.xi_s_pTxidg(
+      xi_s = TILMedia.Internals.GasObjectFunctions.xi_s_pTxidg(
         p,
         T,
         xi_dryGas,
@@ -264,13 +264,13 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
     if (gasType.condensingIndex <= 0) then
       // some properties are only pressure dependent if there is vapour in the mixture
       h =
-        .TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.specificEnthalpy_pTxi(
+        TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.specificEnthalpy_pTxi(
         1,
         T,
         xi,
         gasPointer);
       (dummy_cp,cv,beta,w) =
-        .TILMedia.Internals.GasObjectFunctions.simpleCondensingProperties_pTxi(
+        TILMedia.Internals.GasObjectFunctions.simpleCondensingProperties_pTxi(
         1,
         T,
         xi,
@@ -278,59 +278,59 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
       p_s = invalidValue;
       delta_hv = invalidValue;
       delta_hd = invalidValue;
-      h_i = {.TILMedia.GasObjectFunctions.specificEnthalpyOfPureGas_Tn(
+      h_i = {TILMedia.GasObjectFunctions.specificEnthalpyOfPureGas_Tn(
         T,
         i,
         gasPointer) for i in 0:gasType.nc - 1};
     else
       h =
-        .TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.specificEnthalpy_pTxi(
+        TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.specificEnthalpy_pTxi(
         p,
         T,
         xi,
         gasPointer);
       (dummy_cp,cv,beta,w) =
-        .TILMedia.Internals.GasObjectFunctions.simpleCondensingProperties_pTxi(
+        TILMedia.Internals.GasObjectFunctions.simpleCondensingProperties_pTxi(
         p,
         T,
         xi,
         gasPointer);
       (p_s,delta_hv,delta_hd,h_i) =
-        .TILMedia.Internals.GasObjectFunctions.pureComponentProperties_Tnc(
+        TILMedia.Internals.GasObjectFunctions.pureComponentProperties_Tnc(
         T,
         gasType.nc,
         gasPointer);
     end if;
-    s = .TILMedia.Internals.GasObjectFunctions.specificEntropy_pTxi(
+    s = TILMedia.Internals.GasObjectFunctions.specificEntropy_pTxi(
       p,
       T,
       xi,
       gasPointer);
-    d = .TILMedia.Internals.GasObjectFunctions.density_pTxi(
+    d = TILMedia.Internals.GasObjectFunctions.density_pTxi(
       p,
       T,
       xi,
       gasPointer);
     cp =
-      .TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.specificIsobaricHeatCapacity_phxi(
+      TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.specificIsobaricHeatCapacity_phxi(
       p,
       h,
       xi,
       gasPointer);
     drhodh_pxi =
-      .TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.densityDerivativeWRTspecificEnthalpy_phxi(
+      TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.densityDerivativeWRTspecificEnthalpy_phxi(
       p,
       h,
       xi,
       gasPointer);
     drhodp_hxi =
-      .TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.densityDerivativeWRTpressure_phxi(
+      TILMedia.Internals.GasObjectFunctions.PureComponentDerivatives.densityDerivativeWRTpressure_phxi(
       p,
       h,
       xi,
       gasPointer);
     (dummy_d,kappa,dummy_drhodp_hxi,dummy_drhodh_pxi,drhodxi_ph,p_i,xi_gas) =
-      .TILMedia.Internals.GasObjectFunctions.additionalProperties_pTxi(
+      TILMedia.Internals.GasObjectFunctions.additionalProperties_pTxi(
       p,
       T,
       xi,
@@ -339,13 +339,13 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
       (transp.Pr,
     transp.lambda,
     transp.eta,
-    transp.sigma) = .TILMedia.Internals.GasObjectFunctions.transportProperties_pTxi(
+    transp.sigma) = TILMedia.Internals.GasObjectFunctions.transportProperties_pTxi(
         p,
         T,
         xi,
         gasPointer);
     else
-      transp = .TILMedia.Internals.TransportPropertyRecord(
+      transp = TILMedia.Internals.TransportPropertyRecord(
         invalidValue,
         invalidValue,
         invalidValue,
@@ -358,7 +358,7 @@ extends .TILMedia.Internals.ClassTypes.ModelPackage;
       Documentation(info="<html>
                    <p>
                    The gas model Gas_pT calculates the thermopyhsical property data with given inputs: pressure (p), temperature (T), mass fraction (xi) and the parameter gasType.<br>
-                   The interface and the way of using, is demonstrated in the Testers -> <a href=\"modelica://TILMedia.Testers.TestGas\">TestGas</a>.
+                   The interface and the way of using, is demonstrated in the Testers -&gt; <a href=\"modelica://TILMedia.Testers.TestGas\">TestGas</a>.
                    </p>
                    <hr>
                    </html>"));

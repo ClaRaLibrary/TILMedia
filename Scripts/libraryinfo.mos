@@ -4,9 +4,9 @@ LibraryInfoMenuSeparator(
 
 LibraryInfoMenuCommand(
   category = "libraries",
-  text = "TILMedia 1.6.0 ClaRa",
+  text = "TILMedia 1.7.0 ClaRa",
   reference = "TILMedia",
-  version = "1.6.0 ClaRa",
+  version = "1.7.0 ClaRa",
   isModel = true,
   description = "Medium properties for gases, liquids, VLEFluids, SLEMediums and solids",
   ModelicaVersion = "4.0.0",

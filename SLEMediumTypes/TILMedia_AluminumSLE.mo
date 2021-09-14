@@ -1,6 +1,6 @@
 ﻿within TILMedia.SLEMediumTypes;
 model TILMedia_AluminumSLE "TILMedia.AluminumSLE"
-  extends .TILMedia.SLEMediumTypes.BaseSLEMedium(
+  extends TILMedia.SLEMediumTypes.BaseSLEMedium(
     cp_l = 1180,
     cp_s = 940,
     T_s = 932.15,

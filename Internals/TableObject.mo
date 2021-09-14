@@ -11,7 +11,11 @@ class TableObject
 #ifndef TILMEDIA_REAL_TIME
 #define TILMEDIA_REAL_TIME
 #define TILMEDIA_STATIC_LIBRARY
+#if defined(FMU_SOURCE_CODE_EXPORT) && defined(DYMOLA_STATIC)
+#include \"include/TILMediaTotal.c\"
+#else
 #include \"TILMediaTotal.c\"
+#endif
 #endif
 */
 #ifndef TILMEDIATABLEALLOCATOR
@@ -35,13 +39,13 @@ void* TILMedia_allocateTable(const char* table, const char* parameters){
 }
 #endif
 #endif
-",    Library="TILMedia160ClaRa");
+",    Library="TILMedia170ClaRa");
    end constructor;
 
    function destructor "free memory"
     input TableObject pointer;
     external "C" TILMedia_freeTable(pointer)
-              annotation(__iti_dllNoExport = true,Include="void TILMedia_freeTable(void*);",Library="TILMedia160ClaRa");
+              annotation(__iti_dllNoExport = true,Include="void TILMedia_freeTable(void*);",Library="TILMedia170ClaRa");
    end destructor;
 
   annotation(Protection(access=Access.documentation));

@@ -1,6 +1,6 @@
 ﻿within TILMedia.Internals;
 record SLESaturationPropertyRecord "Solid-liquid equilibrium property record"
-   extends .TILMedia.Internals.ClassTypes.Record;
+   extends TILMedia.Internals.ClassTypes.Record;
   SI.Temperature Ts "Solid temperature";
   SI.Temperature Tl "Liquid temperature";
   SI.Density ds "Solid density";

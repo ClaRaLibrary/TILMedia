@@ -1,6 +1,6 @@
 ﻿within TILMedia.Internals;
 record AdditionalVLERecord "Additional VLE property record"
-   extends .TILMedia.Internals.ClassTypes.Record;
+   extends TILMedia.Internals.ClassTypes.Record;
   SI.SpecificHeatCapacity cp_l
     "Specific heat capacity cp of liquid phase";
   SI.SpecificHeatCapacity cp_v
