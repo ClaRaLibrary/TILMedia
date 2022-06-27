@@ -33,7 +33,7 @@ You may select substance data from different sources for your calculation:
 <li> VLEFluid substances</li>
 <li>
   <ul> 
-    <li> TLK Implementation: 97 mediums</li>
+    <li> TLK Implementation: 98 mediums</li>
     <li> External library Refprop: 279 mediums</li>
     <li> External library CoolProp: 123 mediums</li>
     <li> VDI Heat Atlas: 275 mediums</li>

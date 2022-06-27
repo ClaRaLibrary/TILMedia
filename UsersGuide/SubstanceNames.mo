@@ -20,31 +20,31 @@ annotation(DocumentationClass=true,
         <th>Comment</th>    
     </tr>
     <tr>
-        <td>TILMedia.ASH </td>
+        <td>TILMedia.Ash </td>
         <td>Usable temperature range: T in [-173.15 °C, 9726.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.DIESELEXHAUSTGAS_x.x </td>
+        <td>TILMedia.DieselExhaustGas_x.x </td>
         <td>Substance name must end with _lambdavalue e.g. _1.2 </td>
     </tr>
     <tr>
-        <td>TILMedia.DRYAIR </td>
+        <td>TILMedia.DryAir </td>
         <td>Usable temperature range: T in [-60.0 °C, 200.0 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.EXHAUSTGAS_LAMBDA_1 </td>
+        <td>TILMedia.ExhaustGas_Lambda_1 </td>
         <td>Intended for gasoline/petrol exhaust gas with lambda value equal one, Usable temperature range: T in [-20.0 °C, 1050.0 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.SIMPLEDRYAIR </td>
+        <td>TILMedia.SimpleDryAir </td>
         <td>Constant/linear model (cp = 1003.7 J/kg), Usable temperature range: T in [-272.15 °C, 3726.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.SIMPLEWATER </td>
+        <td>TILMedia.SimpleWater </td>
         <td>Constant/linear model (cp = 1920 J/kg), Usable temperature range: T in [-73.15 °C, 426.85 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.SIMPLEWATER2 </td>
+        <td>TILMedia.SimpleWater2 </td>
         <td>Constant/linear model (cp = 1863 J/kg), Usable temperature range: T in [-272.15 °C, 3726.85 °C] </td>
     </tr>
     <tr>
@@ -244,10 +244,6 @@ annotation(DocumentationClass=true,
         <td>Dynalene Solar Glycol-XT, BioGlycol heat transfer fluid. Produced by Dynalene. (R²_cp=0.9971698, R²_rho=0.9999974, R²_eta=0.9999959, R²_lambda=0.9979960), Temperature range based on data sheet by manufacturer: T in [-23.33333 °C, 104.44444 °C], Usable temperature range: T in [-25.33333 °C, 114.44444 °C] </td>
     </tr>
     <tr>
-        <td>TILMedia.Fragol_Purity_FG-HTF </td>
-        <td>Fragol Purity FG-HTF, heat transfer fluid. Produced by Fragol. (R²_cp=0.9999324, R²_rho=0.9999802, R²_eta=0.9999986, R²_lambda=0.9975104), Temperature range based on data sheet by manufacturer: T in [-10.0 °C, 340.0 °C], Usable temperature range: T in [-12.5 °C, 352.5 °C] </td>
-    </tr>
-    <tr>
         <td>TILMedia.Fragoltherm_FG-35 </td>
         <td>Fragoltherm FG-35, heat transfer fluid. Produced by Fragol. (R²_cp=0.9999295, R²_rho=0.9999869, R²_eta=0.9999313, R²_lambda=0.9993092), Temperature range based on data sheet by manufacturer: T in [-10.0 °C, 340.0 °C], Usable temperature range: T in [-12.5 °C, 352.5 °C] </td>
     </tr>
@@ -266,6 +262,10 @@ annotation(DocumentationClass=true,
     <tr>
         <td>TILMedia.Fragoltherm_X-TT </td>
         <td>Fragoltherm X-TT, heat transfer fluid. Produced by Fragol. (R²_cp=1.0000000, R²_rho=0.9999999, R²_eta=0.9999961, R²_lambda=0.9999037), Temperature range based on data sheet by manufacturer: T in [-110.0 °C, 230.0 °C], Usable temperature range: T in [-112.0 °C, 240.0 °C] </td>
+    </tr>
+    <tr>
+        <td>TILMedia.Fragol_Purity_FG-HTF </td>
+        <td>Fragol Purity FG-HTF, heat transfer fluid. Produced by Fragol. (R²_cp=0.9999324, R²_rho=0.9999802, R²_eta=0.9999986, R²_lambda=0.9975104), Temperature range based on data sheet by manufacturer: T in [-10.0 °C, 340.0 °C], Usable temperature range: T in [-12.5 °C, 352.5 °C] </td>
     </tr>
     <tr>
         <td>TILMedia.Freezium_-60C </td>
@@ -496,6 +496,10 @@ annotation(DocumentationClass=true,
         <td>Hydrocarbon blend - Dynalene MV, Usable temperature range: T in [-80.0 °C, 100.0 °C] </td>
     </tr>
     <tr>
+        <td>IIR_SWF.d_Limonene </td>
+        <td>Citrus oil terpene - d-Limonene, Usable temperature range: T in [-80.0 °C, 100.0 °C] </td>
+    </tr>
+    <tr>
         <td>IIR_SWF.EthylAlcohol-Water_20 </td>
         <td>Ethyl Alcohol (Ethanol) - aq, Usable temperature range: T in [-100.0 °C, 40.0 °C], Concentration data range: xi in [0.0, 0.6] </td>
     </tr>
@@ -550,10 +554,6 @@ annotation(DocumentationClass=true,
     <tr>
         <td>IIR_SWF.Syltherm_XLT </td>
         <td>Polydimethylsiloxan 2 - Syltherm XLT, Usable temperature range: T in [-80.0 °C, 100.0 °C] </td>
-    </tr>
-    <tr>
-        <td>IIR_SWF.d_Limonene </td>
-        <td>Citrus oil terpene - d-Limonene, Usable temperature range: T in [-80.0 °C, 100.0 °C] </td>
     </tr>
 </table><br><br>
 
@@ -676,6 +676,10 @@ annotation(DocumentationClass=true,
         <td>CAS number 74-82-8, methane, R-50, EOS models: {FEK, FEQ, FES} </td>
     </tr>
     <tr>
+        <td>TILMedia.METHANOL </td>
+        <td>CAS number 67-56-1, Methanol, Methyl alcohol, EOS models: {E1, FE1, FE2, FEQ} </td>
+    </tr>
+    <tr>
         <td>TILMedia.METHYLLINOLEATE </td>
         <td>CAS number 112-63-0, methyl (Z,Z)-9,12-octadecadienoate, methyl ester(Z,Z)-9,12-octadecadienoic acid, EOS models: {FEQ} </td>
     </tr>
@@ -729,7 +733,7 @@ annotation(DocumentationClass=true,
     </tr>
     <tr>
         <td>TILMedia.ORTHOHYDROGEN </td>
-        <td>CAS number 1333-74-0o, Orthohydrogen, R-702, EOS models: {FEQ} </td>
+        <td>CAS number 1333-74-0o, Orthohydrogen, R-702o, EOS models: {FEQ} </td>
     </tr>
     <tr>
         <td>TILMedia.OXYGEN </td>
@@ -884,11 +888,11 @@ annotation(DocumentationClass=true,
         <td> </td>
     </tr>
     <tr>
-        <td>TILMediaRT.R1234YF </td>
+        <td>TILMediaRT.R1234yf </td>
         <td> </td>
     </tr>
     <tr>
-        <td>TILMediaRT.R134A </td>
+        <td>TILMediaRT.R134a </td>
         <td> </td>
     </tr>
     <tr>
@@ -900,7 +904,7 @@ annotation(DocumentationClass=true,
         <td> </td>
     </tr>
     <tr>
-        <td>TILMediaRT.WATER </td>
+        <td>TILMediaRT.Water </td>
         <td> </td>
     </tr>
 </table><br><br>
@@ -1386,555 +1390,555 @@ annotation(DocumentationClass=true,
         <th>Substance name</th>
     </tr>
     <tr>
-        <td>VDIWA2006.1,1,1-TRICHLOROETHANE </td>
-        <td>VDIWA2006.1,1,1-TRIFLUOROETHANE </td>
+        <td>VDIWA2006.1,1,1-Trichloroethane </td>
+        <td>VDIWA2006.1,1,1-Trifluoroethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1,1,2,2-TETRACHLORODIFLUOROETHANE </td>
-        <td>VDIWA2006.1,1,2,2-TETRACHLOROETHANE </td>
+        <td>VDIWA2006.1,1,2,2-tetrachlorodifluoroethane </td>
+        <td>VDIWA2006.1,1,2,2-Tetrachloroethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1,1,2-TRICHLORO-1,2,2-TRIFLUOROETHANE </td>
-        <td>VDIWA2006.1,1-DICHLOROETHANE </td>
+        <td>VDIWA2006.1,1,2-trichloro-1,2,2-trifluoroethane </td>
+        <td>VDIWA2006.1,1-dichloroethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1,1-DICHLOROETHENE </td>
-        <td>VDIWA2006.1,2,3,4-TETRAMETHYLBENZENE </td>
+        <td>VDIWA2006.1,1-dichloroethene </td>
+        <td>VDIWA2006.1,2,3,4-tetramethylbenzene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1,2,3,5-TETRAMETHYLBENZENE </td>
-        <td>VDIWA2006.1,2,3-TRIMETHYLBENZENE </td>
+        <td>VDIWA2006.1,2,3,5-tetramethylbenzene </td>
+        <td>VDIWA2006.1,2,3-trimethylbenzene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1,2,4,5-TETRAMETHYLBENZENE </td>
-        <td>VDIWA2006.1,2,4-TRIMETHYLBENZENE </td>
+        <td>VDIWA2006.1,2,4,5-tetramethylbenzene </td>
+        <td>VDIWA2006.1,2,4-trimethylbenzene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1,2-BUTADIENE </td>
-        <td>VDIWA2006.1,2-DIBROMOETHANE </td>
+        <td>VDIWA2006.1,2-butadiene </td>
+        <td>VDIWA2006.1,2-dibromoethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1,2-DICHLORO-1,1,2,2-TETRAFLUOROETHANE </td>
-        <td>VDIWA2006.1,2-DICHLOROETHANE </td>
+        <td>VDIWA2006.1,2-dichloro-1,1,2,2-tetrafluoroethane </td>
+        <td>VDIWA2006.1,2-dichloroethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1,2-PENTADIENE </td>
-        <td>VDIWA2006.1,3,5-TRIMETHYLBENZENE </td>
+        <td>VDIWA2006.1,2-pentadiene </td>
+        <td>VDIWA2006.1,3,5-trimethylbenzene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1,3-BUTADIENE </td>
-        <td>VDIWA2006.1,3-PENTADIENE </td>
+        <td>VDIWA2006.1,3-butadiene </td>
+        <td>VDIWA2006.1,3-pentadiene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1,3-PROPYLENGLYCOL </td>
-        <td>VDIWA2006.1,4-DIOXANE </td>
+        <td>VDIWA2006.1,3-Propylenglycol </td>
+        <td>VDIWA2006.1,4-dioxane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1,4-PENTADIENE </td>
-        <td>VDIWA2006.1-BUTENE </td>
+        <td>VDIWA2006.1,4-pentadiene </td>
+        <td>VDIWA2006.1-butene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1-CHLOROBUTANE </td>
-        <td>VDIWA2006.1-CHLOROPENTANE </td>
+        <td>VDIWA2006.1-chlorobutane </td>
+        <td>VDIWA2006.1-chloropentane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1-CHLOROPROPANE </td>
-        <td>VDIWA2006.1-ETHYLNAPHTHALENE </td>
+        <td>VDIWA2006.1-chloropropane </td>
+        <td>VDIWA2006.1-ethylnaphthalene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1-HEPTENE </td>
-        <td>VDIWA2006.1-HEXENE </td>
+        <td>VDIWA2006.1-heptene </td>
+        <td>VDIWA2006.1-hexene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1-METHYLNAPHTHALENE </td>
-        <td>VDIWA2006.1-OCTENE </td>
+        <td>VDIWA2006.1-methylnaphthalene </td>
+        <td>VDIWA2006.1-Octene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.1-PENTENE </td>
-        <td>VDIWA2006.1-PHENYLETHANONE </td>
+        <td>VDIWA2006.1-pentene </td>
+        <td>VDIWA2006.1-phenylethanone </td>
     </tr>
     <tr>
-        <td>VDIWA2006.2,2-DIMETHYLBUTANE </td>
-        <td>VDIWA2006.2,2-DIMETHYLPROPANE </td>
+        <td>VDIWA2006.2,2-dimethylbutane </td>
+        <td>VDIWA2006.2,2-dimethylpropane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.2,3-DIMETHYLBUTANE </td>
-        <td>VDIWA2006.2,3-PENTADIENE </td>
+        <td>VDIWA2006.2,3-dimethylbutane </td>
+        <td>VDIWA2006.2,3-pentadiene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.2,4,6-TRIMETHYL-1,3,5-TRIOXANE </td>
-        <td>VDIWA2006.2-ETHYLNAPHTHALENE </td>
+        <td>VDIWA2006.2,4,6-trimethyl-1,3,5-trioxane </td>
+        <td>VDIWA2006.2-ethylnaphthalene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.2-HYDROXYBENZALDEHYDE </td>
-        <td>VDIWA2006.2-METHYLBUTANE </td>
+        <td>VDIWA2006.2-hydroxybenzaldehyde </td>
+        <td>VDIWA2006.2-methylbutane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.2-METHYLNAPHTHALENE </td>
-        <td>VDIWA2006.2-METHYLPENTANE </td>
+        <td>VDIWA2006.2-methylnaphthalene </td>
+        <td>VDIWA2006.2-methylpentane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.2-METHYLPROPAN-1-OL </td>
-        <td>VDIWA2006.2-METHYLPROPANE </td>
+        <td>VDIWA2006.2-methylpropan-1-ol </td>
+        <td>VDIWA2006.2-methylpropane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.3-METHYLPENTANE </td>
-        <td>VDIWA2006.ACETALDEHYDE </td>
+        <td>VDIWA2006.3-methylpentane </td>
+        <td>VDIWA2006.acetaldehyde </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ACETIC ANHYDRIDE </td>
-        <td>VDIWA2006.ACETONITRILE </td>
+        <td>VDIWA2006.acetic anhydride </td>
+        <td>VDIWA2006.acetonitrile </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ACETYLENE </td>
-        <td>VDIWA2006.AMMONIA </td>
+        <td>VDIWA2006.acetylene </td>
+        <td>VDIWA2006.Ammonia </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ARGON </td>
-        <td>VDIWA2006.BENZALDEHYDE </td>
+        <td>VDIWA2006.Argon </td>
+        <td>VDIWA2006.benzaldehyde </td>
     </tr>
     <tr>
-        <td>VDIWA2006.BENZENE </td>
-        <td>VDIWA2006.BENZONITRILE </td>
+        <td>VDIWA2006.benzene </td>
+        <td>VDIWA2006.benzonitrile </td>
     </tr>
     <tr>
-        <td>VDIWA2006.BENZOPHENONE </td>
-        <td>VDIWA2006.BIPHENYL </td>
+        <td>VDIWA2006.benzophenone </td>
+        <td>VDIWA2006.biphenyl </td>
     </tr>
     <tr>
-        <td>VDIWA2006.BROMINE </td>
-        <td>VDIWA2006.BROMOBENZENE </td>
+        <td>VDIWA2006.Bromine </td>
+        <td>VDIWA2006.bromobenzene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.BROMOCYANIDE </td>
-        <td>VDIWA2006.BROMOETHANE </td>
+        <td>VDIWA2006.Bromocyanide </td>
+        <td>VDIWA2006.bromoethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.BROMOMETHANE </td>
-        <td>VDIWA2006.BUTAN-1-AMINE </td>
+        <td>VDIWA2006.bromomethane </td>
+        <td>VDIWA2006.butan-1-amine </td>
     </tr>
     <tr>
-        <td>VDIWA2006.BUTANE </td>
-        <td>VDIWA2006.BUTANENITRILE </td>
+        <td>VDIWA2006.butane </td>
+        <td>VDIWA2006.butanenitrile </td>
     </tr>
     <tr>
-        <td>VDIWA2006.BUTANOIC ACID </td>
-        <td>VDIWA2006.BUTANOL </td>
+        <td>VDIWA2006.butanoic acid </td>
+        <td>VDIWA2006.butanol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.BUTYLBENZENE </td>
-        <td>VDIWA2006.BUTYLCYCLOHEXANE </td>
+        <td>VDIWA2006.butylbenzene </td>
+        <td>VDIWA2006.butylcyclohexane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.BUTYLCYCLOPENTANE </td>
-        <td>VDIWA2006.CARBOMETHENE </td>
+        <td>VDIWA2006.butylcyclopentane </td>
+        <td>VDIWA2006.Carbomethene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.CARBON DIOXIDE </td>
-        <td>VDIWA2006.CARBON DISULFIDE </td>
+        <td>VDIWA2006.carbon dioxide </td>
+        <td>VDIWA2006.carbon disulfide </td>
     </tr>
     <tr>
-        <td>VDIWA2006.CARBON MONOXIDE </td>
-        <td>VDIWA2006.CARBON SUBOXIDE </td>
+        <td>VDIWA2006.carbon monoxide </td>
+        <td>VDIWA2006.carbon suboxide </td>
     </tr>
     <tr>
-        <td>VDIWA2006.CARBONYL SULFIDE </td>
-        <td>VDIWA2006.CHLORINE </td>
+        <td>VDIWA2006.carbonyl sulfide </td>
+        <td>VDIWA2006.Chlorine </td>
     </tr>
     <tr>
-        <td>VDIWA2006.CHLOROACETIC ACID </td>
-        <td>VDIWA2006.CHLOROBENZENE </td>
+        <td>VDIWA2006.chloroacetic acid </td>
+        <td>VDIWA2006.chlorobenzene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.CHLOROCYANIDE </td>
-        <td>VDIWA2006.CHLORODIFLUOROMETHANE </td>
+        <td>VDIWA2006.Chlorocyanide </td>
+        <td>VDIWA2006.chlorodifluoromethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.CHLOROETHANE </td>
-        <td>VDIWA2006.CHLOROETHYLENE </td>
+        <td>VDIWA2006.chloroethane </td>
+        <td>VDIWA2006.Chloroethylene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.CHLOROMETHANE </td>
-        <td>VDIWA2006.CHLOROMETHYLBENZENE </td>
+        <td>VDIWA2006.chloromethane </td>
+        <td>VDIWA2006.chloromethylbenzene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.CHLOROTRIFLUOROETHYLENE </td>
-        <td>VDIWA2006.CHLOROTRIFLUOROMETHANE </td>
+        <td>VDIWA2006.chlorotrifluoroethylene </td>
+        <td>VDIWA2006.chlorotrifluoromethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.CYANOGEN </td>
-        <td>VDIWA2006.CYCLOBUTANE </td>
+        <td>VDIWA2006.Cyanogen </td>
+        <td>VDIWA2006.cyclobutane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.CYCLOHEXANE </td>
-        <td>VDIWA2006.CYCLOHEXANOL </td>
+        <td>VDIWA2006.cyclohexane </td>
+        <td>VDIWA2006.cyclohexanol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.CYCLOHEXENE </td>
-        <td>VDIWA2006.CYCLOPENTANE </td>
+        <td>VDIWA2006.cyclohexene </td>
+        <td>VDIWA2006.cyclopentane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.CYCLOPENTENE </td>
-        <td>VDIWA2006.CYCLOPROPANE </td>
+        <td>VDIWA2006.cyclopentene </td>
+        <td>VDIWA2006.cyclopropane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.DECANE </td>
-        <td>VDIWA2006.DIBROMOMETHANE </td>
+        <td>VDIWA2006.decane </td>
+        <td>VDIWA2006.dibromomethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.DICHLOROACETIC ACID </td>
-        <td>VDIWA2006.DICHLORODIFLUOROMETHANE </td>
+        <td>VDIWA2006.dichloroacetic acid </td>
+        <td>VDIWA2006.dichlorodifluoromethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.DICHLORODIFLUOROMETHANE </td>
-        <td>VDIWA2006.DICHLOROMETHANE </td>
+        <td>VDIWA2006.dichlorofluoromethane </td>
+        <td>VDIWA2006.dichloromethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.DIETHYL KETONE </td>
-        <td>VDIWA2006.DIETHYL SULFIDE </td>
+        <td>VDIWA2006.diethyl ketone </td>
+        <td>VDIWA2006.diethyl sulfide </td>
     </tr>
     <tr>
-        <td>VDIWA2006.DIETHYLAMINE </td>
-        <td>VDIWA2006.DIFLUOROMETHANE </td>
+        <td>VDIWA2006.diethylamine </td>
+        <td>VDIWA2006.difluoromethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.DIMETHYL SULFIDE </td>
-        <td>VDIWA2006.DIMETHYLACETYLENE </td>
+        <td>VDIWA2006.dimethyl sulfide </td>
+        <td>VDIWA2006.dimethylacetylene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.DIMETHYLAMINE </td>
-        <td>VDIWA2006.DIMETHYLENEMETHANE </td>
+        <td>VDIWA2006.dimethylamine </td>
+        <td>VDIWA2006.dimethylenemethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.DINITROGEN TETROXIDE </td>
-        <td>VDIWA2006.DIPHENYLAMINE </td>
+        <td>VDIWA2006.Dinitrogen tetroxide </td>
+        <td>VDIWA2006.diphenylamine </td>
     </tr>
     <tr>
-        <td>VDIWA2006.DIPHENYLMETHANE </td>
-        <td>VDIWA2006.DODECANE </td>
+        <td>VDIWA2006.diphenylmethane </td>
+        <td>VDIWA2006.dodecane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.DRYAIR </td>
-        <td>VDIWA2006.ETHANAMINE </td>
+        <td>VDIWA2006.DryAir </td>
+        <td>VDIWA2006.ethanamine </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ETHANE </td>
-        <td>VDIWA2006.ETHANETHIOL </td>
+        <td>VDIWA2006.ethane </td>
+        <td>VDIWA2006.ethanethiol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ETHANOIC ACID </td>
-        <td>VDIWA2006.ETHANOL </td>
+        <td>VDIWA2006.ethanoic acid </td>
+        <td>VDIWA2006.ethanol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ETHENE </td>
-        <td>VDIWA2006.ETHOXYETHANE </td>
+        <td>VDIWA2006.ethene </td>
+        <td>VDIWA2006.ethoxyethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ETHOXYPROPANE </td>
-        <td>VDIWA2006.ETHYL-ACETATE </td>
+        <td>VDIWA2006.ethoxypropane </td>
+        <td>VDIWA2006.ethyl-acetate </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ETHYL-BENZOATE </td>
-        <td>VDIWA2006.ETHYL-BUTANOATE </td>
+        <td>VDIWA2006.ethyl-benzoate </td>
+        <td>VDIWA2006.ethyl-butanoate </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ETHYL-FORMATE </td>
-        <td>VDIWA2006.ETHYL-PROPIONATE </td>
+        <td>VDIWA2006.ethyl-formate </td>
+        <td>VDIWA2006.ethyl-propionate </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ETHYLACETYLENE </td>
-        <td>VDIWA2006.ETHYLBENZENE </td>
+        <td>VDIWA2006.ethylacetylene </td>
+        <td>VDIWA2006.ethylbenzene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ETHYLCYCLEPENTANE </td>
-        <td>VDIWA2006.ETHYLCYCLOHEXANE </td>
+        <td>VDIWA2006.ethylcyclepentane </td>
+        <td>VDIWA2006.ethylcyclohexane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ETHYLENE OXIDE </td>
-        <td>VDIWA2006.ETHYLENGLYCOL </td>
+        <td>VDIWA2006.ethylene oxide </td>
+        <td>VDIWA2006.Ethylenglycol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.FLUORINE </td>
-        <td>VDIWA2006.FLUOROBENZENE </td>
+        <td>VDIWA2006.Fluorine </td>
+        <td>VDIWA2006.fluorobenzene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.FLUOROCYANIDE </td>
-        <td>VDIWA2006.FLUOROETHANE </td>
+        <td>VDIWA2006.Fluorocyanide </td>
+        <td>VDIWA2006.fluoroethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.FLUOROMETHANE </td>
-        <td>VDIWA2006.FURAN </td>
+        <td>VDIWA2006.fluoromethane </td>
+        <td>VDIWA2006.furan </td>
     </tr>
     <tr>
-        <td>VDIWA2006.FURAN-2-CARBALDEHYDE </td>
-        <td>VDIWA2006.GLYCERIN </td>
+        <td>VDIWA2006.furan-2-carbaldehyde </td>
+        <td>VDIWA2006.glycerin </td>
     </tr>
     <tr>
-        <td>VDIWA2006.HELIUM </td>
-        <td>VDIWA2006.HEPTADECANE </td>
+        <td>VDIWA2006.Helium </td>
+        <td>VDIWA2006.heptadecane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.HEPTANE </td>
-        <td>VDIWA2006.HEPTANOL </td>
+        <td>VDIWA2006.heptane </td>
+        <td>VDIWA2006.heptanol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.HEXACHLOROETHANE </td>
-        <td>VDIWA2006.HEXADECANE </td>
+        <td>VDIWA2006.hexachloroethane </td>
+        <td>VDIWA2006.hexadecane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.HEXAMETHYLBENZENE </td>
-        <td>VDIWA2006.HEXANE </td>
+        <td>VDIWA2006.hexamethylbenzene </td>
+        <td>VDIWA2006.hexane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.HEXANOIC ACID </td>
-        <td>VDIWA2006.HEXANOL </td>
+        <td>VDIWA2006.hexanoic acid </td>
+        <td>VDIWA2006.hexanol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.HEXYLBENZENE </td>
-        <td>VDIWA2006.HEXYLCYCLOHEXANE </td>
+        <td>VDIWA2006.hexylbenzene </td>
+        <td>VDIWA2006.hexylcyclohexane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.HEXYLCYCLOPENTANE </td>
-        <td>VDIWA2006.HYDROGEN </td>
+        <td>VDIWA2006.hexylcyclopentane </td>
+        <td>VDIWA2006.Hydrogen </td>
     </tr>
     <tr>
-        <td>VDIWA2006.HYDROGEN BROMIDE </td>
-        <td>VDIWA2006.HYDROGEN CHLORIDE </td>
+        <td>VDIWA2006.Hydrogen bromide </td>
+        <td>VDIWA2006.Hydrogen chloride </td>
     </tr>
     <tr>
-        <td>VDIWA2006.HYDROGEN CYANIDE </td>
-        <td>VDIWA2006.HYDROGEN FLUORIDE </td>
+        <td>VDIWA2006.Hydrogen cyanide </td>
+        <td>VDIWA2006.Hydrogen fluoride </td>
     </tr>
     <tr>
-        <td>VDIWA2006.HYDROGEN IODIDE </td>
-        <td>VDIWA2006.HYDROGEN SULFIDE </td>
+        <td>VDIWA2006.Hydrogen Iodide </td>
+        <td>VDIWA2006.Hydrogen sulfide </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ICOSANE </td>
-        <td>VDIWA2006.IODINE </td>
+        <td>VDIWA2006.icosane </td>
+        <td>VDIWA2006.Iodine </td>
     </tr>
     <tr>
-        <td>VDIWA2006.IODINECYANIDE </td>
-        <td>VDIWA2006.IODOBENZENE </td>
+        <td>VDIWA2006.iodinecyanide </td>
+        <td>VDIWA2006.iodobenzene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ISOPENTYL ALCOHOL </td>
-        <td>VDIWA2006.ISOPROPYL ALCOHOL </td>
+        <td>VDIWA2006.isopentyl alcohol </td>
+        <td>VDIWA2006.isopropyl alcohol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.ISOPROPYLBENZENE </td>
-        <td>VDIWA2006.KRYPTON </td>
+        <td>VDIWA2006.Isopropylbenzene </td>
+        <td>VDIWA2006.Krypton </td>
     </tr>
     <tr>
-        <td>VDIWA2006.M-CHLOROTOLUENE </td>
-        <td>VDIWA2006.M-CRESOL </td>
+        <td>VDIWA2006.m-chlorotoluene </td>
+        <td>VDIWA2006.m-cresol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.M-NITROTOLUENE </td>
-        <td>VDIWA2006.M-XYLENE </td>
+        <td>VDIWA2006.m-nitrotoluene </td>
+        <td>VDIWA2006.m-xylene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.METHANAL </td>
-        <td>VDIWA2006.METHANAMIDE </td>
+        <td>VDIWA2006.methanal </td>
+        <td>VDIWA2006.methanamide </td>
     </tr>
     <tr>
-        <td>VDIWA2006.METHANE </td>
-        <td>VDIWA2006.METHANETHIOL </td>
+        <td>VDIWA2006.methane </td>
+        <td>VDIWA2006.methanethiol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.METHANOIC ACID </td>
-        <td>VDIWA2006.METHANOL </td>
+        <td>VDIWA2006.methanoic acid </td>
+        <td>VDIWA2006.methanol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.METHOXYMETHANE </td>
-        <td>VDIWA2006.METHOXYPROPANE </td>
+        <td>VDIWA2006.methoxymethane </td>
+        <td>VDIWA2006.methoxypropane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.METHYL ETHYL KETONE </td>
-        <td>VDIWA2006.METHYL-ACETATE </td>
+        <td>VDIWA2006.methyl ethyl ketone </td>
+        <td>VDIWA2006.methyl-acetate </td>
     </tr>
     <tr>
-        <td>VDIWA2006.METHYL-BENZOATE </td>
-        <td>VDIWA2006.METHYL-BUTANOATE </td>
+        <td>VDIWA2006.methyl-benzoate </td>
+        <td>VDIWA2006.methyl-butanoate </td>
     </tr>
     <tr>
-        <td>VDIWA2006.METHYL-FORMATE </td>
+        <td>VDIWA2006.methyl-formate </td>
         <td>VDIWA2006.METHYL-PROPIONATE </td>
     </tr>
     <tr>
-        <td>VDIWA2006.METHYL-SALICYLATE </td>
-        <td>VDIWA2006.METHYLACETYLENE </td>
+        <td>VDIWA2006.methyl-salicylate </td>
+        <td>VDIWA2006.methylacetylene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.METHYLAMINE </td>
-        <td>VDIWA2006.METHYLBENZENE </td>
+        <td>VDIWA2006.methylamine </td>
+        <td>VDIWA2006.methylbenzene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.METHYLCYCLOHEXANE </td>
-        <td>VDIWA2006.METHYLCYCLOPENTANE </td>
+        <td>VDIWA2006.methylcyclohexane </td>
+        <td>VDIWA2006.methylcyclopentane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.N,N-DIETHYL-ANILIN </td>
-        <td>VDIWA2006.N,N-DIMETHYL-ANILIN </td>
+        <td>VDIWA2006.N,N-diethyl-anilin </td>
+        <td>VDIWA2006.N,N-dimethyl-anilin </td>
     </tr>
     <tr>
-        <td>VDIWA2006.N-METHYL-ANILIN </td>
-        <td>VDIWA2006.N-PROPYL-PROPIONATE </td>
+        <td>VDIWA2006.n-methyl-anilin </td>
+        <td>VDIWA2006.n-propyl-propionate </td>
     </tr>
     <tr>
-        <td>VDIWA2006.NAPHTHALENE </td>
-        <td>VDIWA2006.NEON </td>
+        <td>VDIWA2006.naphthalene </td>
+        <td>VDIWA2006.Neon </td>
     </tr>
     <tr>
-        <td>VDIWA2006.NITRIC OXIDE </td>
-        <td>VDIWA2006.NITROBENZENE </td>
+        <td>VDIWA2006.Nitric oxide </td>
+        <td>VDIWA2006.nitrobenzene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.NITROGEN </td>
-        <td>VDIWA2006.NITROGEN DIOXIDE </td>
+        <td>VDIWA2006.Nitrogen </td>
+        <td>VDIWA2006.Nitrogen dioxide </td>
     </tr>
     <tr>
-        <td>VDIWA2006.NITROMETHANE </td>
-        <td>VDIWA2006.NITROUS OXIDE </td>
+        <td>VDIWA2006.nitromethane </td>
+        <td>VDIWA2006.Nitrous oxide </td>
     </tr>
     <tr>
-        <td>VDIWA2006.NONADECANE </td>
-        <td>VDIWA2006.NONANE </td>
+        <td>VDIWA2006.nonadecane </td>
+        <td>VDIWA2006.nonane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.O-CRESOL </td>
-        <td>VDIWA2006.O-NITROTOLUENE </td>
+        <td>VDIWA2006.o-cresol </td>
+        <td>VDIWA2006.o-nitrotoluene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.O-XYLENE </td>
-        <td>VDIWA2006.OCTADECANE </td>
+        <td>VDIWA2006.o-xylene </td>
+        <td>VDIWA2006.octadecane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.OCTANE </td>
-        <td>VDIWA2006.OCTANOL </td>
+        <td>VDIWA2006.octane </td>
+        <td>VDIWA2006.octanol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.OXYGEN </td>
-        <td>VDIWA2006.P-CRESOL </td>
+        <td>VDIWA2006.Oxygen </td>
+        <td>VDIWA2006.p-cresol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.P-NITROTOLUENE </td>
-        <td>VDIWA2006.P-XYLENE </td>
+        <td>VDIWA2006.p-nitrotoluene </td>
+        <td>VDIWA2006.p-xylene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PENTACHLOROETHANE </td>
-        <td>VDIWA2006.PENTADECANE </td>
+        <td>VDIWA2006.pentachloroethane </td>
+        <td>VDIWA2006.pentadecane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PENTAMETHYLBENZENE </td>
-        <td>VDIWA2006.PENTANE </td>
+        <td>VDIWA2006.pentamethylbenzene </td>
+        <td>VDIWA2006.pentane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PENTANOIC ACID </td>
-        <td>VDIWA2006.PENTANOL </td>
+        <td>VDIWA2006.pentanoic acid </td>
+        <td>VDIWA2006.pentanol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PENTYLBENZENE </td>
-        <td>VDIWA2006.PENTYLCYCLOHEXANE </td>
+        <td>VDIWA2006.pentylbenzene </td>
+        <td>VDIWA2006.pentylcyclohexane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PENTYLCYCLOPENTANE </td>
-        <td>VDIWA2006.PHENOL </td>
+        <td>VDIWA2006.pentylcyclopentane </td>
+        <td>VDIWA2006.phenol </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PHENYLAMINE </td>
-        <td>VDIWA2006.PHENYLHYDRAZINE </td>
+        <td>VDIWA2006.phenylamine </td>
+        <td>VDIWA2006.phenylhydrazine </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PHENYLMETHANOL </td>
-        <td>VDIWA2006.PHOSGENE </td>
+        <td>VDIWA2006.phenylmethanol </td>
+        <td>VDIWA2006.phosgene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PIPERIDINE </td>
-        <td>VDIWA2006.PROPANE </td>
+        <td>VDIWA2006.piperidine </td>
+        <td>VDIWA2006.propane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PROPANENITRILE </td>
-        <td>VDIWA2006.PROPANOIC ACID </td>
+        <td>VDIWA2006.propanenitrile </td>
+        <td>VDIWA2006.propanoic acid </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PROPANOL </td>
-        <td>VDIWA2006.PROPANONE </td>
+        <td>VDIWA2006.propanol </td>
+        <td>VDIWA2006.propanone </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PROPANOYL PROPANOATE </td>
-        <td>VDIWA2006.PROPENE </td>
+        <td>VDIWA2006.propanoyl propanoate </td>
+        <td>VDIWA2006.propene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PROPOXYPROPANE </td>
-        <td>VDIWA2006.PROPYL KETONE </td>
+        <td>VDIWA2006.propoxypropane </td>
+        <td>VDIWA2006.propyl ketone </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PROPYL-ACETATE </td>
-        <td>VDIWA2006.PROPYL-FORMATE </td>
+        <td>VDIWA2006.propyl-acetate </td>
+        <td>VDIWA2006.propyl-formate </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PROPYLAMINE </td>
-        <td>VDIWA2006.PROPYLBENZENE </td>
+        <td>VDIWA2006.propylamine </td>
+        <td>VDIWA2006.propylbenzene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PROPYLCYCLOHEXANE </td>
-        <td>VDIWA2006.PROPYLCYCLOPENTANE </td>
+        <td>VDIWA2006.propylcyclohexane </td>
+        <td>VDIWA2006.propylcyclopentane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.PYRIDINE </td>
-        <td>VDIWA2006.STYRENE </td>
+        <td>VDIWA2006.pyridine </td>
+        <td>VDIWA2006.styrene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.SULFUR </td>
-        <td>VDIWA2006.SULFUR DIOXIDE </td>
+        <td>VDIWA2006.Sulfur </td>
+        <td>VDIWA2006.sulfur dioxide </td>
     </tr>
     <tr>
-        <td>VDIWA2006.SULFUR HEXAFLUORIDE </td>
-        <td>VDIWA2006.SULFUR TRIOXIDE </td>
+        <td>VDIWA2006.sulfur hexafluoride </td>
+        <td>VDIWA2006.sulfur trioxide </td>
     </tr>
     <tr>
-        <td>VDIWA2006.SULFURY CHLORIDE </td>
-        <td>VDIWA2006.TETRABROMOMETHANE </td>
+        <td>VDIWA2006.sulfury chloride </td>
+        <td>VDIWA2006.tetrabromomethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.TETRACHLOROCARBON </td>
-        <td>VDIWA2006.TETRACHLOROETHENE </td>
+        <td>VDIWA2006.tetrachlorocarbon </td>
+        <td>VDIWA2006.tetrachloroethene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.TETRADECANE </td>
-        <td>VDIWA2006.TETRAFLUOROMETHANE </td>
+        <td>VDIWA2006.tetradecane </td>
+        <td>VDIWA2006.tetrafluoromethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.TETRAPHENYLMETHANE </td>
-        <td>VDIWA2006.THIOPHENE </td>
+        <td>VDIWA2006.tetraphenylmethane </td>
+        <td>VDIWA2006.thiophene </td>
     </tr>
     <tr>
-        <td>VDIWA2006.TRIBROMOMETHANE </td>
-        <td>VDIWA2006.TRICHLOROACETIC ACID </td>
+        <td>VDIWA2006.tribromomethane </td>
+        <td>VDIWA2006.trichloroacetic acid </td>
     </tr>
     <tr>
-        <td>VDIWA2006.TRICHLOROETHYLENE </td>
-        <td>VDIWA2006.TRICHLOROFLUOROMETHANE </td>
+        <td>VDIWA2006.trichloroethylene </td>
+        <td>VDIWA2006.trichlorofluoromethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.TRICHLOROMETHANE </td>
-        <td>VDIWA2006.TRIDECANE </td>
+        <td>VDIWA2006.trichloromethane </td>
+        <td>VDIWA2006.tridecane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.TRIETHYLAMINE </td>
-        <td>VDIWA2006.TRIFLUOROMETHANE </td>
+        <td>VDIWA2006.triethylamine </td>
+        <td>VDIWA2006.trifluoromethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.TRIMETHYLAMINE </td>
-        <td>VDIWA2006.TRIPHENYLMETHANE </td>
+        <td>VDIWA2006.trimethylamine </td>
+        <td>VDIWA2006.triphenylmethane </td>
     </tr>
     <tr>
-        <td>VDIWA2006.UNDECANE </td>
-        <td>VDIWA2006.WATER </td>
+        <td>VDIWA2006.undecane </td>
+        <td>VDIWA2006.Water </td>
     </tr>
     <tr>
-        <td>VDIWA2006.XENON </td>
+        <td>VDIWA2006.Xenon </td>
     </tr>
 </table><br><br>
 
@@ -1961,72 +1965,92 @@ annotation(DocumentationClass=true,
         <td>CoolProp.CarbonylSulfide </td>
     </tr>
     <tr>
+        <td>CoolProp.cis-2-Butene </td>
         <td>CoolProp.CycloHexane </td>
-        <td>CoolProp.CycloPropane </td>
         <td>CoolProp.Cyclopentane </td>
     </tr>
     <tr>
+        <td>CoolProp.CycloPropane </td>
         <td>CoolProp.D4 </td>
         <td>CoolProp.D5 </td>
-        <td>CoolProp.D6 </td>
     </tr>
     <tr>
+        <td>CoolProp.D6 </td>
         <td>CoolProp.Deuterium </td>
         <td>CoolProp.Dichloroethane </td>
-        <td>CoolProp.DiethylEther </td>
     </tr>
     <tr>
+        <td>CoolProp.DiethylEther </td>
         <td>CoolProp.DimethylCarbonate </td>
         <td>CoolProp.DimethylEther </td>
-        <td>CoolProp.Ethane </td>
     </tr>
     <tr>
+        <td>CoolProp.Ethane </td>
         <td>CoolProp.Ethanol </td>
         <td>CoolProp.EthylBenzene </td>
-        <td>CoolProp.Ethylene </td>
     </tr>
     <tr>
+        <td>CoolProp.Ethylene </td>
         <td>CoolProp.EthyleneOxide </td>
         <td>CoolProp.Fluorine </td>
-        <td>CoolProp.HFE143m </td>
     </tr>
     <tr>
         <td>CoolProp.HeavyWater </td>
         <td>CoolProp.Helium </td>
-        <td>CoolProp.Hydrogen </td>
+        <td>CoolProp.HFE143m </td>
     </tr>
     <tr>
+        <td>CoolProp.Hydrogen </td>
         <td>CoolProp.HydrogenChloride </td>
         <td>CoolProp.HydrogenSulfide </td>
-        <td>CoolProp.IsoButane </td>
     </tr>
     <tr>
+        <td>CoolProp.IsoButane </td>
         <td>CoolProp.IsoButene </td>
         <td>CoolProp.Isohexane </td>
-        <td>CoolProp.Isopentane </td>
     </tr>
     <tr>
+        <td>CoolProp.Isopentane </td>
         <td>CoolProp.Krypton </td>
+        <td>CoolProp.m-Xylene </td>
+    </tr>
+    <tr>
         <td>CoolProp.MD2M </td>
         <td>CoolProp.MD3M </td>
+        <td>CoolProp.MD4M </td>
     </tr>
     <tr>
-        <td>CoolProp.MD4M </td>
         <td>CoolProp.MDM </td>
+        <td>CoolProp.Methane </td>
+        <td>CoolProp.Methanol </td>
+    </tr>
+    <tr>
+        <td>CoolProp.MethylLinoleate </td>
+        <td>CoolProp.MethylLinolenate </td>
+        <td>CoolProp.MethylOleate </td>
+    </tr>
+    <tr>
+        <td>CoolProp.MethylPalmitate </td>
+        <td>CoolProp.MethylStearate </td>
         <td>CoolProp.MM </td>
     </tr>
     <tr>
-        <td>CoolProp.Methane </td>
-        <td>CoolProp.Methanol </td>
-        <td>CoolProp.MethylLinoleate </td>
+        <td>CoolProp.n-Butane </td>
+        <td>CoolProp.n-Decane </td>
+        <td>CoolProp.n-Dodecane </td>
     </tr>
     <tr>
-        <td>CoolProp.MethylLinolenate </td>
-        <td>CoolProp.MethylOleate </td>
-        <td>CoolProp.MethylPalmitate </td>
+        <td>CoolProp.n-Heptane </td>
+        <td>CoolProp.n-Hexane </td>
+        <td>CoolProp.n-Nonane </td>
     </tr>
     <tr>
-        <td>CoolProp.MethylStearate </td>
+        <td>CoolProp.n-Octane </td>
+        <td>CoolProp.n-Pentane </td>
+        <td>CoolProp.n-Propane </td>
+    </tr>
+    <tr>
+        <td>CoolProp.n-Undecane </td>
         <td>CoolProp.Neon </td>
         <td>CoolProp.Neopentane </td>
     </tr>
@@ -2036,119 +2060,99 @@ annotation(DocumentationClass=true,
         <td>CoolProp.Novec649 </td>
     </tr>
     <tr>
+        <td>CoolProp.o-Xylene </td>
         <td>CoolProp.OrthoDeuterium </td>
         <td>CoolProp.OrthoHydrogen </td>
-        <td>CoolProp.Oxygen </td>
     </tr>
     <tr>
+        <td>CoolProp.Oxygen </td>
+        <td>CoolProp.p-Xylene </td>
         <td>CoolProp.ParaDeuterium </td>
+    </tr>
+    <tr>
         <td>CoolProp.ParaHydrogen </td>
         <td>CoolProp.Propylene </td>
+        <td>CoolProp.Propyne </td>
     </tr>
     <tr>
-        <td>CoolProp.Propyne </td>
         <td>CoolProp.R11 </td>
         <td>CoolProp.R113 </td>
+        <td>CoolProp.R114 </td>
     </tr>
     <tr>
-        <td>CoolProp.R114 </td>
         <td>CoolProp.R115 </td>
         <td>CoolProp.R116 </td>
+        <td>CoolProp.R12 </td>
     </tr>
     <tr>
-        <td>CoolProp.R12 </td>
         <td>CoolProp.R123 </td>
         <td>CoolProp.R1233zd(E) </td>
+        <td>CoolProp.R1234yf </td>
     </tr>
     <tr>
-        <td>CoolProp.R1234yf </td>
         <td>CoolProp.R1234ze(E) </td>
         <td>CoolProp.R1234ze(Z) </td>
+        <td>CoolProp.R124 </td>
     </tr>
     <tr>
-        <td>CoolProp.R124 </td>
         <td>CoolProp.R1243zf </td>
         <td>CoolProp.R125 </td>
+        <td>CoolProp.R13 </td>
     </tr>
     <tr>
-        <td>CoolProp.R13 </td>
         <td>CoolProp.R134a </td>
         <td>CoolProp.R13I1 </td>
+        <td>CoolProp.R14 </td>
     </tr>
     <tr>
-        <td>CoolProp.R14 </td>
         <td>CoolProp.R141b </td>
         <td>CoolProp.R142b </td>
+        <td>CoolProp.R143a </td>
     </tr>
     <tr>
-        <td>CoolProp.R143a </td>
         <td>CoolProp.R152A </td>
         <td>CoolProp.R161 </td>
+        <td>CoolProp.R21 </td>
     </tr>
     <tr>
-        <td>CoolProp.R21 </td>
         <td>CoolProp.R218 </td>
         <td>CoolProp.R22 </td>
+        <td>CoolProp.R227EA </td>
     </tr>
     <tr>
-        <td>CoolProp.R227EA </td>
         <td>CoolProp.R23 </td>
         <td>CoolProp.R236EA </td>
+        <td>CoolProp.R236FA </td>
     </tr>
     <tr>
-        <td>CoolProp.R236FA </td>
         <td>CoolProp.R245ca </td>
         <td>CoolProp.R245fa </td>
+        <td>CoolProp.R32 </td>
     </tr>
     <tr>
-        <td>CoolProp.R32 </td>
         <td>CoolProp.R365MFC </td>
         <td>CoolProp.R40 </td>
+        <td>CoolProp.R404A </td>
     </tr>
     <tr>
-        <td>CoolProp.R404A </td>
         <td>CoolProp.R407C </td>
         <td>CoolProp.R41 </td>
+        <td>CoolProp.R410A </td>
     </tr>
     <tr>
-        <td>CoolProp.R410A </td>
         <td>CoolProp.R507A </td>
         <td>CoolProp.RC318 </td>
+        <td>CoolProp.SES36 </td>
     </tr>
     <tr>
-        <td>CoolProp.SES36 </td>
         <td>CoolProp.SulfurDioxide </td>
         <td>CoolProp.SulfurHexafluoride </td>
+        <td>CoolProp.Toluene </td>
     </tr>
     <tr>
-        <td>CoolProp.Toluene </td>
+        <td>CoolProp.trans-2-Butene </td>
         <td>CoolProp.Water </td>
         <td>CoolProp.Xenon </td>
-    </tr>
-    <tr>
-        <td>CoolProp.cis-2-Butene </td>
-        <td>CoolProp.m-Xylene </td>
-        <td>CoolProp.n-Butane </td>
-    </tr>
-    <tr>
-        <td>CoolProp.n-Decane </td>
-        <td>CoolProp.n-Dodecane </td>
-        <td>CoolProp.n-Heptane </td>
-    </tr>
-    <tr>
-        <td>CoolProp.n-Hexane </td>
-        <td>CoolProp.n-Nonane </td>
-        <td>CoolProp.n-Octane </td>
-    </tr>
-    <tr>
-        <td>CoolProp.n-Pentane </td>
-        <td>CoolProp.n-Propane </td>
-        <td>CoolProp.n-Undecane </td>
-    </tr>
-    <tr>
-        <td>CoolProp.o-Xylene </td>
-        <td>CoolProp.p-Xylene </td>
-        <td>CoolProp.trans-2-Butene </td>
     </tr>
 </table><br><br>
 

@@ -20,7 +20,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_density_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end density_phxi;
   function specificEntropy_phxi
@@ -41,7 +41,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificEntropy_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificEntropy_phxi;
   function temperature_phxi
@@ -62,7 +62,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_temperature_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end temperature_phxi;
   function specificIsobaricHeatCapacity_phxi
@@ -83,7 +83,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificIsobaricHeatCapacity_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificIsobaricHeatCapacity_phxi;
   function specificIsochoricHeatCapacity_phxi
@@ -104,7 +104,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificIsochoricHeatCapacity_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificIsochoricHeatCapacity_phxi;
   function isobaricThermalExpansionCoefficient_phxi
@@ -125,7 +125,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_isobaricThermalExpansionCoefficient_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end isobaricThermalExpansionCoefficient_phxi;
   function isothermalCompressibility_phxi
@@ -146,7 +146,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_isothermalCompressibility_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end isothermalCompressibility_phxi;
   function speedOfSound_phxi
@@ -167,7 +167,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_speedOfSound_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end speedOfSound_phxi;
   function densityDerivativeWRTspecificEnthalpy_phxi
@@ -188,7 +188,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_densityDerivativeWRTspecificEnthalpy_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end densityDerivativeWRTspecificEnthalpy_phxi;
   function densityDerivativeWRTpressure_phxi
@@ -209,7 +209,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_densityDerivativeWRTpressure_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end densityDerivativeWRTpressure_phxi;
   function densityDerivativeWRTmassFraction_phxin
@@ -231,7 +231,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_densityDerivativeWRTmassFraction_phxin(double,double,double*,int, const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end densityDerivativeWRTmassFraction_phxin;
   function partialPressure_phxin
@@ -253,7 +253,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_partialPressure_phxin(double,double,double*,int, const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end partialPressure_phxin;
   function gaseousMassFraction_phxi
@@ -274,7 +274,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_gaseousMassFraction_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end gaseousMassFraction_phxi;
   function relativeHumidity_phxi
@@ -295,7 +295,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_relativeHumidity_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end relativeHumidity_phxi;
   function saturationMassFraction_phxi
@@ -316,7 +316,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_saturationMassFraction_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end saturationMassFraction_phxi;
   function saturationHumidityRatio_phxi
@@ -337,7 +337,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_saturationHumidityRatio_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end saturationHumidityRatio_phxi;
   function specificEnthalpy1px_phxi
@@ -358,7 +358,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificEnthalpy1px_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificEnthalpy1px_phxi;
   function prandtlNumber_phxi
@@ -379,7 +379,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_prandtlNumber_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end prandtlNumber_phxi;
   function thermalConductivity_phxi
@@ -400,7 +400,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_thermalConductivity_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end thermalConductivity_phxi;
   function dynamicViscosity_phxi
@@ -421,7 +421,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_dynamicViscosity_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end dynamicViscosity_phxi;
   function dewTemperature_phxi
@@ -442,7 +442,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_dewTemperature_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end dewTemperature_phxi;
   function wetBulbTemperature_phxi
@@ -463,7 +463,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_wetBulbTemperature_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end wetBulbTemperature_phxi;
   function iceBulbTemperature_phxi
@@ -484,7 +484,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_iceBulbTemperature_phxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end iceBulbTemperature_phxi;
 
@@ -506,7 +506,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_density_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end density_psxi;
   function specificEnthalpy_psxi
@@ -527,7 +527,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificEnthalpy_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificEnthalpy_psxi;
   function temperature_psxi
@@ -548,7 +548,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_temperature_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end temperature_psxi;
   function specificIsobaricHeatCapacity_psxi
@@ -569,7 +569,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificIsobaricHeatCapacity_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificIsobaricHeatCapacity_psxi;
   function specificIsochoricHeatCapacity_psxi
@@ -590,7 +590,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificIsochoricHeatCapacity_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificIsochoricHeatCapacity_psxi;
   function isobaricThermalExpansionCoefficient_psxi
@@ -611,7 +611,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_isobaricThermalExpansionCoefficient_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end isobaricThermalExpansionCoefficient_psxi;
   function isothermalCompressibility_psxi
@@ -632,7 +632,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_isothermalCompressibility_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end isothermalCompressibility_psxi;
   function speedOfSound_psxi
@@ -653,7 +653,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_speedOfSound_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end speedOfSound_psxi;
   function densityDerivativeWRTspecificEnthalpy_psxi
@@ -674,7 +674,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_densityDerivativeWRTspecificEnthalpy_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end densityDerivativeWRTspecificEnthalpy_psxi;
   function densityDerivativeWRTpressure_psxi
@@ -695,7 +695,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_densityDerivativeWRTpressure_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end densityDerivativeWRTpressure_psxi;
   function densityDerivativeWRTmassFraction_psxin
@@ -717,7 +717,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_densityDerivativeWRTmassFraction_psxin(double,double,double*,int, const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end densityDerivativeWRTmassFraction_psxin;
   function partialPressure_psxin
@@ -739,7 +739,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_partialPressure_psxin(double,double,double*,int, const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end partialPressure_psxin;
   function gaseousMassFraction_psxi
@@ -760,7 +760,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_gaseousMassFraction_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end gaseousMassFraction_psxi;
   function relativeHumidity_psxi
@@ -781,7 +781,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_relativeHumidity_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end relativeHumidity_psxi;
   function saturationMassFraction_psxi
@@ -802,7 +802,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_saturationMassFraction_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end saturationMassFraction_psxi;
   function saturationHumidityRatio_psxi
@@ -823,7 +823,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_saturationHumidityRatio_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end saturationHumidityRatio_psxi;
   function specificEnthalpy1px_psxi
@@ -844,7 +844,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificEnthalpy1px_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificEnthalpy1px_psxi;
   function prandtlNumber_psxi
@@ -865,7 +865,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_prandtlNumber_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end prandtlNumber_psxi;
   function thermalConductivity_psxi
@@ -886,7 +886,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_thermalConductivity_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end thermalConductivity_psxi;
   function dynamicViscosity_psxi
@@ -907,7 +907,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_dynamicViscosity_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end dynamicViscosity_psxi;
   function dewTemperature_psxi
@@ -928,7 +928,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_dewTemperature_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end dewTemperature_psxi;
   function wetBulbTemperature_psxi
@@ -949,7 +949,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_wetBulbTemperature_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end wetBulbTemperature_psxi;
   function iceBulbTemperature_psxi
@@ -970,7 +970,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_iceBulbTemperature_psxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end iceBulbTemperature_psxi;
 
@@ -992,7 +992,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_density_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end density_pTxi;
   function specificEnthalpy_pTxi
@@ -1013,7 +1013,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificEnthalpy_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificEnthalpy_pTxi;
   function specificEntropy_pTxi
@@ -1034,7 +1034,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificEntropy_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificEntropy_pTxi;
   function specificIsobaricHeatCapacity_pTxi
@@ -1055,7 +1055,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificIsobaricHeatCapacity_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificIsobaricHeatCapacity_pTxi;
   function specificIsochoricHeatCapacity_pTxi
@@ -1076,7 +1076,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificIsochoricHeatCapacity_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificIsochoricHeatCapacity_pTxi;
   function isobaricThermalExpansionCoefficient_pTxi
@@ -1097,7 +1097,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_isobaricThermalExpansionCoefficient_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end isobaricThermalExpansionCoefficient_pTxi;
   function isothermalCompressibility_pTxi
@@ -1118,7 +1118,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_isothermalCompressibility_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end isothermalCompressibility_pTxi;
   function speedOfSound_pTxi
@@ -1139,7 +1139,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_speedOfSound_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end speedOfSound_pTxi;
   function densityDerivativeWRTspecificEnthalpy_pTxi
@@ -1160,7 +1160,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_densityDerivativeWRTspecificEnthalpy_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end densityDerivativeWRTspecificEnthalpy_pTxi;
   function densityDerivativeWRTpressure_pTxi
@@ -1181,7 +1181,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_densityDerivativeWRTpressure_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end densityDerivativeWRTpressure_pTxi;
   function densityDerivativeWRTmassFraction_pTxin
@@ -1203,7 +1203,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_densityDerivativeWRTmassFraction_pTxin(double,double,double*,int, const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end densityDerivativeWRTmassFraction_pTxin;
   function partialPressure_pTxin
@@ -1225,7 +1225,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_partialPressure_pTxin(double,double,double*,int, const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end partialPressure_pTxin;
   function gaseousMassFraction_pTxi
@@ -1246,7 +1246,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_gaseousMassFraction_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end gaseousMassFraction_pTxi;
   function relativeHumidity_pTxi
@@ -1267,7 +1267,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_relativeHumidity_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end relativeHumidity_pTxi;
   function saturationMassFraction_pTxi
@@ -1288,7 +1288,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_saturationMassFraction_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end saturationMassFraction_pTxi;
   function saturationHumidityRatio_pTxi
@@ -1309,7 +1309,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_saturationHumidityRatio_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end saturationHumidityRatio_pTxi;
   function specificEnthalpy1px_pTxi
@@ -1330,7 +1330,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificEnthalpy1px_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificEnthalpy1px_pTxi;
   function prandtlNumber_pTxi
@@ -1351,7 +1351,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_prandtlNumber_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end prandtlNumber_pTxi;
   function thermalConductivity_pTxi
@@ -1372,7 +1372,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_thermalConductivity_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end thermalConductivity_pTxi;
   function dynamicViscosity_pTxi
@@ -1393,7 +1393,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_dynamicViscosity_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end dynamicViscosity_pTxi;
   function dewTemperature_pTxi
@@ -1414,7 +1414,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_dewTemperature_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end dewTemperature_pTxi;
   function wetBulbTemperature_pTxi
@@ -1435,7 +1435,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_wetBulbTemperature_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end wetBulbTemperature_pTxi;
   function iceBulbTemperature_pTxi
@@ -1456,7 +1456,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_iceBulbTemperature_pTxi(double,double,double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end iceBulbTemperature_pTxi;
 
@@ -1475,7 +1475,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_saturationPartialPressure_T(double,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end saturationPartialPressure_T;
   function specificEnthalpyOfVaporisation_T
@@ -1492,7 +1492,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificEnthalpyOfVaporisation_T(double,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificEnthalpyOfVaporisation_T;
   function specificEnthalpyOfDesublimation_T
@@ -1509,7 +1509,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificEnthalpyOfDesublimation_T(double,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificEnthalpyOfDesublimation_T;
   function specificEnthalpyOfPureGas_Tn
@@ -1527,7 +1527,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificEnthalpyOfPureGas_Tn(double,int, const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificEnthalpyOfPureGas_Tn;
   function specificIsobaricHeatCapacityOfPureGas_Tn
@@ -1545,7 +1545,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificIsobaricHeatCapacityOfPureGas_Tn(double,int, const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificIsobaricHeatCapacityOfPureGas_Tn;
 
@@ -1564,7 +1564,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_averageMolarMass_xi(double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end averageMolarMass_xi;
   function humidityRatio_xi
@@ -1581,7 +1581,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_humidityRatio_xi(double*,const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end humidityRatio_xi;
 
@@ -1598,7 +1598,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_molarMass_n(int, const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end molarMass_n;
   function specificEnthalpyOfFormation_n
@@ -1614,7 +1614,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_specificEnthalpyOfFormation_n(int, const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end specificEnthalpyOfFormation_n;
   function freezingPoint
@@ -1629,7 +1629,7 @@ package GasFunctions
         condensingIndex) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_GasFunctions_freezingPoint(const char*, int, int);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
   end freezingPoint;
 

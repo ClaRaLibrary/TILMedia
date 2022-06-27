@@ -54,7 +54,7 @@ void* TILMedia_createExternalObject(const char* objectType, const char* mixtureN
 }
 #endif
 #endif
-",    Library="TILMedia170ClaRa");
+",    Library="TILMedia180ClaRa");
   end constructor;
 
   function destructor "free memory"
@@ -62,6 +62,6 @@ void* TILMedia_createExternalObject(const char* objectType, const char* mixtureN
   external "C" TILMedia_destroyExternalObject(externalObject) annotation (
       __iti_dllNoExport=true,
       Include="void TILMedia_destroyExternalObject(void*);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
   end destructor;
 end TILMediaExternalObject;

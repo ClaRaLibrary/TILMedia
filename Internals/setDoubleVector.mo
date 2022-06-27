@@ -5,5 +5,5 @@ function setDoubleVector
   input Integer length;
   input Integer offset=0;
   external "C" TILMedia_setDoubleVector(values, offset, length, cache)
-  annotation(Include="void TILMedia_setDoubleVector(double*, int, int, void*);",Library="TILMedia170ClaRa");
+  annotation(Include="void TILMedia_setDoubleVector(double*, int, int, void*);",Library="TILMedia180ClaRa");
 end setDoubleVector;

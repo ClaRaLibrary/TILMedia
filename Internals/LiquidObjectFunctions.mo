@@ -11,7 +11,7 @@ package LiquidObjectFunctions
   external "C" mm = TILMedia_Liquid_molarMass_xi(liquidPointer, xi) annotation (
       __iti_dllNoExport=true,
       Include="double TILMedia_Liquid_molarMass_xi(double*,void*);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
     annotation (Impure=false);
   end molarMass_xi;
 
@@ -34,7 +34,7 @@ package LiquidObjectFunctions
       __iti_dllNoExport=true,
       Include=
           "void TILMedia_Liquid_properties_hxi(double, double*, void*, double*, double*, double*);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
     annotation (Impure=false);
   end properties_hxi;
@@ -58,7 +58,7 @@ package LiquidObjectFunctions
       __iti_dllNoExport=true,
       Include=
           "void TILMedia_Liquid_properties_Txi(double, double*, void*, double*, double*, double*);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
     annotation (Impure=false);
   end properties_Txi;
@@ -76,7 +76,7 @@ package LiquidObjectFunctions
       __iti_dllNoExport=true,
       Include=
           "double TILMedia_LiquidObjectFunctions_specificEnthalpy_Txi(double, double*, void*);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
       annotation (
       inverse(T=temperature_hxi(
               h,
@@ -101,7 +101,7 @@ package LiquidObjectFunctions
       __iti_dllNoExport=true,
       Include=
           "double TILMedia_Liquid_specificEntropy_pTxi(double, double, double*, void*);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
     annotation (Impure=false);
   end specificEntropy_pTxi;
@@ -119,7 +119,7 @@ package LiquidObjectFunctions
       __iti_dllNoExport=true,
       Include=
           "double TILMedia_LiquidObjectFunctions_temperature_hxi(double, double*, void*);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
       annotation (
       inverse(h=TILMedia.Internals.LiquidObjectFunctions.specificEnthalpy_Txi(
               T,
@@ -148,7 +148,7 @@ package LiquidObjectFunctions
       __iti_dllNoExport=true,
       Include=
           "void TILMedia_Liquid_transportProperties_Txi(double, double*, void*, double*, double*, double*, double*);",
-      Library="TILMedia170ClaRa");
+      Library="TILMedia180ClaRa");
 
     annotation (Impure=false);
   end transportPropertyRecord_Txi;
@@ -163,7 +163,7 @@ package LiquidObjectFunctions
       input TILMedia.Internals.TILMediaExternalObject liquidPointer;
       output SI.Temperature T "Temperature";
     external "C" T = TILMedia_LiquidObjectFunctions_temperature_hxi(h, xi, liquidPointer)
-      annotation(__iti_dllNoExport = true,Include="double TILMedia_LiquidObjectFunctions_temperature_hxi(double, double*, void*);",Library="TILMedia170ClaRa");
+      annotation(__iti_dllNoExport = true,Include="double TILMedia_LiquidObjectFunctions_temperature_hxi(double, double*, void*);",Library="TILMedia180ClaRa");
       annotation(inverse(h=TILMedia.Internals.LiquidObjectFunctions.specificEnthalpy_Txi(T,xi,liquidPointer)), derivative = TILMedia.Internals.LiquidObjectFunctions.PureComponentDerivatives.der_temperature_hxi);
     end temperature_hxi;
 
@@ -176,7 +176,7 @@ package LiquidObjectFunctions
       input Real[:] der_xi "Mass fractions of the first nc-1 components";
       output Real der_T "Temperature";
       external "C" der_T = TILMedia_LiquidObjectFunctions_der_temperature_hxi(h, xi, der_h, der_xi, liquidPointer)
-      annotation(__iti_dllNoExport = true,Include="double TILMedia_LiquidObjectFunctions_der_temperature_hxi(double, double*, double, double*, void*);",Library="TILMedia170ClaRa");
+      annotation(__iti_dllNoExport = true,Include="double TILMedia_LiquidObjectFunctions_der_temperature_hxi(double, double*, double, double*, void*);",Library="TILMedia180ClaRa");
     end der_temperature_hxi;
 
     function specificEnthalpy_Txi
@@ -186,7 +186,7 @@ package LiquidObjectFunctions
       input TILMedia.Internals.TILMediaExternalObject liquidPointer;
       output SI.SpecificEnthalpy h "Specific enthalpy";
     external "C" h = TILMedia_LiquidObjectFunctions_specificEnthalpy_Txi(T, xi, liquidPointer)
-      annotation(__iti_dllNoExport = true,Include="double TILMedia_LiquidObjectFunctions_specificEnthalpy_Txi(double, double*, void*);",Library="TILMedia170ClaRa");
+      annotation(__iti_dllNoExport = true,Include="double TILMedia_LiquidObjectFunctions_specificEnthalpy_Txi(double, double*, void*);",Library="TILMedia180ClaRa");
       annotation(inverse(T=temperature_hxi(h,xi,liquidPointer)), derivative(noDerivative=liquidPointer)=TILMedia.Internals.LiquidObjectFunctions.PureComponentDerivatives.der_specificEnthalpy_Txi);
     end specificEnthalpy_Txi;
 
@@ -201,7 +201,7 @@ package LiquidObjectFunctions
         "Derivative of Mass fractions of the first nc-1 components";
       output Real der_h "Derivative of Specific enthalpy";
       external "C" der_h = TILMedia_LiquidObjectFunctions_der_specificEnthalpy_Txi(T, xi, der_T, der_xi, liquidPointer)
-          annotation(__iti_dllNoExport = true,Include="double TILMedia_LiquidObjectFunctions_der_specificEnthalpy_Txi(double, double*, double, double*, void*);",Library="TILMedia170ClaRa");
+          annotation(__iti_dllNoExport = true,Include="double TILMedia_LiquidObjectFunctions_der_specificEnthalpy_Txi(double, double*, double, double*, void*);",Library="TILMedia180ClaRa");
       end der_specificEnthalpy_Txi;
 
     function properties_hxi
@@ -218,7 +218,7 @@ package LiquidObjectFunctions
           d,
           cp,
           beta)
-        annotation(__iti_dllNoExport = true,Include="void TILMedia_Liquid_properties_hxi(double, double*, void*, double*, double*, double*);",Library="TILMedia170ClaRa");
+        annotation(__iti_dllNoExport = true,Include="void TILMedia_Liquid_properties_hxi(double, double*, void*, double*, double*, double*);",Library="TILMedia180ClaRa");
         annotation(derivative(noDerivative=liquidPointer)=TILMedia.Internals.LiquidObjectFunctions.PureComponentDerivatives.der_properties_hxi, Impure=false);
     end properties_hxi;
 
@@ -234,7 +234,7 @@ package LiquidObjectFunctions
       output Real der_cp "Specific heat capacity cp";
       output Real der_beta "Isobaric expansion coefficient";
       external "C" TILMedia_Liquid_der_properties_hxi(h,xi,liquidPointer,der_h,der_xi,der_d,der_cp,der_beta)
-        annotation(__iti_dllNoExport = true,Include="void TILMedia_Liquid_der_properties_hxi(double, double*, void*, double, double*, double*, double*, double*);",Library="TILMedia170ClaRa");
+        annotation(__iti_dllNoExport = true,Include="void TILMedia_Liquid_der_properties_hxi(double, double*, void*, double, double*, double*, double*, double*);",Library="TILMedia180ClaRa");
         annotation(Impure=false);
     end der_properties_hxi;
 
@@ -252,7 +252,7 @@ package LiquidObjectFunctions
           d,
           cp,
           beta)
-        annotation(__iti_dllNoExport = true,Include="void TILMedia_Liquid_properties_Txi(double, double*, void*, double*, double*, double*);",Library="TILMedia170ClaRa");
+        annotation(__iti_dllNoExport = true,Include="void TILMedia_Liquid_properties_Txi(double, double*, void*, double*, double*, double*);",Library="TILMedia180ClaRa");
         annotation(derivative(noDerivative=liquidPointer)=TILMedia.Internals.LiquidObjectFunctions.PureComponentDerivatives.der_properties_Txi, Impure=false);
     end properties_Txi;
 
@@ -268,7 +268,7 @@ package LiquidObjectFunctions
       output Real der_cp "Specific heat capacity cp";
       output Real der_beta "Isobaric expansion coefficient";
       external "C" TILMedia_Liquid_der_properties_Txi(T,xi,liquidPointer,der_T, der_xi,der_d,der_cp,der_beta)
-        annotation(__iti_dllNoExport = true,Include="void TILMedia_Liquid_der_properties_Txi(double, double*, void*, double, double*, double*, double*, double*);",Library="TILMedia170ClaRa");
+        annotation(__iti_dllNoExport = true,Include="void TILMedia_Liquid_der_properties_Txi(double, double*, void*, double, double*, double*, double*, double*);",Library="TILMedia180ClaRa");
         annotation(Impure=false);
     end der_properties_Txi;
 
@@ -292,7 +292,7 @@ package LiquidObjectFunctions
         __iti_dllNoExport=true,
         Include=
             "void TILMedia_Liquid_transportProperties_Txi(double, double*, void*, double*, double*, double*, double*);",
-        Library="TILMedia170ClaRa");
+        Library="TILMedia180ClaRa");
 
       annotation (derivative(noDerivative=liquidPointer)=TILMedia.Internals.LiquidObjectFunctions.PureComponentDerivatives.der_transportPropertyRecord_Txi, Impure=false);
     end transportPropertyRecord_Txi;
@@ -321,7 +321,7 @@ package LiquidObjectFunctions
         __iti_dllNoExport=true,
         Include=
             "void TILMedia_Liquid_der_transportProperties_Txi(double, double*, void*, double, double*, double*, double*, double*, double*);",
-        Library="TILMedia170ClaRa");
+        Library="TILMedia180ClaRa");
 
       annotation (Impure=false);
     end der_transportPropertyRecord_Txi;

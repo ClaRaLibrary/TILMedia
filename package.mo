@@ -6,7 +6,7 @@ package TILMedia "TILMedia-Library with thermophysical properties of Fluids and 
 // access=Access.nonPackageDuplicate
 annotation (
 preferredView="info",
-   version="1.7.0 ClaRa",
+   version="1.8.0 ClaRa",
    uses(Modelica(version="4.0.0")),
 Documentation(info="<html>
 <p><img src=\"modelica://TILMedia/Resources/Images/infoTILMedia.png\"></p>
@@ -22,26 +22,5 @@ Documentation(info="<html>
       __Dymola_showVariables=true,
       __Dymola_showDiagnostics=true,
       __Dymola_showStatistics=true,
-      __Dymola_showFlat=true),
-   conversion(
-    from(version="2.0.4", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_to_3.0.0.mos"),
-    from(version="2.1.0", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_to_3.0.0.mos"),
-    from(version="2.1.1", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_to_3.0.0.mos"),
-    from(version="2.1.2", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_to_3.0.0.mos"),
-    from(version="3.0.0", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.0.0.mos"),
-    from(version="3.0.1", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.0.1.mos"),
-    from(version="3.0.2", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.0.2.mos"),
-    from(version="3.1.0", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.1.0.mos"),
-    from(version="3.2.0", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.2.0.mos"),
-    from(version="3.2.1", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.2.1.mos"),
-    from(version="3.2.2", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.2.2.mos"),
-    from(version="3.2.3", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.2.3.mos"),
-    from(version="3.3.0", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.3.0.mos"),
-    from(version="3.3.1", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.3.1.mos"),
-    from(version="3.4.0", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.4.0.mos"),
-    from(version="3.4.1", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.4.1.mos"),
-    from(version="3.4.2", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.4.2.mos"),
-    from(version="3.5.0", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.5.0.mos"),
-    from(version="3.5.1", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.5.1.mos"),
-    from(version="3.6.0", script="modelica://TILMedia/Resources/Scripts/Conversion/ConvertTILMedia_from_3.6.0.mos")));
+      __Dymola_showFlat=true));
 end TILMedia;
